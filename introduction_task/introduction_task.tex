@@ -1,0 +1,22 @@
+\large Schreibe ein Python-Script, das dafür sorgt, dass stets Blumen auf dem Block generiert werden, auf dem Steve sich befindet.
+Gehe dafür wie folgt vor:
+\begin{itemize}
+	\item Binde die Minecraft-Bibliothek ein, um mit dem Spiel zu kommunizieren.
+	\begin{lstlisting}[language=Python]
+import mcpi.minecraft as minecraft
+	\end{lstlisting}
+	
+	\item Baue die Verbindung zum Spiel auf.
+	\begin{lstlisting}[language=Python]
+mc = minecraft.Minecraft.create()
+	\end{lstlisting}
+	Das Objekt \textbf{mc} stellt nun die Kommunikationschnittstelle mit dem Spiel dar.
+	
+	\item Speichere dir die Block-ID der Blume (38) in einer Variable zwischen. Das erleichtert das Programmieren und macht den Code einfacher zu lesen.
+	
+	\item Verwende eine \textbf{while}-Schleife für den Hauptteil deines Scripts. Da das Platzieren der Blumen solange stattfinden soll, wie das Spiel läuft, wird eine Schleife benötigt, die nur durch Beenden des Programms abgebrochen werden kann.
+	
+	\item Frage innerhalb der \textbf{while}-Schleife die aktuelle Position von Steve ab. Diese benötigen wir, um an genau dieser Stelle die Blumen platzieren zu können.
+	
+	\item Platziere zu guter letzt an Steves aktueller Position die Blumen. 
+\end{itemize}
