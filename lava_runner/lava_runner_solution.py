@@ -16,13 +16,14 @@ for _ in range(15):
 
 # Version 2
 (x, y, z) = mc.player.getTilePos()
+ice = 79
 for i in range(15):
     x2 = random.randint(x-2, x+2)
     y2 = random.randint(y-2, y+1)
     if y2 < y:
         y2 = y
     z2 = z+1
-    mc.setBlock((x2, y2, z2), 79)
+    mc.setBlock((x2, y2, z2), ice)
     (x, y ,z) = (x2, y2, z2)
 ###########################################
 
