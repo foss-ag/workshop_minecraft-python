@@ -1,37 +1,58 @@
 import mcpi.minecraft as minecraft
+import mcpi.block as block
+from time import sleep
 import random
 
 mc = minecraft.Minecraft.create()
 
-###########################################
+# define boundary for x and z coordinates
+x_boundary = 0
+z_boundary = 0
+
+##########################################################
 # random parcour generator
-# Version 1
-(x, y, z) = mc.player.getTilePos()
-lower_bound = y
-for _ in range(15):
-    x = random.randint(x-2, x+2)
-    y = max(random.randint(y-2, y+1), lower_bound)
-    z += 1
-    mc.setBlock((x, y, z), 79)
+def generate_parcour(x, y, z):
+    while True:
+        x2 = random.randint(x+1, x+2)
+        y2 = random.randint(y, y+1)
+        z2 = random.randint(z+1, z+2)
+        if x2-x == 2 and z2-z == 2:
+            continue
+        if x2 >= x_boundary or z2 >= z_boundary:
+            break
+        (x, y, z) = (x2, y2, z2)
+        mc.setBlock(x, y, z, block.GLOWSTONE_BLOCK)
+    mc.setBlocks(x + 1, y, z + 1, x + 3, y, z + 3, block.GOLD_BLOCK)
+##########################################################
 
-# Version 2
+# arena dimensions
+arena_width = 30
+arena_height = 25
+# get player position and check if player is standing on an obsidian block
 (x, y, z) = mc.player.getTilePos()
-ice = 79
-for i in range(15):
-    x2 = random.randint(x-2, x+2)
-    y2 = random.randint(y-2, y+1)
-    if y2 < y:
-        y2 = y
-    z2 = z+1
-    mc.setBlock((x2, y2, z2), ice)
-    (x, y ,z) = (x2, y2, z2)
-###########################################
-
-while(True):
-    # check if player is standing on an ice block
-    (x, y, z) = mc.player.getTilePos()
-    block = mc.getBlock((x, y-1, z))
-    # remove ice block a second after the player entered the block
-    if block == 79:
-        sleep(1)
-        mc.setBlock((x, y-1, z), 0)
+if mc.getBlock(x, y-1, z) == 49:
+    # define arena boundaries
+    x_boundary = x-1 + arena_width - 4
+    z_boundary = z-1 + arena_width - 4
+    # generate random parcour
+    generate_parcour(x, y-1, z)
+    
+    while True:
+        (x_, y_, z_) = mc.player.getTilePos()
+        # if player has fallen into the lava, respawn and generate new random parcour
+        if mc.getBlock(x_, y_-1, z_) == 247:
+            # remove old generated path
+            mc.setBlocks(x, y-1, z, x+arena_width-4, y+arena_height-10, z+arena_width-4, block.AIR)
+            # set start platform
+            mc.setBlocks(x-1, y-1, z-1, x+2, y-1, z+2, block.STONE)
+            mc.setBlock((x, y-1, z), block.OBSIDIAN)
+            # teleport player
+            mc.player.setPos(x+1, y+2, z)
+            # generate new random parcour
+            generate_parcour(x, y-1, z)
+        # if player has reached the goal, teleport to fancy special place
+        elif mc.getBlock(x_, y_-1, z_) == 41:
+            mc.player.setPos(x+53, y+1, z+53)
+            break
+            
+            
