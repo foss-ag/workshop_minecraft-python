@@ -11,8 +11,13 @@ z_boundary = 0
 ##########################################################
 # random parcour generator
 def generate_parcour(x, y, z):
+    x2 = x
+    y2 = y
+    z2 = z
+
     # your code here
-    None
+
+    mc.setBlocks(x + 1, y, z + 1, x + 3, y, z + 3, block.GOLD_BLOCK)
 ##########################################################
 
 # arena dimensions
@@ -26,7 +31,7 @@ if mc.getBlock(x, y-1, z) == 49:
     z_boundary = z-1 + arena_width - 4
     # generate random parcour
     generate_parcour(x, y-1, z)
-    
+
     while True:
         (x_, y_, z_) = mc.player.getTilePos()
         # if player has fallen into the lava, respawn and generate new random parcour
@@ -44,6 +49,3 @@ if mc.getBlock(x, y-1, z) == 49:
         elif mc.getBlock(x_, y_-1, z_) == 41:
             mc.player.setPos(x+53, y+1, z+53)
             break
-            
-            
-
