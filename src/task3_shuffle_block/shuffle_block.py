@@ -1,5 +1,5 @@
 import mcpi.minecraft as minecraft
-import mcpi.blocks as blocks
+import mcpi.block as blocks
 
 mc = minecraft.Minecraft.create()
 
@@ -16,6 +16,8 @@ block_list = [
  blocks.ICE,
  blocks.MELON
  ]
+
+block_list = [cur_block.id for cur_block in block_list]
 
 
 while True:
