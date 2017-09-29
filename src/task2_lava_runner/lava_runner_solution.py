@@ -22,7 +22,7 @@ def generate_parcour(x, y, z):
             continue
 
         (x, y, z) = (x2, y2, z2)
-    mc.setBlocks(x - 2, y - 1, z - 1, x + 1, y - 1, z + 1, block.GOLD_BLOCK)
+    mc.setBlocks(x, y - 1, z, x + 3, y - 1, z + 3, block.GOLD_BLOCK)
 ##########################################################
 
 # arena dimensions
@@ -32,8 +32,8 @@ arena_height = 25
 (x, y, z) = mc.player.getTilePos()
 if mc.getBlock(x, y-1, z) == 49:
     # define arena boundaries
-    x_boundary = x-1 + arena_width - 4
-    z_boundary = z-1 + arena_width - 4
+    x_boundary = x-1 + arena_width - 7
+    z_boundary = z-1 + arena_width - 7
     # generate random parcour
     generate_parcour(x+1, y-1, z+1)
 
