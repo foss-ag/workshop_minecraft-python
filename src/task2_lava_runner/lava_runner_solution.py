@@ -12,10 +12,8 @@ z_boundary = 0
 ##########################################################
 # random parcour generator
 def generate_parcour(x, y, z):
-    x2 = x
-    y2 = y
-    z2 = z
-    while x2 < x_boundary and z2 < z_boundary:
+    while x < x_boundary and z < z_boundary:
+        mc.setBlock(x, y, z, block.GLOWSTONE_BLOCK)
         x2 = random.randint(x+1, x+2)
         y2 = random.randint(y, y+1)
         z2 = random.randint(z+1, z+2)
@@ -24,9 +22,7 @@ def generate_parcour(x, y, z):
             continue
 
         (x, y, z) = (x2, y2, z2)
-        mc.setBlock(x, y, z, block.GLOWSTONE_BLOCK)
-
-    mc.setBlocks(x + 1, y, z + 1, x + 3, y, z + 3, block.GOLD_BLOCK)
+    mc.setBlocks(x - 2, y - 1, z - 1, x + 1, y - 1, z + 1, block.GOLD_BLOCK)
 ##########################################################
 
 # arena dimensions
