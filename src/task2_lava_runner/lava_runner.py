@@ -11,13 +11,9 @@ z_boundary = 0
 ##########################################################
 # random parcour generator
 def generate_parcour(x, y, z):
-    x2 = x
-    y2 = y
-    z2 = z
-
     # your code here
-
-    mc.setBlocks(x + 1, y, z + 1, x + 3, y, z + 3, block.GOLD_BLOCK)
+    
+    mc.setBlocks(x - 2, y - 1, z - 1, x + 1, y - 1, z + 1, block.GOLD_BLOCK)
 ##########################################################
 
 # arena dimensions
