@@ -1,0 +1,33 @@
+\large Schreibe ein Python-Script, das dafür sorgt, dass Blöcke, die man mit der rechten Maustaste anhaut, nach Vorgabe durchwechseln.
+Gehe dafür wie folgt vor:
+\begin{itemize}
+	\item Ergänze den Code in den vorgegebenen Rahmen
+	\item Variable: block\_list beinhaltet alle Blöcke durch die durch gewechselt werden soll
+	\item Vorgehen:
+	\begin{itemize}
+		\item[1.] schreibe eine Schleife, die nicht abbricht
+		\item[2.] schreibe eine weitere Schleife, die für jeden geschlagenen Block die Aktion durchführt.\begin{lstlisting}[language=Python]
+		mc.events.pollBlockHits()
+		\end{lstlisting}
+		\item[3.] holt euch die ID des Blockes mit \texttt{getBlock}
+		\item[4.] falls die ID sich in \texttt{block\_list} befindet, dann nehme den darauffolgenden Block (Achte auf die Länge der Liste)
+		\item[5.] Ist das Ende der Liste erreicht, soll wieder bei dem ersten Block weiter gemacht werden.
+		\item[6.] Ist der geschlagenen Block nicht in der Liste, dann soll beim ersten Block angefangen werden
+		\item[7.] setze den neuen Block mit \texttt{setBlock}
+	\end{itemize}
+\end{itemize}
+Easy:
+\begin{itemize}
+	\item Ergänze den Code in dem vorgegebenen Rahmen
+	\item Variable: block\_list beinhaltet alle Blöcke durch die durch gewechselt werden soll
+	\item Vorgehen:
+	\begin{itemize}
+		\item[1.] lege eine Variable an, die die Listen-Position des aktuellen Steines zu speichern
+		\item[2.] schreibe eine Schleife, die nicht abbricht
+		\item[3.] schreibe eine weitere Schleife, die für jeden geschlagenen Block die Aktion durchführt.\begin{lstlisting}[language=Python]
+		mc.events.pollBlockHits()
+		\end{lstlisting}
+		\item[4.] ersetze den geschlagenen Block durch den Block auf den die Variable zeigt
+		\item[5.] Wenn die Variable das Ende der Liste erreicht hat, soll sie wieder bei 0 beginnen, ansonsten erhöht werden
+	\end{itemize}
+\end{itemize}
