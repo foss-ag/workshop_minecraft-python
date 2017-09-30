@@ -11,19 +11,16 @@ import mcpi.minecraft as minecraft
 	
 	\item Öffne die Datei \texttt{lava\_runner.py} mit dem Editor. Diese Datei enthält bereits Code und muss lediglich im gekennzeichneten Bereich erweitert werden.
 	
-	\item Parameter: Die Koordinaten x, y, z beinhalten die Position des zu setzenden Steins
-	\item Variablen: Die Variablen x\_boundary, z\_boundary sind die Grenzen der Arena und markieren das Ende des Pfades
-	\item Aufgaben:
-	\begin{itemize}
-		\item[1.] Schreibe eine Schleife, die abbricht, wenn die berechnete Steinposition größer als die x\_boundary oder z\_boundary ist
-		%\item[1.] Schreibt eine Schleife, die läuft, solange die berechnete Steinposition kleiner als die x\_boundary und z\_boundary ist
-		\item[2.] Berechne mit der \begin{lstlisting}[language=Python]
-		random.randint(lower_bound, upper_bound)
-		\end{lstlisting} Funktion neue x, y, z Positionen
-		\item[3.] Fange mit einer If-Bedingung die Positionen ab, die vom Spieler nicht erreicht werden können
-		\item[4.] ersetze die alte Steinposition durch die gerade berechnete Steinposition
-		\item[5.] setze mit der \texttt{setBlock} Methode einen \begin{lstlisting}[language=Python]
-		block.GLOWSTONE_BLOCK
-		\end{lstlisting} an die aktuelle Steinposition
-	\end{itemize}
+	\item Die Variablen \texttt{x}, \texttt{y}, \texttt{z} beschreiben die Position des zu setzenden Steins, \texttt{x\_boundary} und \texttt{z\_boundary} sind die Grenzen der Arena und markieren das Ende des Pfades.
+	
+	\item Schreibe eine Schleife, die abbricht, sobald die generierte Position über die Grenze \texttt{x\_boundary} oder \texttt{z\_boundary} tritt.
+
+	\item Setze mit \texttt{setBlock(x\_pos, y\_pos, z\_pos, block)}  einen Eisblock (\texttt{block.ICE}) an die zuletzt generierte Position.
+
+	\item Berechne eine zufällige Position, an der der nächste Block platziert werden soll. Nutze dafür die folgende Funktion:
+		\begin{lstlisting}[language=Python]
+random.randint(lower_bound, upper_bound)
+		\end{lstlisting}
+		
+	\item Frage mit einer \texttt{if}-Bedingung die generierte Position ab und überprüfe, ob diese von Steve erreichbar ist (siehe Abbildung). Kann die neue Position nicht erreicht werden, breche den aktuellen Schleifendurchlauf mit \texttt{continue} ab, falls doch, ersetze die alte Position durch die gerade generierte Position.
 \end{itemize}
