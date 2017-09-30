@@ -32,7 +32,7 @@ while True:
 			#start with index 0
 			i = 0
 		#change the block
-		mc.setBlock(hit.pos.x, hit.pos.y, hit.pos.z, block_list[i])
+		mc.setBlock(hit.pos.x, hit.pos.y, hit.pos.z, block_list[i], 1)
 
 ###############easy version#######################
 i = 0

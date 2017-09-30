@@ -41,6 +41,9 @@ if mc.getBlock(x, y-1, z) == 49:
             mc.player.setPos(x+1, y+2, z)
             # generate new random parcour
             generate_parcour(x, y-1, z)
+	elif mc.getBlock(x_, y_-1, z_) == 79:
+		sleep(1.5)
+		mc.setBlock(x_, y_-1, z_, 0)
         # if player has reached the goal, teleport to fancy special place
         elif mc.getBlock(x_, y_-1, z_) == 41:
             mc.player.setPos(x+53, y+1, z+53)

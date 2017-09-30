@@ -21,7 +21,7 @@ mc.setBlocks(arena_wall_start_position[0] + 1, arena_wall_start_position[1] + 1,
 
 # set start platform
 mc.setBlocks(start_position[0], start_position[1], start_position[2], start_position[0] + 3, start_position[1] + 1, start_position[2] + 3, block.STONE)
-mc.setBlock((start_position[0] + 1, start_position[1] + 1, start_position[2] + 1), block.OBSIDIAN)
+mc.setBlocks(start_position[0] + 1, start_position[1] + 1, start_position[2] + 1,start_position[0] + 2, start_position[1] + 1, start_position[2] + 2, block.OBSIDIAN)
 
 # teleport player to start position
 mc.player.setPos(start_position[0] + 1, start_position[1] + 2, start_position[2] + 1)
