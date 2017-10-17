@@ -125,3 +125,6 @@ ENV/
 *.out
 *.synctex.gz
 *.pdf
+*.nav
+*.pdfpc
+*.snm
