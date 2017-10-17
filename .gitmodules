@@ -1,0 +1,3 @@
+[submodule "design_latex-template"]
+	path = design_latex-template
+	url = https://github.com/foss-ag/design_latex-template.git
