@@ -1,0 +1,5 @@
+# Vorbereitung RPi für Schüleruni
+- Entweder ein Image fertig machen und über alle SD-Karten kopieren
+- Oder scripts die ein Image erstellen (vorhandenes Raspbian-Image umpacken?)
+
+Was zu tun ist, steht im Pad.
