@@ -1,4 +1,6 @@
 - Einführung in Python + Blumen-Aufgabe
+    - Erklärung
+        - Code werden in .py Dateien geschrieben und ausgeführt über das Terminal mit dem Befehl python DATEINAME
     - Imports
             from mcpi.minecraft import Minecraft
             from mcpi import block
