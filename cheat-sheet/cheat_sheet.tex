@@ -32,51 +32,54 @@
 variable_name = value
 		\end{lstlisting}
 		\textbf{Beispiele:}
-		\begin{lstlisting}[language=Python]
+		\begin{itemize}
+			\item \begin{lstlisting}[language=Python]
 text = "Hello World"
-		\end{lstlisting}
-		Speichert den String \texttt{Hello World} in einer Variablen mit Namen \texttt{text} ab.\\
-		
-		\begin{lstlisting}[language=Python]
+			\end{lstlisting}
+			Speichert den String \texttt{Hello World} in einer Variablen mit Namen \texttt{text} ab.
+			
+			\item \begin{lstlisting}[language=Python]
 x = 3
-		\end{lstlisting}
-		Speichert die Zahl 3 in einer Variablen mit Namen \texttt{x} ab.\\
-
-		\begin{lstlisting}[language=Python]
+			\end{lstlisting}
+			Speichert die Zahl 3 in einer Variablen mit Namen \texttt{x} ab.
+			
+			\item \begin{lstlisting}[language=Python]
 a = x + 1
-		\end{lstlisting}
-		Speichert das Ergebnis der Rechnung \texttt{x + 1} in einer Variablen mit Namen \texttt{a}.\\
-		
-		\begin{lstlisting}[language=Python]
-position = mc.Player.getPos()
-		\end{lstlisting}
-		Speichert das Ergebnis der Funktion \texttt{getPos} in einer Variablen mit Namen \texttt{position}.
+			\end{lstlisting}
+			Speichert das Ergebnis der Rechnung \texttt{x + 1} in einer Variablen mit Namen \texttt{a}.
+			
+			\item \begin{lstlisting}[language=Python]
+position = mc.player.getPos()
+			\end{lstlisting}
+			Speichert das Ergebnis der Funktion \texttt{getPos} in einer Variablen mit Namen \texttt{position}.
+		\end{itemize}
 	
 	\section{Bedingungen}
 	Manchmal möchte man einen bestimmten Codeabschnitt nur dann ausführen, wenn gewisse Bedingungen gelten. Genau für diese Fälle verwendet man \texttt{if-}Abfragen. Ist die Bedingung wahr, so wird der Abschnitt ausgeführt, andernfalls wird er einfach übersprungen oder der dazugehörige \texttt{else}-Block ausgeführt.\\
 	\textbf{Allgemeines Schema:}
 	\begin{lstlisting}[language=Python]
 if CONDITION:
-  # your code here#
+  # your code here #
 	\end{lstlisting}
 	\textbf{Beispiele:}
-	\begin{lstlisting}[language=Python]
+	\begin{itemize}
+		\item \begin{lstlisting}[language=Python]
 if x == 10:
   x = x - 5
-	\end{lstlisting}
-	Falls \texttt{x} gleich 10 gilt, wird von \texttt{x} 5 subtrahiert, andernfalls passiert nichts.\\
-	
-	\begin{lstlisting}[language=Python]
+		\end{lstlisting}
+		Falls \texttt{x} gleich 10 gilt, wird von \texttt{x} 5 subtrahiert, andernfalls passiert nichts.
+		
+		\item \begin{lstlisting}[language=Python]
 if x > 0 and x < 3:
   x = 10
 else:
   x = 20
-	\end{lstlisting}
-	Falls \texttt{x} größer als 0 und kleiner als 3 ist, wird \texttt{x} auf 10 gesetzt, andernfalls wird \texttt{x} auf 20 gesetzt.
+		\end{lstlisting}
+		Falls \texttt{x} größer als 0 und kleiner als 3 ist, wird \texttt{x} auf 10 gesetzt, andernfalls wird \texttt{x} auf 20 gesetzt.
+	\end{itemize}
 	
 	\section{Schleifen}
-	Mit Hilfe von Schleifen kann ein bestimmter Codeabschnitt mehrfach ausgeführt werden oder aber für jedes Element einer Liste. Dabei unterscheidet man zwischen \texttt{while}- und \texttt{for}-Schleifen.
-	\newpage
+	Mit Hilfe von Schleifen kann ein bestimmter Codeabschnitt mehrfach ausgeführt werden oder aber für jedes Element einer Liste. Dabei unterscheidet man zwischen \texttt{while}- und \texttt{for}-Schleifen.\\
 	\textbf{Allgemeine Schemata:}
 	\begin{lstlisting}[language=Python]
 while CONDITION:
@@ -86,21 +89,67 @@ for ELEMENT in LIST:
   # your code here #
 	\end{lstlisting}
 	\textbf{Beispiele:}
-	\begin{lstlisting}[language=Python]
+	\begin{itemize}
+		\item \begin{lstlisting}[language=Python]
 while True:
   mc.postToChat("Hello World")
-	\end{lstlisting}
-	Diese Schleife wird nicht stoppen, da \texttt{True} immer wahr ist (wörtliche Übersetzung). Also wird unendlich oft der String \texttt{Hello World} in den Minecraft-Chat geschrieben.\\
-	
-	\begin{lstlisting}[language=Python]
+		\end{lstlisting}
+		Diese Schleife wird nicht stoppen, da \texttt{True} immer wahr ist (wörtliche Übersetzung). Also wird unendlich oft der String \texttt{Hello World} in den Minecraft-Chat geschrieben.
+		
+		\item \begin{lstlisting}[language=Python]
 while x < 5:
   x = x + 1
-	\end{lstlisting}
-	Diese Schleife wird solange durchlaufen, wie \texttt{x} kleiner als 5 ist. In jedem Durchlauf wird \texttt{x} dann um 1 erhöht.\\
-
-	\begin{lstlisting}[language=Python]
+		\end{lstlisting}
+		Diese Schleife wird solange durchlaufen, wie \texttt{x} kleiner als 5 ist. In jedem Durchlauf wird \texttt{x} dann um 1 erhöht.
+		
+		\item \begin{lstlisting}[language=Python]
 for number in [1,2,3,4,5]:
   print(number)
-	\end{lstlisting}
-	Diese Schleife wird einmal für jedes Element der Liste \texttt{[1,2,3,4,5]} durchlaufen. Jede Zahl der Liste wird also einmal ausgegeben.
+		\end{lstlisting}
+		Diese Schleife wird einmal für jedes Element der Liste \texttt{[1,2,3,4,5]} durchlaufen. Jede Zahl der Liste wird also einmal ausgegeben.
+	\end{itemize}
+
+	\section{Nützliche Funktionen}
+	\begin{itemize}
+		\item \begin{lstlisting}[language=Python]
+(x, y, z) = mc.player.getPos()
+		\end{lstlisting}
+		liefert die aktuelle Koordinaten (Position) von Steve.
+		
+		\item \begin{lstlisting}[language=Python]
+mc.setBlock(x, y, z, block)
+		\end{lstlisting}
+		setzt den mit \texttt{block} bezeichneten Block an die gewünschte Position \texttt{(x, y, z)}.
+		
+		\item \begin{lstlisting}[language=Python]
+hits = mc.events.pollBlockHits()
+
+hit.pos.x
+hit.pos.y
+hit.pos.z
+		\end{lstlisting}
+		liefert eine Liste \texttt{hits} mit den Positionen der geschlagenen Blöcke. Die einzelnen Koordinaten dieser Position bekommt man mit beispielsweise mit \texttt{hit.pos.x}.
+		
+		\item \begin{lstlisting}[language=Python]
+block = mc.getBlock(x, y, z)
+		\end{lstlisting}
+		liefert den Block an Position \texttt{(x, y, z)}.
+		
+		\item \begin{lstlisting}[language=Python]
+x = random.randint(lower, upper)
+		\end{lstlisting}
+		liefert euch eine zufällig ganze Zahl zwischen \texttt{lower} und \texttt{upper}.
+		
+		\item \begin{lstlisting}[language=Python]
+index = list.index(x)
+		\end{lstlisting}
+		liefert die Stelle, an der \texttt{x} in der Liste steht. \textbf{Achtung! Die erste Position einer Liste wird nicht mit 1, sondern mit 0 bezeichnet. Beispiel:}
+		\item \begin{lstlisting}[language=Python]
+list = ['a', 'b', 'c', 'd']
+		
+list.index('a')  ->  0
+list.index('c')  ->  2
+		\end{lstlisting}
+	\end{itemize}
+
 \end{document}
