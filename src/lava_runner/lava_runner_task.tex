@@ -21,6 +21,12 @@ import mcpi.minecraft as minecraft
 		\begin{lstlisting}[language=Python]
 random.randint(lower_bound, upper_bound)
 		\end{lstlisting}
+	Dabei soll die nächste Position in der y-Achse maximal 1 größer sein als die vorherige Position. Für die x- und z-Achse gilt, dass die nächste Position mindestens 1 und maximal 2 größer sein soll als die vorherige.
 		
 	\item Frage mit einer \texttt{if}-Bedingung die generierte Position ab und überprüfe, ob diese von Steve erreichbar ist (siehe Abbildung). Kann die neue Position nicht erreicht werden, breche den aktuellen Schleifendurchlauf mit \texttt{continue} ab, falls doch, ersetze die alte Position durch die gerade generierte Position.
+	
+	\begin{center}
+		\includegraphics[scale=0.25]{src/lava_runner/res/positions.png}
+	\end{center}
+	Das mit dem Kreuz markierte Feld stellt die Position des vorherigen Blocks dar, das schwarze Feld ist nicht erreichbar, weshalb ein Block verworfen werden soll, falls er zufällig auf diesem Feld platziert werden soll.
 \end{itemize}
