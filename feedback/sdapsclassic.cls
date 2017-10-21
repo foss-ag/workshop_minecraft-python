@@ -1,0 +1,885 @@
+%%
+%% This is file `sdapsclassic.cls',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% sdapsclassic.dtx  (with options: `class')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2015 by Benjamin Berg <benjamin@sipsolutions.net>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesClass{sdapsclassic}
+    [2015/08/02 v0.1 Initial version of SDAPS classic class]
+\RequirePackage{expl3}[2011/08/23]
+\ExplSyntaxOn
+
+\RequirePackage{sdapsbase}
+\RequirePackage{sdapslayout}
+
+
+\RequirePackage{verbatim}
+
+
+\RequirePackage{scrkbase}
+
+
+\DeclareOption{no_print_questionnaire_id}{\bool_gset_false:N\g_sdaps_print_questionnaire_id_bool\seq_gset_from_clist:Nn \g_sdaps_questionnaire_ids_seq {{}}}
+\DeclareOption{print_questionnaire_id}{\bool_gset_true:N\g_sdaps_print_questionnaire_id_bool\seq_gset_from_clist:Nn \g_sdaps_questionnaire_ids_seq {{NONE}}}
+
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrartcl}}
+
+\newif\if@sdaps@draft\@sdaps@drafttrue
+\DeclareOption{final}{\@sdaps@draftfalse}
+
+\tl_gset:Nn\g_sdaps_style_tl{qr}%
+
+\DefineFamily{SDAPS}
+\DefineFamilyMember{SDAPS}
+\DefineFamilyKey{SDAPS}{style}[qr]%
+{%
+  \KOMA@set@ncmdkey{style}{@tempa}{%
+    {code128}{0},%
+    {custom}{1},%
+    {qr}{2}%
+  }{#1}%
+  \ifcase \@tempa\relax
+    \tl_gset:Nn\g_sdaps_style_tl{code128}%
+  \or
+    \tl_gset:Nn\g_sdaps_style_tl{custom}%
+  \or
+    \tl_gset:Nn\g_sdaps_style_tl{qr}%
+  \fi
+}
+
+\DefineFamilyKey{SDAPS}{checkmode}[checkcorrect]%
+{%
+  \KOMA@set@ncmdkey{checkmode}{@tempa}{%
+    {checkcorrect}{0},%
+    {check}{1},%
+    {fill}{2}%
+  }{#1}%
+  \ifcase \@tempa\relax
+    \tl_gset:Nn\g_sdaps_checkmode_tl{checkcorrect}%
+  \or
+    \tl_gset:Nn\g_sdaps_checkmode_tl{check}%
+  \or
+    \tl_gset:Nn\g_sdaps_checkmode_tl{fill}%
+  \fi
+}
+
+\DefineFamilyKey{SDAPS}{globalid}[]
+{
+  \tl_gset:Nn \g_sdaps_global_id_tl { #1 }
+}
+
+\DefineFamilyKey{SDAPS}{globalidlabel}[]
+{
+  \tl_gset:Nn \g_sdaps_global_id_label_tl { #1 }
+}
+
+\PassOptionsToClass{headings=small}{scrartcl}
+\PassOptionsToClass{twoside}{scrartcl}
+
+\seq_new:N \g_sdaps_questionnaire_ids_seq
+\seq_gset_from_clist:Nn \g_sdaps_questionnaire_ids_seq {{}}
+
+\FamilyProcessOptions{SDAPS}\relax
+
+\LoadClass{scrartcl}
+
+\RequirePackage{geometry}
+\geometry{hmargin=13mm}
+\geometry{vmargin=25mm}
+
+\RequirePackage{ifthen}
+
+\RequirePackage[T1]{fontenc}
+
+\RequirePackage{color}
+
+\RequirePackage{amssymb}
+
+\RequirePackage{refcount}
+
+\RequirePackage{lastpage}
+
+\RequirePackage{environ}
+
+\usepackage{scrpage2}
+\clearscrheadings
+  \chead[\@author\\\@title]{\@author\\\@title}
+  \cfoot{\sdapspagemark}
+\pagestyle{scrheadings}
+
+\RequirePackage{url}
+\RequirePackage{hyperref}
+\hypersetup{%
+  breaklinks,%
+  baseurl       = http://,%
+  pdfborder     = 0 0 0,%
+  pdfpagemode   = UseNone,%
+  pdfcreator    = \LaTeX{} with `sdaps' class,%
+  pdfproducer   = \LaTeX{}
+}
+
+\RequirePackage{graphicx}
+
+\RequirePackage{sectsty}
+
+\RequirePackage{tabularx}
+
+\RequirePackage{babel}
+
+\RequirePackage{translator}
+\usedictionary{translator-sdaps-dictionary}
+
+\InputIfFileExists{sdaps.opt}{}{}
+
+
+\setlength\lineskip{1\p@}
+\setlength\normallineskip{1\p@}
+\renewcommand\baselinestretch{}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.0ex \@plus 1.5ex \@minus -0.25ex}
+\setlength\columnsep{10\p@}
+\setlength\columnseprule{0\p@}
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+      {-\parskip}%
+      {\parskip}%
+      {\normalfont\Large\bfseries\SS@sectfont}}
+\renewcommand\subsection{
+  \@startsection{subsection}{2}{\z@}%
+      {0.5\parskip}%
+      {0.25\parskip}% These are deleted again for questions
+      {}%
+}
+\pagestyle{scrheadings}
+\pagenumbering{arabic}
+\raggedbottom
+\onecolumn
+
+
+\newkomafont{questionfont}{}
+\newkomafont{choicefont}{}
+\newkomafont{singlemarkquestionfont}{\usekomafont{questionfont}}
+\newkomafont{singlemarkchoicefont}{\usekomafont{choicefont}}
+\newkomafont{marklinequestionfont}{\usekomafont{questionfont}}
+\newkomafont{marklinechoicefont}{\usekomafont{choicefont}}
+\newkomafont{choiceitemfont}{\usekomafont{choicefont}}
+\newkomafont{choicegroupchoicefont}{\usekomafont{questionfont}}
+\newkomafont{choicegrouplinefont}{\usekomafont{choicefont}}
+
+
+\providecommand{\addinfo}[2]{
+  \sdaps_info_write:x{\unexpanded{#1}=\unexpanded{#2}}
+}
+
+\renewcommand{\author}[1]{\def\@author{#1}\sdaps_info_write:x{Author=\unexpanded{#1}}}
+\renewcommand{\title}[1]{\def\@title{#1}\sdaps_info_write:x{Title=\unexpanded{#1}}}
+
+\def\question#1{%
+  \tl_if_empty:nTF{#1}{
+    \refstepcounter{subsection}%
+    \par%
+  } {
+    % #1 is nonempty
+    \subsection{\usekomafont{questionfont}\strut\ignorespaces#1}%
+    % This is extra spacing after the subsection is removed. By doing this we
+    % get exactly one \parskip
+    \nobreak%
+    \vspace{-0.25\parskip}%
+    \nobreak%
+  }
+}
+
+\newenvironment{info}{%
+  \group_begin:
+    \par
+    \noindent\hrule height 1pt%
+    \nobreak
+    \vspace{-\parskip}
+    \vspace{0.5ex}
+}{%
+    \par
+    \nobreak
+    \vspace{-\parskip}
+    \vspace{0.5ex}
+    \noindent\hrule height 1pt
+  \group_end:
+}
+
+\definecolor{sectionbgcolor}{gray}{0.8}
+\definecolor{sectionfgcolor}{gray}{0.0}
+
+\newcommand{\sectbox}[1]{%
+ \noindent\protect\colorbox{sectionbgcolor}{%
+   \@tempdima=\hsize
+   \advance\@tempdima by-2\fboxsep
+   \protect\parbox{\@tempdima}{%
+     \smallskip
+     \raggedright % extra commands here
+     \color{sectionfgcolor}\usekomafont{section}{#1} \smallskip
+    }%
+  }%
+}
+
+\sectionfont{\sectbox}
+
+\setkomafont{disposition}{\normalfont}
+\addtokomafont{section}{\bfseries\sffamily}
+
+\def\smallskip{\vspace\smallskipamount}
+\def\medskip{\vspace\medskipamount}
+\def\bigskip{\vspace\bigskipamount}
+\newskip\smallskipamount \smallskipamount=3pt  plus 1pt minus 1pt
+\newskip\medskipamount   \medskipamount  =6pt  plus 2pt minus 2pt
+\newskip\bigskipamount   \bigskipamount  =12pt plus 4pt minus 4pt
+
+\cs_generate_variant:Nn \sdaps_textbox_hstretch:nnnnn { nVVnn }
+\cs_generate_variant:Nn \sdaps_textbox_hstretch:nnnnn { VVVnn }
+\cs_generate_variant:Nn \int_set:Nn { NV }
+
+
+\bool_new:N \g__sdaps_classic_have_section
+\bool_gset_false:N \g__sdaps_classic_have_section
+\cs_new_eq:NN\_sdapsclassic_origsection\section
+\renewcommand{\section}[1]{
+  \bool_if:NT \g__sdaps_classic_have_section {
+    \sdaps_qobject_end:n { section }
+  }
+
+  \_sdapsclassic_origsection{#1}
+  \bool_gset_true:N \g__sdaps_classic_have_section
+  \sdaps_qobject_begin:nnn { section }{ Head }{ #1 }
+}
+
+\cs_new_protected_nopar:Nn \sdaps_classic_ensure_section: {
+  \bool_if:NF \g__sdaps_classic_have_section {
+    % This is a bad hack to make the numbering start with zero
+    \int_gdecr:N \g__sdaps_qobject_id_int
+    \bool_gset_true:N \g__sdaps_classic_have_section
+    \sdaps_qobject_begin:nnn { section }{ Head }{ }
+      \sdaps_context_hook_end:n { \bool_gset_false:N \g__sdaps_classic_have_section }
+  }
+}
+
+\tl_new:N \l_sdaps_classic_textbox_var_tl
+\tl_new:N \l_sdaps_classic_textbox_text_tl
+\keys_define:nn { sdapsclassic / textbox }
+{
+  var        .tl_set:N   = \l_sdaps_classic_textbox_var_tl,
+  text       .tl_set:N   = \l_sdaps_classic_textbox_text_tl,
+}
+
+\providecommand{\textbox}{\@ifstar
+    {\bool_set_false:N \l_tmpa_bool \_sdaps_classic_textbox }
+    {\bool_set_true:N \l_tmpa_bool \_sdaps_classic_textbox }
+}
+
+\providecommand{\_sdaps_classic_textbox}[3][]
+{
+  \keys_set:nn { sdapsclassic / textbox } { #1 }
+
+  \sdaps_classic_ensure_section:
+  \question{#3}
+
+  \tl_if_empty:NTF \l_sdaps_classic_textbox_text_tl {
+    \sdaps_qobject_begin:nnn { textbox } { Text } { #3 }
+  } {
+    \sdaps_qobject_begin:nnV { textbox } { Text } \l_sdaps_classic_textbox_text_tl
+  }
+
+  \bool_if:NTF \l_tmpa_bool {
+    \sdaps_textbox_vhstretch:Vnn \l_sdaps_classic_textbox_var_tl { #2 } { 1 }
+  }{
+    \sdaps_textbox_vhstretch:Vnn \l_sdaps_classic_textbox_var_tl { #2 } { 0 }
+  }
+
+  \sdaps_qobject_end:n { textbox }
+}
+
+\newcounter{markcheckboxcount}
+\setcounter{markcheckboxcount}{5}
+
+\tl_new:N \l_sdaps_singlemark_var_tl
+\keys_define:nn { sdaps / singlemark }
+{
+  var        .tl_set:N   = \l_sdaps_singlemark_var_tl,
+}
+
+\cs_new_protected_nopar:Nn \_sdaps_classic_dummy_checkbox_prepare:NN
+{
+  \group_begin:
+    \sdaps_context_begin_local:
+    \sdaps_context_append:nn { singlechoice } { writepos=false }
+    \sdaps_context_append:nn { multichoice } { writepos=false }
+    \bool_if:NT #1 {
+      \sdaps_context_append:nn { singlechoice } { draw_check=true }
+      \sdaps_context_append:nn { multichoice } { draw_check=true }
+    }
+    \bool_if:NT #2 {
+      \sdaps_context_append:nn { singlechoice } { fill=black }
+      \sdaps_context_append:nn { multichoice } { fill=black }
+    }
+}
+
+\cs_new_protected_nopar:Nn \_sdaps_classic_dummy_checkbox_single:
+{
+    \sdaps_checkbox_set_type:n { singlechoice }
+    \sdaps_checkbox:nn { } { }
+  \group_end:
+  \ignorespaces
+}
+
+\cs_new_protected_nopar:Nn \_sdaps_classic_dummy_checkbox_multi:
+{
+    \sdaps_checkbox_set_type:n { multichoice }
+    \sdaps_checkbox:nn { } { }
+  \group_end:
+  \ignorespaces
+}
+
+\providecommand{\checkbox}{
+  \_sdaps_classic_dummy_checkbox_prepare:NN \c_false_bool \c_false_bool
+  \@ifstar
+    \_sdaps_classic_dummy_checkbox_single:
+    \_sdaps_classic_dummy_checkbox_multi:
+}
+\providecommand{\checkedbox}{%
+  \_sdaps_classic_dummy_checkbox_prepare:NN \c_true_bool \c_false_bool
+  \@ifstar
+    \_sdaps_classic_dummy_checkbox_single:
+    \_sdaps_classic_dummy_checkbox_multi:
+}
+\providecommand{\filledbox}{%
+  \_sdaps_classic_dummy_checkbox_prepare:NN \c_false_bool \c_true_bool
+  \@ifstar
+    \_sdaps_classic_dummy_checkbox_single:
+    \_sdaps_classic_dummy_checkbox_multi:
+}
+\providecommand{\correctedbox}{%
+  \_sdaps_classic_dummy_checkbox_prepare:NN \c_true_bool \c_true_bool
+  \@ifstar
+    \_sdaps_classic_dummy_checkbox_single:
+    \_sdaps_classic_dummy_checkbox_multi:
+}
+
+\providecommand*{\singlemark}[4][]{%
+  \sdaps_classic_ensure_section:
+
+  \keys_set:nn { sdaps / singlemark } { #1 }
+
+  \question{#2}%
+
+  \sdaps_qobject_begin:nnn { singlemark } { range } { #2 }
+
+  \sdaps_checkbox_set_type:n { singlechoice }
+
+  \tl_if_empty:NF \l_sdaps_singlemark_var_tl {
+    \sdaps_context_append:nVn { var } \l_sdaps_singlemark_var_tl { _ }
+  }
+
+  \sdaps_range:nnn{lower}{0}{#3}
+  \sdaps_range:nnn{upper}{\themarkcheckboxcount-1}{#4}
+
+  \begin{tabularx}{\linewidth}{>{\raggedleft}X*{\themarkcheckboxcount}{c}X}
+    {\usekomafont{singlemarkchoicefont}\strut\ignorespaces#3} &
+      \int_step_inline:nnnn { 1 } { 1 } { \themarkcheckboxcount } { \sdaps_checkbox:nn { ##1 } { ##1 } & }
+    {\usekomafont{singlemarkchoicefont}#4}\\%
+  \end{tabularx}%
+
+  \sdaps_qobject_end:n { singlemark }
+}
+
+\providecommand*{\singlemarkother}[5][]{%
+  \sdaps_classic_ensure_section:
+
+  \keys_set:nn { sdaps / singlemark } { #1 }
+
+  \question{#2}%
+
+  \sdaps_qobject_begin:nnn { singlemark } { range } { #2 }
+
+  \sdaps_checkbox_set_type:n { singlechoice }
+
+  \tl_if_empty:NF \l_sdaps_singlemark_var_tl {
+    \sdaps_context_append:nVn { var } \l_sdaps_singlemark_var_tl { _ }
+  }
+
+  \sdaps_range:nnn{lower}{0}{#3}
+  \sdaps_range:nnn{upper}{\themarkcheckboxcount-1}{#4}
+  \sdaps_answer:n{#5}
+
+  \begin{tabularx}{\linewidth}{>{\raggedleft}X*{\themarkcheckboxcount}{c}XX}
+    {\usekomafont{singlemarkchoicefont}\strut\ignorespaces#3} &
+      \int_step_inline:nnnn { 1 } { 1 } { \themarkcheckboxcount } { \sdaps_checkbox:nn { ##1 } { ##1 } & }
+    {\usekomafont{singlemarkchoicefont}#4} &
+    {\usekomafont{singlemarkchoicefont}\sdaps_checkbox:nn { 0 } { 0 } {} ~ #5}\\%
+  \end{tabularx}%
+
+  \sdaps_qobject_end:n { singlemark }
+}
+
+\dim_new:N \l__sdaps_classic_choiceitem_pad_dim
+\int_new:N \l__sdaps_classic_choiceitem_cols_int
+\int_new:N \l__sdaps_classic_choiceitem_col_int
+\coffin_new:N \l__sdaps_classic_choicequestion_coffin
+
+\msg_new:nnn { sdapsclassic } { choicequestion_wrong_mode } { Mode~should~always~be~vertical~inside~a~choicequestion.\\ This~likely~means~that~the~choicequestion~contains~content~other~than~one~of~the~permissable~macros. }
+
+\msg_new:nnn { sdapsclassic } { choicequestion_no_text } { Textboxes~cannot~be~used~in~singlechoice~questions.\\
+It~is~currently~not~supported~to~use~text~answers~in~single~choice~questions.~Until~support~is~added~
+you~can~get~similar~results~by~temporarily~changing~the~checkbox~style. }
+
+\tl_new:N \l_sdaps_choicquestion_type_tl
+\tl_new:N \l_sdaps_choicequestion_var_tl
+\tl_new:N \l_sdaps_choicequestion_text_tl
+\int_new:N \l_sdaps_choicequestion_cols_int
+
+\keys_define:nn { sdaps / choicequestion }
+{
+  var        .tl_set:N   = \l_sdaps_choicequestion_var_tl,
+  text       .tl_set:N   = \l_sdaps_choicequestion_text_tl,
+  colsep     .dim_set:N  = \l_sdaps_choicequestion_colsep_dim,
+  colsep     .initial:n  = 6pt,
+  rowsep     .dim_set:N  = \l_sdaps_choicequestion_rowsep_dim,
+  rowsep     .initial:n  = 0pt,
+  cols       .int_set:N  = \l_sdaps_choicequestion_cols_int,
+  cols       .initial:n  = 3,
+
+  type       .choices:nn  = { multichoice, singlechoice } { \tl_set:Nx \l_sdaps_choicquestion_type_tl { \l_keys_choice_tl } },
+  type       .initial:n   = { multichoice },
+
+  singlechoice .meta:n    = { type=singlechoice },
+  multichoice  .meta:n    = { type=multichoice },
+}
+
+\tl_new:N \l_sdaps_choicequestion_choice_var_tl
+\tl_new:N \l_sdaps_choicequestion_choice_val_tl
+\tl_new:N \l_sdaps_choicequestion_choice_text_tl
+
+\keys_define:nn { sdaps / choicequestion / choice }
+{
+  var        .tl_set:N   = \l_sdaps_choicequestion_choice_var_tl,
+  val        .tl_set:N   = \l_sdaps_choicequestion_choice_val_tl,
+  text       .tl_set:N   = \l_sdaps_choicequestion_choice_text_tl,
+}
+
+\newenvironment{choicequestion}[2][]{
+  \group_begin:
+
+  \sdaps_classic_ensure_section:
+
+  \tl_clear:N \l_sdaps_choicequestion_var_tl
+  \tl_clear:N \l_sdaps_choicequestion_text_tl
+
+  \keys_set:nn { sdaps / choicequestion } { #1 }
+
+  \question{#2}%
+
+  % Setup the context
+  \tl_if_eq:VnTF \l_sdaps_choicearray_type_tl { multichoice } {
+    \tl_set:Nn \l_tmpa_tl { Choice }
+  } {
+    \tl_set:Nn \l_tmpa_tl { Option }
+  }
+  \tl_if_empty:NTF \l_sdaps_choicequestion_text_tl {
+    \sdaps_qobject_begin:nVn { choicequestion } \l_tmpa_tl { #2 }
+  } {
+    \sdaps_qobject_begin:nVV { choicequestion } \l_tmpa_tl \l_sdaps_choicequestion_text_tl
+  }
+
+  \sdaps_checkbox_set_type:V \l_sdaps_choicquestion_type_tl
+
+  \sdaps_context_append:nVn { var } \l_sdaps_choicequestion_var_tl { _ }
+
+  \dim_set:Nn \l__sdaps_classic_choiceitem_pad_dim { 1ex }
+
+  \int_set:NV \l__sdaps_classic_choiceitem_cols_int \l_sdaps_choicequestion_cols_int
+  \int_set:Nn \l__sdaps_classic_choiceitem_col_int { 0 }
+  \coffin_clear:N \l__sdaps_classic_choicequestion_coffin
+
+  % We have to be in vertical mode at this point.
+  \if_mode_vertical:
+    % Nothing
+  \else:
+    \msg_error:nn { sdapsclassic } { choicequestion_wrong_mode }
+  \fi:
+
+  % It is important to look like a paragraph, otherwise latex thinks there is
+  % nothing between the two question sections and doesn't insert a voluntary
+  % page break.
+  \the\everypar
+
+  % Paragraph like spacing
+  \vspace{\parskip}
+
+  \def\choicequestion_clubpenalty{\penalty\clubpenalty\def\choicequestion_clubpenalty{\relax}\def\choicequestion_clubpenalty{\penalty\widowpenalty}}
+  \def\choicequestion_widowpenalty{}
+}{
+  \if_mode_vertical:
+    % Nothing
+  \else:
+    \msg_error:nn { sdapsclassic } { choicequestion_wrong_mode }
+  \fi:
+
+  \choicequestion_widowpenalty
+  \vbox:n { \skip_horizontal:N \@totalleftmargin \box_use:N \l__sdaps_classic_choicequestion_coffin }
+  \coffin_clear:N \l__sdaps_classic_choicequestion_coffin
+  \sdaps_qobject_end:n { choicequestion }
+
+  \group_end:
+  \vspace{\parskip}
+}
+
+\newenvironment{optionquestion}[2][]{
+  \choicequestion[singlechoice,#1]{#2}
+} {
+  \endchoicequestion
+}
+
+\cs_new_protected_nopar:Nn \_sdaps_classic_line_shipout_add:Nn
+{
+  % We have to be in vertical mode at this point.
+  \if_mode_vertical:
+    % Nothing
+  \else:
+    \msg_error:nn { sdapsclassic } { choicequestion_wrong_mode }
+  \fi:
+
+  % Is linewidth the right thing here?
+  \int_compare:nT { \l__sdaps_classic_choiceitem_col_int + #2 > \l__sdaps_classic_choiceitem_cols_int } {
+    % We can only typeset a coffin in vertical mode if we use the box function
+    \vbox:n { \skip_horizontal:N \@totalleftmargin \box_use:N \l__sdaps_classic_choicequestion_coffin }
+    \skip_vertical:N \l_sdaps_choicequestion_rowsep_dim
+    \coffin_clear:N \l__sdaps_classic_choicequestion_coffin
+    \choicequestion_clubpenalty
+    \int_set:Nn \l__sdaps_classic_choiceitem_col_int { 0 }
+  }
+
+  \dim_set:Nn \l_tmpa_dim { \linewidth / \l__sdaps_classic_choiceitem_cols_int + \l__sdaps_classic_choiceitem_pad_dim / \l__sdaps_classic_choiceitem_cols_int }
+  \dim_set:Nn \l_tmpa_dim { \l__sdaps_classic_choiceitem_col_int \l_tmpa_dim }
+
+  \coffin_join:NnnNnnnn \l__sdaps_classic_choicequestion_coffin { l } { H } #1 { l } { H } { \l_tmpa_dim } { 0pt }
+  \int_add:Nn \l__sdaps_classic_choiceitem_col_int { #2 }
+}
+
+\providecommand*{\choiceitem}[2][]{%
+  \tl_clear:N \l_sdaps_choicequestion_choice_var_tl
+  \tl_clear:N \l_sdaps_choicequestion_choice_val_tl
+  \tl_clear:N \l_sdaps_choicequestion_choice_text_tl
+
+  \keys_set:nn { sdaps / choicequestion / choice } { #1 }
+
+  \tl_if_empty:NTF \l_sdaps_choicequestion_choice_text_tl {
+   \sdaps_answer:n { #2 }
+  } {
+   \sdaps_answer:V \l_sdaps_choicequestion_choice_text_tl
+  }
+
+  \dim_set:Nn \l_tmpa_dim { \linewidth / \l__sdaps_classic_choiceitem_cols_int - \l__sdaps_classic_choiceitem_pad_dim + \l__sdaps_classic_choiceitem_pad_dim / \l__sdaps_classic_choiceitem_cols_int }
+
+  \hcoffin_set:Nn \l_tmpa_coffin {
+    \begin{minipage}{\l_tmpa_dim}
+      \hbox_set:Nn \l_tmpa_box { \strut \sdaps_checkbox:VV \l_sdaps_choicequestion_choice_var_tl \l_sdaps_choicequestion_choice_val_tl {}\  }
+      \begin{addmargin}[\dim_eval:n { \box_wd:N \l_tmpa_box + \l_sdaps_choicequestion_colsep_dim }]{\l_sdaps_choicequestion_colsep_dim}
+        \noindent \hbox_overlap_left:n { \hbox_unpack_clear:N \l_tmpa_box } \usekomafont{choiceitemfont} \tl_trim_spaces:n { #2 }
+      \end{addmargin}
+    \end{minipage}
+  }
+
+  \_sdaps_classic_line_shipout_add:Nn \l_tmpa_coffin { 1 }
+  \ignorespaces
+}
+
+\providecommand*{\choicemulticolitem}[3][]{ %
+  \tl_clear:N \l_sdaps_choicequestion_choice_var_tl
+  \tl_clear:N \l_sdaps_choicequestion_choice_val_tl
+  \tl_clear:N \l_sdaps_choicequestion_choice_text_tl
+
+  \keys_set:nn { sdaps / choicequestion / choice } { #1 }
+
+  \tl_if_empty:NTF \l_sdaps_choicequestion_choice_text_tl {
+   \sdaps_answer:n { #3 }
+  } {
+   \sdaps_answer:V \l_sdaps_choicequestion_choice_text_tl
+  }
+
+  \dim_set:Nn \l_tmpa_dim { #2\linewidth / \l__sdaps_classic_choiceitem_cols_int - \l__sdaps_classic_choiceitem_pad_dim + #2 \l__sdaps_classic_choiceitem_pad_dim / \l__sdaps_classic_choiceitem_cols_int }
+
+  \hcoffin_set:Nn \l_tmpa_coffin {
+    \begin{minipage}{\l_tmpa_dim}
+      \hbox_set:Nn \l_tmpa_box { \strut \sdaps_checkbox:VV \l_sdaps_choicequestion_choice_var_tl \l_sdaps_choicequestion_choice_val_tl {}\  }
+      \begin{addmargin}[\dim_eval:n { \box_wd:N \l_tmpa_box + \l_sdaps_choicequestion_colsep_dim }]{\l_sdaps_choicequestion_colsep_dim}
+        \noindent \hbox_overlap_left:n { \hbox_unpack_clear:N \l_tmpa_box } \usekomafont{choiceitemfont} \tl_trim_spaces:n { #3 }
+      \end{addmargin}
+    \end{minipage}
+  }
+
+  \_sdaps_classic_line_shipout_add:Nn \l_tmpa_coffin { #2 }
+  \ignorespaces
+}
+
+\providecommand{\choiceitemtext}[4][]{%
+  \tl_clear:N \l_sdaps_choicequestion_choice_var_tl
+  \tl_clear:N \l_sdaps_choicequestion_choice_val_tl
+  \tl_clear:N \l_sdaps_choicequestion_choice_text_tl
+
+  \keys_set:nn { sdaps / choicequestion / choice } { #1 }
+  % TODO: Warn if val has been set here
+
+  % If not multichoice then warn
+  \tl_if_eq:VnF \l_sdaps_choicquestion_type_tl { multichoice } {
+    \msg_error:nn { sdapsclassic } { choicequestion_no_text }
+  }
+
+  \tl_if_empty:NTF \l_sdaps_choicequestion_choice_text_tl {
+   \sdaps_answer:n { #4 }
+  } {
+   \sdaps_answer:V \l_sdaps_choicequestion_choice_text_tl
+  }
+
+  \dim_set:Nn \l_tmpa_dim { #3\linewidth / \l__sdaps_classic_choiceitem_cols_int - \l__sdaps_classic_choiceitem_pad_dim + #3 \l__sdaps_classic_choiceitem_pad_dim / \l__sdaps_classic_choiceitem_cols_int }
+
+  \hcoffin_set:Nn \l_tmpa_coffin {
+    \begin{minipage}{\l_tmpa_dim}
+      \begin{addmargin}{\l_sdaps_choicequestion_colsep_dim}
+        \usekomafont{choiceitemfont}
+        \dim_set:Nn \l_tmpa_dim { #2 }
+        \dim_set:Nn \l_tmpb_dim { #2 }
+        \dim_set:Nn \l_tmpa_dim { 0.5 \l_tmpa_dim - 0.8ex }
+        \dim_set:Nn \l_tmpb_dim { 0.5 \l_tmpb_dim + 0.8ex }
+        \strut\ignorespaces \tl_trim_spaces:n { #4 } ~
+        \sdaps_textbox_hstretch:VVVnn \l_sdaps_choicequestion_choice_var_tl \l_tmpa_dim \l_tmpb_dim { 0pt } { 1 }
+      \end{addmargin}
+    \end{minipage}
+  }
+
+  \_sdaps_classic_line_shipout_add:Nn \l_tmpa_coffin { #3 }
+  \ignorespaces
+}
+
+
+\iow_new:N \l__sdaps_questionnaire_iow
+\bool_new:N \l__sdaps_questionnaire_parse_direct_bool
+
+\bool_new:N \l__sdaps_questionnaire_info_bool
+
+\keys_define:nn { sdaps / questionnaire }
+{
+  info         .bool_set:N  = \l__sdaps_questionnaire_info_bool,
+  info         .default:n   = true,
+  info         .initial:n   = true,
+
+  noinfo       .meta:n  = { info=false },
+}
+
+\cs_new_protected_nopar:Nn \_sdaps_classic_show_info:
+{
+  \bool_if:NT \l__sdaps_questionnaire_info_bool {
+    \begin{info}
+      \translate{infotext}\\
+      \tl_if_eq:VnTF \g_sdaps_checkmode_tl { checkcorrect } {
+        \begin{tabularx}{\textwidth}{llcX}
+            \translate{info-cross}: & \checkedbox &\quad & \translate{info-select} \\
+            \translate{info-correct}: & \correctedbox & & \translate{info-mark} \\
+        \end{tabularx}
+      } {
+        \PackageError{sdaps}{Sorry, there is no help text for the checkmode you have choosen right now! Please pass the noinfo optional argument to the questionnaire environment!}\@ehb %
+      }
+    \end{info}
+  }
+  \ignorespaces
+}
+
+\newenvironment { questionnaire } [ 1 ] []
+{
+  \keys_set:nn { sdaps / questionnaire } { #1 }
+
+  \hypersetup{
+    pdfauthor     = \@author,
+    pdftitle      = \@title,
+    pdfsubject    = sdaps questionnaire \@title,
+    pdfkeywords   = sdaps questionnaire \@title
+  }
+
+  % If we only have one questionnaire ID, then parse the environment directly,
+  % otherwise write it into a temporary file and input it multiple times.
+  \group_begin:
+
+  \if@twoside
+    \bool_gset_true:N \g_sdaps_twoside_bool
+  \else
+    \bool_gset_false:N \g_sdaps_twoside_bool
+  \fi
+
+  % Enable all metadata writing by default
+  \sdaps_context_set:n{*={writepos}}
+
+  \int_compare:nTF { \seq_count:N \g_sdaps_questionnaire_ids_seq <= 1 } {
+    \bool_set_true:N \l__sdaps_questionnaire_parse_direct_bool
+
+    % Set the questionnaire ID
+    \seq_gpop_left:NN \g_sdaps_questionnaire_ids_seq \l_tmpa_tl
+    \sdaps_set_questionnaire_id:V \l_tmpa_tl
+
+    % And, begin the questionnaire
+    \sdaps_begin:
+      \_sdaps_classic_show_info:
+  } {
+    \bool_set_false:N \l__sdaps_questionnaire_parse_direct_bool
+
+    % Write content into a file, see "verbatim" documentation for more information.
+    % TODO: Allow multiple temporary files by postfixing with integer?
+    \iow_open:Nn \l__sdaps_questionnaire_iow { \c_sys_jobname_str . questionnaire }
+    \cs_set_eq:NN\do\@makeother\dospecials
+    \catcode`\^^M\active
+    \def\verbatim@processline{
+      \iow_now:Nx \l__sdaps_questionnaire_iow {\the\verbatim@line}
+    }
+    \verbatim@
+  }
+} {
+  \bool_if:NTF \l__sdaps_questionnaire_parse_direct_bool {
+        % Just end everything, nothing else to do.
+        % Make sure we always end the current paragraph.
+        \par
+      \sdaps_end:
+
+    \group_end:
+  } {
+       % We are done inputting the questionnaire
+       \iow_close:N \l__sdaps_questionnaire_iow
+    \group_end:
+
+    % Now cycle through all IDS and output it again.
+    \group_begin:
+      \seq_map_inline:Nn \g_sdaps_questionnaire_ids_seq {
+        \sdaps_set_questionnaire_id:n { ##1 }
+
+        % Reset a lot of global LaTeX counters
+        \@ifundefined{c@page}{}{\setcounter{page}{1}}
+        \@ifundefined{c@part}{}{\setcounter{part}{0}}
+        \@ifundefined{c@chapter}{}{\setcounter{chapter}{0}}
+        \@ifundefined{c@paragraph}{}{\setcounter{paragraph}{0}}
+        \@ifundefined{c@subparagraph}{}{\setcounter{subparagraph}{0}}
+        \@ifundefined{c@section}{}{\setcounter{section}{0}}
+        \@ifundefined{c@subsection}{}{\setcounter{subsection}{0}}
+        \@ifundefined{c@subsubsection}{}{\setcounter{subsubsection}{0}}
+        \@ifundefined{c@equation}{}{\setcounter{equation}{0}}
+        \@ifundefined{c@figure}{}{\setcounter{figure}{0}}
+        \@ifundefined{c@table}{}{\setcounter{table}{0}}
+
+        \sdaps_begin:
+          \_sdaps_classic_show_info:
+          \input{ \c_sys_jobname_str . questionnaire }
+          % Make sure we always end the current paragraph.
+          \par
+        \sdaps_end:
+        \newpage
+
+        % Close the output file now (after the page has been shipped out)
+        \iow_close:N \g_sdaps_infofile_iow
+
+      }
+    \group_end:
+  }
+}
+
+\def\sdapspagemark{
+  \sdaps_page_end:
+}
+
+
+\newenvironment { choicegroup } [ 2 ] []
+{
+  \group_begin:
+
+    \question{#2}
+
+    % Undefine the question (and choice) commands in local scope so that they
+    % can be redefined by choicearray without any issues.
+    % Note that \cs_undefine:N works in global scope, so we cannot use it here.
+    \cs_set_eq:NN\question\tex_undefined:D
+    \cs_set_eq:NN\choice\tex_undefined:D
+
+    \begin{choicearray}[#1]{#2}
+      % XXX: This is a bit of a hack, set in global scope because the choicearray
+      %      environment does evil things with scopes.
+      \cs_gset_eq:NN\groupaddchoice\choice
+      \cs_gset_eq:NN\choiceline\question
+}
+{
+      \cs_gset_eq:NN\groupaddchoice\undefined
+      \cs_gset_eq:NN\choiceline\undefined
+
+    \end{choicearray}
+  \group_end:
+}
+
+\newenvironment { optiongroup } [ 2 ] []
+{
+  \group_begin:
+
+    \question{#2}
+
+    % Undefine the question (and choice) commands in local scope so that they
+    % can be redefined by optionarray without any issues.
+    % Note that \cs_undefine:N works in global scope, so we cannot use it here.
+    \cs_set_eq:NN\question\tex_undefined:D
+    \cs_set_eq:NN\choice\tex_undefined:D
+
+    \begin{optionarray}[#1]{#2}
+      % XXX: This is a bit of a hack, set in global scope because the optionarray
+      %      environment does evil things with scopes.
+      \cs_gset_eq:NN\groupaddchoice\choice
+      \cs_gset_eq:NN\optionline\question
+}
+{
+      \cs_gset_eq:NN\groupaddoption\undefined
+      \cs_gset_eq:NN\optionline\undefined
+
+    \end{optionarray}
+  \group_end:
+}
+
+\newenvironment { markgroup } [ 2 ] []
+{
+  \group_begin:
+
+    \question{#2}
+
+    % Undefine the question (and choice) commands in local scope so that they
+    % can be redefined by choicearray without any issues.
+    % Note that \cs_undefine:N works in global scope, so we cannot use it here.
+    \cs_set_eq:NN\range\tex_undefined:D
+
+    \begin{rangearray}[#1]{#2}
+      % XXX: This is a bit of a hack, set in global scope because the choicearray
+      %      environment does evil things with scopes.
+      \cs_gset_eq:NN\markline\range
+}
+{
+      \cs_gset_eq:NN\markline\undefined
+
+    \end{rangearray}
+  \group_end:
+}
+
+\ExplSyntaxOff
+
+
+\endinput
+%%
+%% End of file `sdapsclassic.cls'.

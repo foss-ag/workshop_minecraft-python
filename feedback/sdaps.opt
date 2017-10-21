@@ -1,0 +1,28 @@
+
+% This file exists to force the latex document into "final" mode.
+% It is parsed after the setup phase of the SDAPS class.
+
+% Old class vs. new class
+\ifcsname @PAGEMARKtrue\endcsname
+    \setcounter{surveyidlshw}{2331}
+    \setcounter{surveyidmshw}{1355}
+    \def\surveyid{88803611}
+    \def\globalid{}
+    \@STAMPtrue
+    \@PAGEMARKtrue
+    \@sdaps@draftfalse
+    \def\questionnaireids{{NONE}}
+\else
+  \group_begin:
+    \def\setoptions#1#2#3{
+      \tl_gset:Nn \g_sdaps_survey_id_tl { #1 }
+      \tl_gset:Nn \g_sdaps_global_id_tl { #2 }
+      \seq_gset_from_clist:Nn \g_sdaps_questionnaire_ids_seq { #3 }
+    }
+    \bool_gset_false:N \g_sdaps_draft_bool
+
+    \ExplSyntaxOff
+      \setoptions{88803611}{}{{}}
+    \ExplSyntaxOn
+  \group_end:
+\fi
