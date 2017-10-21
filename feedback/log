@@ -1,0 +1,89 @@
+------------------------------------------------------------------------------
+- SDAPS -- setup_tex
+------------------------------------------------------------------------------
+Running pdflatex now twice to generate the questionnaire.
+Running pdflatex now twice to generate the questionnaire.
+The Title
+Date: 10.03.2013
+Author: The Author
+Questionnaire
+1(Head) Range Questions
+1.1(Range) How often do you use SDAPS? {1}
+	never (0) - daily (4)
+	1(Checkbox)  87.8  73.8   3.5   3.5 None
+	2(Checkbox)  95.5  73.8   3.5   3.5 None
+	3(Checkbox) 103.3  73.8   3.5   3.5 None
+	4(Checkbox) 111.0  73.8   3.5   3.5 None
+	5(Checkbox) 118.7  73.8   3.5   3.5 None
+1.2(Head) What do you think about the following aspects of \LaTeX ?
+1.2.1(Range) equation syntax {1}
+	bad (0) - good (4)
+	1(Checkbox) 143.0  85.8   3.5   3.5 None
+	2(Checkbox) 150.3  85.8   3.5   3.5 None
+	3(Checkbox) 157.6  85.8   3.5   3.5 None
+	4(Checkbox) 165.0  85.8   3.5   3.5 None
+	5(Checkbox) 172.3  85.8   3.5   3.5 None
+1.2.2(Range) rendered equations {1}
+	ugly (0) - beautiful (4)
+	1(Checkbox) 143.0  91.1   3.5   3.5 None
+	2(Checkbox) 150.3  91.1   3.5   3.5 None
+	3(Checkbox) 157.6  91.1   3.5   3.5 None
+	4(Checkbox) 165.0  91.1   3.5   3.5 None
+	5(Checkbox) 172.3  91.1   3.5   3.5 None
+1.2.3(Range) ease of use {1}
+	hard (0) - easy (4)
+	1(Checkbox) 143.0  96.3   3.5   3.5 None
+	2(Checkbox) 150.3  96.3   3.5   3.5 None
+	3(Checkbox) 157.6  96.3   3.5   3.5 None
+	4(Checkbox) 165.0  96.3   3.5   3.5 None
+	5(Checkbox) 172.3  96.3   3.5   3.5 None
+2(Head) Choice Questions
+2.1(Choice) Which of the following Open Source Optical Mark Recognition software packages have you heard about? {1}
+	0(Checkbox)  15.1 133.3   3.5   3.5 SDAPS
+	1(Checkbox)  77.0 133.3   3.5   3.5 Auto Multiple Choice
+	2(Checkbox)  15.1 142.0   3.5   3.5 QueXF
+	3(Textbox )  89.5 138.2 105.4  12.0 Other:
+2.2(Head) Which software do you prefere for the following tasks?
+2.2.1(Choice) writing letters {1}
+	0(Checkbox) 122.4 164.9   3.5   3.5 \protect \LaTeX
+	1(Checkbox) 140.7 164.9   3.5   3.5 LibreOffice
+	2(Checkbox) 167.1 164.9   3.5   3.5 Microsoft Word
+	3(Checkbox) 188.8 164.9   3.5   3.5 other
+2.2.2(Choice) creating tables {1}
+	0(Checkbox) 122.4 170.1   3.5   3.5 \protect \LaTeX
+	1(Checkbox) 140.7 170.1   3.5   3.5 LibreOffice
+	2(Checkbox) 167.1 170.1   3.5   3.5 Microsoft Word
+	3(Checkbox) 188.8 170.1   3.5   3.5 other
+2.2.3(Choice) typesetting equations {1}
+	0(Checkbox) 122.4 175.4   3.5   3.5 \protect \LaTeX
+	1(Checkbox) 140.7 175.4   3.5   3.5 LibreOffice
+	2(Checkbox) 167.1 175.4   3.5   3.5 Microsoft Word
+	3(Checkbox) 188.8 175.4   3.5   3.5 other
+3(Head) Freeform text fields
+3.1(Text) Do you have any comments? {1}
+	0(Textbox )  13.0 210.2 184.0  62.6 
+4(Head) Tricks and Features
+4.1(Range) This is a range question {2}
+	lower bound (0) - upper bound (4)
+	1(Checkbox)  40.9  55.9   3.5   3.5 None
+	2(Checkbox)  48.7  55.9   3.5   3.5 None
+	3(Checkbox)  56.4  55.9   3.5   3.5 None
+	4(Checkbox)  64.1  55.9   3.5   3.5 None
+	5(Checkbox)  71.8  55.9   3.5   3.5 None
+4.2(Choice) A choice question! {2}
+	0(Checkbox)  15.1  97.4   3.5   3.5 first choice
+	1(Checkbox)  15.1 102.2   3.5   3.5 second choice
+	2(Checkbox)  15.1 107.0   3.5   3.5 third choice
+	3(Textbox )  26.6 111.9  74.5  12.0 other:
+4.3(Range) Another range question {2}
+	lower bound (0) - upper bound (4)
+	1(Checkbox) 134.7  55.8   3.5   3.5 None
+	2(Checkbox) 142.4  55.8   3.5   3.5 None
+	3(Checkbox) 150.1  55.8   3.5   3.5 None
+	4(Checkbox) 157.8  55.8   3.5   3.5 None
+	5(Checkbox) 165.6  55.8   3.5   3.5 None
+4.4(Text) And a freeform text field {2}
+	0(Textbox ) 106.8  77.7  90.2  45.1 
+4.5(Text) And textboxes with a fixed height. This one is exactly 2\,cm high. {2}
+	0(Textbox )  13.0 141.8 184.0  20.0 
+
