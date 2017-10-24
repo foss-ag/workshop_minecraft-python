@@ -26,6 +26,7 @@
             pos = mc.Player.getPos()
             for index in indizes:
 	           mc.setBlock(pos.X, pos.Y, pos.Z + index, block.STONE)
+            Zugriff mit Index zeigen
     - Bedingungen
             toggle = True
             while True:

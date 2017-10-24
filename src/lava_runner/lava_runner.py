@@ -1,6 +1,7 @@
 import mcpi.minecraft as minecraft
 import mcpi.block as block
 from time import sleep
+import random
 
 mc = minecraft.Minecraft.create()
 
@@ -12,7 +13,7 @@ z_boundary = 0
 # random parcour generator
 def generate_parcour(x, y, z):
     # your code here
-    
+
     mc.setBlocks(x - 2, y - 1, z - 1, x + 1, y - 1, z + 1, block.GOLD_BLOCK)
 ##########################################################
 
@@ -41,9 +42,9 @@ if mc.getBlock(x, y-1, z) == 49:
             mc.player.setPos(x+1, y+2, z)
             # generate new random parcour
             generate_parcour(x, y-1, z)
-	elif mc.getBlock(x_, y_-1, z_) == 79:
-		sleep(1.5)
-		mc.setBlock(x_, y_-1, z_, 0)
+        elif mc.getBlock(x_, y_-1, z_) == 79:
+                sleep(1.5)
+                mc.setBlock(x_, y_-1, z_, 0)
         # if player has reached the goal, teleport to fancy special place
         elif mc.getBlock(x_, y_-1, z_) == 41:
             mc.player.setPos(x+53, y+1, z+53)

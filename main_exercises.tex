@@ -5,6 +5,16 @@
 \usepackage[T1]{fontenc}
 \usepackage{geometry}
 \usepackage{listings}
+\usepackage{xcolor}
+\lstset{ %
+	frame=single,	                   % adds a frame around the code
+	numbers=none,                    % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,                   % how far the line-numbers are from the code
+	numberstyle=\tiny\color{gray}, % the style that is used for the line-numbers
+	showstringspaces=false
+}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
 \usepackage{graphicx}
 \usepackage{fancyhdr} % header
 \geometry{a4paper, left=2cm, right=2cm, top=3cm, bottom=4cm} 

@@ -128,3 +128,5 @@ ENV/
 *.nav
 *.pdfpc
 *.snm
+*.fdb_latexmk
+*.fls

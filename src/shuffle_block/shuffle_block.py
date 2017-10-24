@@ -24,5 +24,6 @@ block_list = [cur_block.id for cur_block in block_list]
 
 #your code here
 
+while True:
 
 ######################################################
