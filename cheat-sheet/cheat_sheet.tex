@@ -11,6 +11,7 @@
 	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
 	numbersep=5pt,                   % how far the line-numbers are from the code
 	numberstyle=\tiny\color{gray}, % the style that is used for the line-numbers
+	showstringspaces=false
 }
 \usepackage{enumitem}
 \setlist[itemize]{leftmargin=*}
@@ -42,7 +43,7 @@ variable_name = value
 		\end{lstlisting}
 		\textbf{Beispiele:}
 		\begin{itemize}
-			\item[] \begin{lstlisting}[language=Python, showstringspaces=false]
+			\item[] \begin{lstlisting}[language=Python]
 text = "Hello World"
 			\end{lstlisting}
 			Speichert den String \texttt{Hello World} in einer Variablen mit Namen \texttt{text} ab.
