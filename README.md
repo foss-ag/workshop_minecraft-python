@@ -17,3 +17,4 @@ This repository contains Python exercises using the Minecraft Pi API
 ### Other
 - Raspberry Pi Logo
 - Free Software Foundation Logo
+- Logo Alumni Informatik Dortmund
