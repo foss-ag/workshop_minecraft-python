@@ -1,6 +1,7 @@
 import mcpi.minecraft as minecraft
 import mcpi.block as block
 from time import sleep
+import random
 
 mc = minecraft.Minecraft.create()
 
@@ -12,7 +13,7 @@ z_boundary = 0
 # random parcour generator
 def generate_parcour(x, y, z):
     # your code here
-    
+
     mc.setBlocks(x - 2, y - 1, z - 1, x + 1, y - 1, z + 1, block.GOLD_BLOCK)
 ##########################################################
 
