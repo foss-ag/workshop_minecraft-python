@@ -45,13 +45,9 @@ variable_name = value
 		\begin{itemize}
 			\item[] \begin{lstlisting}[language=Python]
 text = "Hello World"
-			\end{lstlisting}
-			Speichert den String \texttt{Hello World} in einer Variablen mit Namen \texttt{text} ab.
-			
-			\item[] \begin{lstlisting}[language=Python]
 x = 3
 			\end{lstlisting}
-			Speichert die Zahl 3 in einer Variablen mit Namen \texttt{x} ab.
+			Speichert den String \texttt{Hello World} in einer Variablen mit Namen \texttt{text} und danach die Zahl 3 in einer Variablen mit Namen \texttt{x} ab.
 			
 			\item[] \begin{lstlisting}[language=Python]
 a = x + 1
@@ -85,11 +81,18 @@ if x > 0 and x < 3:
 else:
   x = 20
 		\end{lstlisting}
-		Falls \texttt{x} größer als 0 und kleiner als 3 ist, wird \texttt{x} auf 10 gesetzt, andernfalls wird \texttt{x} auf 20 gesetzt.
+		Falls \texttt{x} größer als 0 und kleiner als 3 ist, wird \texttt{x} auf 10 gesetzt, andernfalls wird \texttt{x} auf 20 gesetzt.\\
+		Derartige Bereichsabfragen können auch so vereinfacht werden, wenn beide Teile der Abfrage die gleiche Variable benutzen:
+		\begin{lstlisting}[language=Python]
+if 0 < x < 3:
+  x = 10
+else:
+  x = 20
+		\end{lstlisting}
 	\end{itemize}
 	
 	\section{Schleifen}
-	Mit Hilfe von Schleifen kann ein bestimmter Codeabschnitt mehrfach ausgeführt werden oder aber für jedes Element einer Liste. Dabei unterscheidet man zwischen \texttt{while}- und \texttt{for}-Schleifen.\\
+	Mit Hilfe von Schleifen kann ein bestimmter Codeabschnitt mehrfach ausgeführt werden. Dabei unterscheidet man zwischen \texttt{while}- und \texttt{for}-Schleifen.\\
 	\textbf{Allgemeine Schemata:}
 	\begin{lstlisting}[language=Python]
 while CONDITION:
@@ -98,6 +101,7 @@ while CONDITION:
 for ELEMENT in LIST:
   # your code here
 	\end{lstlisting}
+	Die \texttt{while}-Schleife wird so lange ausgefüht, wie die Bedingung \texttt{CONDITION} wahr ist, der Inhalt der \texttt{for}-Schleife wird für jedes Element \texttt{ELEMENT} in der Liste \texttt{LIST} einmal ausgeführt.
 	\textbf{Beispiele:}
 	\begin{itemize}
 		\item[] \begin{lstlisting}[language=Python]
@@ -116,7 +120,7 @@ while x < 5:
 for number in [1,2,3,4,5]:
   print(number)
 		\end{lstlisting}
-		Diese Schleife wird einmal für jedes Element der Liste \texttt{[1,2,3,4,5]} durchlaufen. Jede Zahl der Liste wird also einmal ausgegeben.
+		Diese Schleife wird einmal für jedes Element der Liste \texttt{[1,2,3,4,5]} durchlaufen. In jedem Durchlauf der Schleife wird der Variablen \texttt{number} ein Element der Liste zugewiesen, in der ursprünglichen Reihenfolge der Elemente. Jede Zahl der Liste wird durch die Schleife also einmal ausgegeben.
 	\end{itemize}
 
 	\section{Nützliche Funktionen}
@@ -160,8 +164,8 @@ index = list.index(x)
 		\item[] \begin{lstlisting}[language=Python]
 list = ['a', 'b', 'c', 'd']
 		
-list.index('a')  ->  0
-list.index('c')  ->  2
+list.index('a') # ->  0
+list.index('c') # ->  2
 		\end{lstlisting}
 		\item[] Ein direkter Zugriff auf eine gewissen Stelle der Liste lässt sich wie folgt realisieren:
 		\item[] \begin{lstlisting}[language=Python]
