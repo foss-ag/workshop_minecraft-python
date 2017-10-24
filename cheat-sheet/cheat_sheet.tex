@@ -81,7 +81,14 @@ if x > 0 and x < 3:
 else:
   x = 20
 		\end{lstlisting}
-		Falls \texttt{x} größer als 0 und kleiner als 3 ist, wird \texttt{x} auf 10 gesetzt, andernfalls wird \texttt{x} auf 20 gesetzt.
+		Falls \texttt{x} größer als 0 und kleiner als 3 ist, wird \texttt{x} auf 10 gesetzt, andernfalls wird \texttt{x} auf 20 gesetzt.\\
+		Derartige Bereichsabfragen können auch so vereinfacht werden, wenn beide Teile der Abfrage die gleiche Variable benutzen:
+		\begin{lstlisting}[language=Python]
+if 0 < x < 3:
+  x = 10
+else:
+  x = 20
+		\end{lstlisting}
 	\end{itemize}
 	
 	\section{Schleifen}
