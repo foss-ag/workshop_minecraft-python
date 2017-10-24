@@ -5,6 +5,15 @@
 \usepackage[T1]{fontenc}
 \usepackage{geometry}
 \usepackage{listings}
+\usepackage{xcolor}
+\lstset{ %
+	frame=single,	                   % adds a frame around the code
+	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,                   % how far the line-numbers are from the code
+	numberstyle=\tiny\color{gray}, % the style that is used for the line-numbers
+}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
 \usepackage{fancyhdr} % header
 \geometry{a4paper, left=2cm, right=2cm, top=3cm, bottom=4cm} 
 
@@ -33,22 +42,22 @@ variable_name = value
 		\end{lstlisting}
 		\textbf{Beispiele:}
 		\begin{itemize}
-			\item \begin{lstlisting}[language=Python, showstringspaces=false]
+			\item[] \begin{lstlisting}[language=Python, showstringspaces=false]
 text = "Hello World"
 			\end{lstlisting}
 			Speichert den String \texttt{Hello World} in einer Variablen mit Namen \texttt{text} ab.
 			
-			\item \begin{lstlisting}[language=Python]
+			\item[] \begin{lstlisting}[language=Python]
 x = 3
 			\end{lstlisting}
 			Speichert die Zahl 3 in einer Variablen mit Namen \texttt{x} ab.
 			
-			\item \begin{lstlisting}[language=Python]
+			\item[] \begin{lstlisting}[language=Python]
 a = x + 1
 			\end{lstlisting}
 			Speichert das Ergebnis der Rechnung \texttt{x + 1} in einer Variablen mit Namen \texttt{a}.
 			
-			\item \begin{lstlisting}[language=Python]
+			\item[] \begin{lstlisting}[language=Python]
 position = mc.player.getPos()
 			\end{lstlisting}
 			Speichert das Ergebnis der Funktion \texttt{getPos} in einer Variablen mit Namen \texttt{position}.
@@ -63,13 +72,13 @@ if CONDITION:
 	\end{lstlisting}
 	\textbf{Beispiele:}
 	\begin{itemize}
-		\item \begin{lstlisting}[language=Python, literate={==}{={}=}2]
+		\item[] \begin{lstlisting}[language=Python, literate={==}{={}=}2]
 if x == 10:
   x = x - 5
 		\end{lstlisting}
 		Falls \texttt{x} gleich 10 gilt, wird von \texttt{x} 5 subtrahiert, andernfalls passiert nichts.
 		
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 if x > 0 and x < 3:
   x = 10
 else:
@@ -90,19 +99,19 @@ for ELEMENT in LIST:
 	\end{lstlisting}
 	\textbf{Beispiele:}
 	\begin{itemize}
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 while True:
   mc.postToChat("Hello World")
 		\end{lstlisting}
 		Diese Schleife wird nicht stoppen, da \texttt{True} immer wahr ist (wörtliche Übersetzung). Also wird unendlich oft der String \texttt{Hello World} in den Minecraft-Chat geschrieben.
 		
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 while x < 5:
   x = x + 1
 		\end{lstlisting}
 		Diese Schleife wird solange durchlaufen, wie \texttt{x} kleiner als 5 ist. In jedem Durchlauf wird \texttt{x} dann um 1 erhöht.
 		
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 for number in [1,2,3,4,5]:
   print(number)
 		\end{lstlisting}
@@ -111,17 +120,17 @@ for number in [1,2,3,4,5]:
 
 	\section{Nützliche Funktionen}
 	\begin{itemize}
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 (x, y, z) = mc.player.getPos()
 		\end{lstlisting}
 		liefert die aktuelle Koordinaten (Position) von Steve.
 		
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 mc.setBlock(x, y, z, block)
 		\end{lstlisting}
 		setzt den mit \texttt{block} bezeichneten Block an die gewünschte Position \texttt{(x, y, z)}.
 		
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 hits = mc.events.pollBlockHits()
 
 hit.pos.x
@@ -130,21 +139,21 @@ hit.pos.z
 		\end{lstlisting}
 		liefert eine Liste \texttt{hits} mit den Positionen der geschlagenen Blöcke. Die einzelnen Koordinaten dieser Position bekommt man mit beispielsweise mit \texttt{hit.pos.x}.
 		
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 block = mc.getBlock(x, y, z)
 		\end{lstlisting}
 		liefert den Block an Position \texttt{(x, y, z)}.
 		
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 x = random.randint(lower, upper)
 		\end{lstlisting}
 		liefert euch eine zufällig ganze Zahl zwischen \texttt{lower} und \texttt{upper}.
 		
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 index = list.index(x)
 		\end{lstlisting}
 		liefert die Stelle, an der \texttt{x} in der Liste steht. \textbf{Achtung! Die erste Position einer Liste wird nicht mit 1, sondern mit 0 bezeichnet. Beispiel:}
-		\item \begin{lstlisting}[language=Python]
+		\item[] \begin{lstlisting}[language=Python]
 list = ['a', 'b', 'c', 'd']
 		
 list.index('a')  ->  0
