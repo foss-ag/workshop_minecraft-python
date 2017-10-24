@@ -122,10 +122,13 @@ for number in [1,2,3,4,5]:
 	\section{Nützliche Funktionen}
 	\begin{itemize}
 		\item[] \begin{lstlisting}[language=Python]
+pos = mc.player.getPos()
+		\end{lstlisting}
+		liefert die aktuelle Koordinaten (Position) von Steve und speichert sie in \texttt{pos}.
+		\item[] \begin{lstlisting}[language=Python]
 (x, y, z) = mc.player.getPos()
 		\end{lstlisting}
-		liefert die aktuelle Koordinaten (Position) von Steve.
-		
+		speichert die einzelnen Komponenten der Position in \texttt{x}, \texttt{y}, \texttt{z}.
 		\item[] \begin{lstlisting}[language=Python]
 mc.setBlock(x, y, z, block)
 		\end{lstlisting}
