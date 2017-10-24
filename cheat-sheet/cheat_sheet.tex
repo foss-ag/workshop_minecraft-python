@@ -141,7 +141,7 @@ hit.pos.x
 hit.pos.y
 hit.pos.z
 		\end{lstlisting}
-		liefert eine Liste \texttt{hits} mit den Positionen der geschlagenen Blöcke. Die einzelnen Koordinaten dieser Position bekommt man mit beispielsweise mit \texttt{hit.pos.x}.
+		liefert eine Liste \texttt{hits} mit Informationen über die geschlagenen Blöcke. Die einzelnen Koordinaten dieser geschlagenen Blöcke bekommt man mit beispielsweise mit \texttt{hit.pos.x}, wobei \texttt{hit} einen einzelnen Schlag aus der Liste \texttt{hits} darstellt.
 		
 		\item[] \begin{lstlisting}[language=Python]
 block = mc.getBlock(x, y, z)
@@ -163,6 +163,12 @@ list = ['a', 'b', 'c', 'd']
 list.index('a')  ->  0
 list.index('c')  ->  2
 		\end{lstlisting}
-	\end{itemize}
+		\item[] Ein direkter Zugriff auf eine gewissen Stelle der Liste lässt sich wie folgt realisieren:
+		\item[] \begin{lstlisting}[language=Python]
+list = ['a', 'b', 'c', 'd']
 
-\end{document}\grid
+list[0]	 ->  'a'
+list[2]	 ->  'c'
+		\end{lstlisting}
+	\end{itemize}
+\end{document}
