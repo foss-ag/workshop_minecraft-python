@@ -11,11 +11,11 @@
             text = 'Hello World'
             mc.postToChat(text)
     - Positionen
-            pos = mc.Player.getPos()
+            pos = mc.player.getPos()
             mc.postToChat(pos)
     - Blöcke setzen
             pos = mc.Player.getPos()
-            mc.setBlock(pos.X, pos.Y, pos.Z + 1, block.STONE)
+            mc.setBlock(pos.x, pos.y, pos.z + 1, block.STONE)
     - while-Schleifen
             while True:
                 mc.postToChat(mc.Player.getPos())
