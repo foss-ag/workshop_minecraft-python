@@ -1,0 +1,14 @@
+# Using the container-based Ubuntu 14.04 Trusty setup
+language: shell
+script:
+  - cd .
+  - latexmk -pdf -f -latexoption="--interaction=nonstopmode" *.tex cheat-sheet/*.tex
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: wget https://raw.githubusercontent.com/foss-ag/script_deploy-artifact/master/deploy-artifact.sh ; sh deploy-artifact.sh *.pdf cheat-sheet/*.pdf
+  on:
+    all_branches: true
+addons:
+  apt:
+    packages: [texlive-full]
