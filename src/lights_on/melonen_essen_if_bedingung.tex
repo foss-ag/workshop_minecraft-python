@@ -1,0 +1,27 @@
+\large Vervollständige den Code, sodass das Spiel funktioniert. Damit der Spieler nicht stehen bleiben darf, müssen ein paar if-Bedingungen ergänzt werden:
+\begin{itemize}
+	\item Ergänze den Code nur in dem gekennzeichneten Rahmen.
+	
+	\item Schreibe innerhalb der if-Bedingung eine weitere if-Bedingung, die überprüft, ob \texttt{x\_cur} - \texttt{x\_start} > \texttt{x\_end} ist. Ist dies der Fall, sollen alle Glowstone-Blöcke durch Luft ersetzt werden. Nutze dazu
+	\begin{lstlisting}
+mc.setBlocks(x - rad, y - 1, z - rad, x + rad, y - 1, z + rad, 0)
+	\end{lstlisting}
+	Und schreibe	\texttt{break} um die Schleife abzubrechen und das Programm zu beenden
+			
+	\item Frage nach der if-Bedingung die aktuelle Position des Spielers ab und hole den Stein an der Position des Spielers. Lege dir dazu als erstes eine Variable an, in der du den Block speicherst. Den Block bekommst du durch
+	\begin{lstlisting}
+mc.getBlock(x_pos, y_pos, z_pos)
+	\end{lstlisting}
+	Überprüfe mit einer if-Bedingung, ob der Block die ID von Lava (ID ist 10, bzw. 11) hat.
+	
+	\item Steht der Spieler in Lava, breche das Programm ab, indem du \texttt{break} schreibst
+	
+	\item Steht der Spieler nicht in Lava, hole den Stein direkt unterhalb des Spielers (Tipp: y - 1) und speicher diesen in einer Variablen ab.
+	
+	\item Lass das Programm einen kleinen Moment warten, indem du \texttt{sleep(0.1)} eingibst. Dadurch hat der Spieler noch ein wenig Zeit den nächsten Stein zu erreichen.
+	
+	\item Prüfe nun durch eine if-Bedingung, ob der Stein unter dem Spieler Glowstone (ID ist 89) ist. Ist das der Fall, dann ersetze den Block durch Luft. Benutze dazu
+	\begin{lstlisting}
+mc.setBlock(x, y - 1, z, 0)
+	\end{lstlisting}
+\end{itemize}

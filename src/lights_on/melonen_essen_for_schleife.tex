@@ -1,0 +1,28 @@
+\large Vervollständige den Code, sodass das Spiel funktioniert. Damit die Melonen verschwinden muss eine Schleife ergänzt werden:
+\begin{itemize}
+	\item Ergänze den Code nur in dem gekennzeichneten Rahmen.
+	
+	\item Die Methode \texttt{check\_tapped} überprüft während des Spieles, ob eine Melone geschlagen wurde.
+	
+	\item Schreibe innerhalb der \texttt{while}-Schleife eine \texttt{for}-Schleife, die für jeden geschlagenen Block den Schleifenrumpf ausführt. Um die Liste der angeschlagenen Blöcke zu erhalten verwende die Funktion
+	\begin{lstlisting}
+mc.events.pollBlockHits()
+	\end{lstlisting}
+		
+	\item Überprüfe durch eine if-Bedingung, ob der geschlagene Block eine Melone war.
+	
+	\item Lege dir dazu als erstes eine Variable an, in der du den Block speicherst. Den Block bekommst du durch
+	\begin{lstlisting}
+mc.getBlock(x_pos, y_pos, z_pos)
+	\end{lstlisting}
+	
+	\item Die ID von Melonen ist die 103.
+	
+	\item Wenn eine Melone geschlagen wurde, ersetze diese durch Luft. Nutze dafür die Funktion
+	\begin{lstlisting}
+mc.setBlock(x_pos, y_pos, z_pos, 0)
+	\end{lstlisting}
+	Zähle dannach sofort den Wert von \texttt{count} hoch, damit überprüft werden kann, ob alle Melonen erwischt wurden.
+	
+	\item Damit die Überprüfung der Zeit ordentlich funktioniert, setze in der if-Bedingung noch den wert von \texttt{x\_old} auf den Wert von \texttt{x\_cur}
+\end{itemize}
