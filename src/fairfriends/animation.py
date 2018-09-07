@@ -39,15 +39,33 @@ positions = [(x, y) for x in range(51) for y in range(27)]
 while True:
     for (xp, yp) in positions:
         if build_fairfriends:
-            if (xp, yp) in fairfriends:
-                # TODO iterate color
-                mc.setBlock(xp, yp, z+3, 35, 5)
+            if (xp, yp) in F1:
+                mc.setBlock(xp, yp, z+3, 35, 1)
+            elif (xp, yp) in a1:
+                mc.setBlock(xp, yp, z + 3, 35, 2)
+            elif (xp, yp) in i1:
+                mc.setBlock(xp, yp, z + 3, 35, 3)
+            elif (xp, yp) in r1:
+                mc.setBlock(xp, yp, z + 3, 35, 4)
+            elif (xp, yp) in F2:
+                mc.setBlock(xp, yp, z + 3, 35, 5)
+            elif (xp, yp) in r2:
+                mc.setBlock(xp, yp, z + 3, 35, 6)
+            elif (xp, yp) in i2:
+                mc.setBlock(xp, yp, z + 3, 35, 9)
+            elif (xp, yp) in e:
+                mc.setBlock(xp, yp, z + 3, 35, 10)
+            elif (xp, yp) in n:
+                mc.setBlock(xp, yp, z + 3, 35, 11)
+            elif (xp, yp) in d:
+                mc.setBlock(xp, yp, z + 3, 35, 13)
+            elif (xp, yp) in s1:
+                mc.setBlock(xp, yp, z + 3, 35, 14)
             else:
                 mc.setBlock(xp, yp, z+3, 35, 0)
         else:
             if (xp, yp) in foss_ag:
-                # TODO find foss ag green id
-                mc.setBlock(xp, yp, z+3, 35, 5)
+                mc.setBlock(xp, yp, z+3, 35, 13)
             else:
                 mc.setBlock(xp, yp, z+3, 35, 0)
     build_fairfriends = not build_fairfriends
