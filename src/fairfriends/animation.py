@@ -69,12 +69,12 @@ positions = [(x, y) for x in range(51) for y in range(27)]
 while True:
     for (xp, yp) in positions:
         if build_fairfriends:
-            mc.setBlock(xp, yp, z+3, 35, get_color((xp, yp)))
+            mc.setBlock(x+xp, y+yp, z+3, 35, get_color((xp, yp)))
         else:
             if (xp, yp) in foss_ag:
-                mc.setBlock(xp, yp, z+3, 35, 13)
+                mc.setBlock(x+xp, y+yp, z+3, 35, 13)
             else:
-                mc.setBlock(xp, yp, z+3, 35, 0)
+                mc.setBlock(x+xp, y+yp, z+3, 35, 0)
     build_fairfriends = not build_fairfriends
     # TODO fit duration
     time.sleep(5)
