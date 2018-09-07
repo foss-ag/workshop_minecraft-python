@@ -78,3 +78,6 @@ while True:
     build_fairfriends = not build_fairfriends
     # TODO fit duration
     time.sleep(5)
+
+    for (xp, yp) in positions:
+        mc.setBlock(x, y, z + 3, 0)
