@@ -1,5 +1,6 @@
 import mcpi.minecraft as minecraft
 import mcpi.block as block
+from gpiozero import LED
 import time
 
 mc = minecraft.Minecraft.create()
@@ -24,10 +25,10 @@ d  = [(38, y) for y in range(5, 10)] + [(41, y) for y in range(5, 13)]\
      + [(x, y) for x in [39, 40] for y in [5, 9]]
 s1 = [(43, y) for y in [5, 7, 8, 9]] + [(44, y) for y in [5, 7, 9]] + [(45, y) for y in [5, 6, 7, 9]]
 
-fairfriends = f1+a1+i1+r1+f2+r2+i2+e+n+d+s1
+fairfriends = F1+a1+i1+r1+F2+r2+i2+e+n+d+s1
 
 F3 = [(x+5, y-6) for (x, y) in F1]
-o  = [(15, y) for y in range(10, 16)] + [(18, y) for y in range(10, 16)] + [(x, y) for x in [16, 17] for y in [10, 15]]
+o  = [(15, y) for y in range(10, 15)] + [(18, y) for y in range(10, 15)] + [(x, y) for x in [16, 17] for y in [10, 14]]
 s2 = [(x-23, y+5) for (x, y) in s1]
 s3 = [(x+4, y) for (x, y) in s2]
 h  = [(x, 12) for x in range(28, 31)]
@@ -37,6 +38,7 @@ G  = [(37, y) for y in range(10, 18)] + [(38, 10), (38, 17)] + [(x, y) for x in 
 
 foss_ag = F3+o+s2+s3+h+A+G
 
+leds_g_r = ["g": LED(2),"r": LED(3)]
 
 def get_color(pos):
     if pos in F1:
@@ -67,6 +69,8 @@ def get_color(pos):
 build_fairfriends = True
 positions = [(x, y) for x in range(51) for y in range(27)]
 while True:
+    leds_g_r["g"].off()
+    leds_g_r["r"].on()
     for (xp, yp) in positions:
         if build_fairfriends:
             mc.setBlock(x+xp, y+yp, z+3, 35, get_color((xp, yp)))
@@ -76,6 +80,8 @@ while True:
             else:
                 mc.setBlock(x+xp, y+yp, z+3, 35, 0)
     build_fairfriends = not build_fairfriends
+    leds_g_r["r"].off()
+    leds_g_r["g"].on()
     # TODO fit duration
     time.sleep(5)
 
