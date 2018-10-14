@@ -1,0 +1,32 @@
+Raumfahrerausbildung:
+
+1. Das Raumschiff muss sich bewegen können:
+    - Überlegt euch Tasten mit denen ihr das Raumschiff nach oben, unten, links und rechts fliegen lasst
+    - Um heraus zu finden welche Taste gedrückt wurde, benutzt den Befehl:
+        - pressed = pygame.key.get_pressed()
+        - nun kann mit einer If-Bedingung gefragt werden, welche Taste gedrückt wurde
+                if pressed[pygame.K_DOWN]: ist erfüllt, wenn die Pfeiltaste nach unten gedrückt wurde
+    - Für jede Bewegungstaste braucht ihr eine If-Bedingung
+    - nun müssen die Variablen x bzw. y verändert werden, je nachdem ob ihr nach oben/unten oder links/rechts fliegen wollt
+    - x ist verantwortlich für einen Flug nach links oder rechts
+    - y ist verantwortlich für einen Flug nach oben oder unten
+    - Ändert den Wert der Variablen nur um den Wert der Variablen player_speed
+
+2. Lasst nun Asteroiden erscheinen:
+    - ist der astroid_timer abgelaufen (astroid_timer == 0) muss folgendes getan werden:
+          - erzeugt einen Astroiden mit Hilfe des Befehls create_astroid()
+          - damit mit der Zeit die Asteroiden schneller erscheinen (der Spieler soll es ja schwer haben)
+            muss der astroid_timer neu gesetzt werden
+          - der astroid_timer soll folgenden Wert bekommen 100 - (astroid_faster * 2)
+          - nun muss der Wert von astroid_faster geändert werden
+          - ist astroid_faster >= 35 soll wieder der Wert 35 gesetzt werden
+          - asonsten soll astroids_faster um 5 erhöht werden
+
+3. Leben verlieren:
+    - Sobald der Spieler mit einem Asteroiden zusammen stößt soll er ein Leben verlieren
+    - Überprüft mit Hilfe des Befehles player_astroid_collision_check(astroid_inst, astroid_rect, player_rect)
+      ob der Spieler mit einem Asteroiden zusammen gestoßen ist
+    - ist das passiert gibt es 2 Fälle zu unterscheiden:
+          - Hat der Spieler noch Leben, dann verringert die Lebensanzahl
+          - hat der Spieler keine Leben mehr, dann beendet das Spieles
+                - setzt done = True

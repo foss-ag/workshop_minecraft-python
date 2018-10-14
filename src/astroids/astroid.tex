@@ -1,0 +1,46 @@
+\large Raumfahrer Training 101:\\
+Du bist mit deinem Raumschiff mitten im Weltall unterwegs. Bereit neue Planeten zu entdecken. Doch iergendwo im Andromeda-Nebel versagen deine Motoren. Niemand weit und breit, der dich zum nächsten Planeten bringen kann. Nicht mal Asteroiden sind zu sehen.\\
+\large Schriit 1: Asteroiden erscheinen lassen\\
+Versuche zuerst die asteroiden erscheinen zu lassen, dann ist es im Weltraum nicht mehr so leer.
+\begin{itemize}
+	\item Prüfe ob der Asteroiden Timer (\textit{astroid\_timer}) abgelaufen ist
+	\begin{itemize}
+		\item \textit{astroid\_timer} = = 0
+	\end{itemize}
+	\item Ist dieser abgelaufen, erzeuge einen Asteroiden mithilfe des Befehles \textit{create\_astroid()}
+	\item Setze den \textit{astroid\_timer} neu, auf den Wert \textbf{100 - (astroid_faster * 2)}
+	\item Ändere den Wert von \textit{astroid\_faster}
+	\begin{itemize}
+		\item Gilt \textit{astroid\_faster} \geq 35, dann setze den Wert wieder auf 35
+		\item ansonsten erhöhe den Wert von \textit{astroid\_timer} um 5
+	\end{itemize}
+\end{itemize} 
+\\
+\lage Schritt 2: Kollisionen\\
+Jetzt sind wieder viele Asteroiden unterwegs, aber ohne Kollisionen ist das ganze langweilig.
+\begin{itemize}
+	\item Überprüfe mit Hile des Befehles \textit{player\_astroid\_collision\_check(astroid\_inst, astroid\_rect, player\_rect)} ob eine Kollision vorliegt
+	\item Ist das der Fall unterscheide 2 Fälle:
+	\begin{itemize}
+		\item Hat der Spieler noch Leben, dann verringere die Lebensanzahl
+		\item Ansonsten beende das Spiel, in dem du \textit{done} auf \textbf{True} setzt
+	\end{itemize}
+\end{itemize}
+\\
+\large Schritt 3: Bewegen\\
+Nun bewegen wir uns wieder durch das Weltall, aber wie sollen wir zu unserem Ziel kommen, wenn wir nicht ausweichen können?
+\begin{itemize}
+	\item Überlege dir Tasten mit denen du das Raumschiff steuern wollt.
+	\item Finde heraus welche Taste gedrückt wurde
+	\begin{itemize}
+		\item pressed = pygame.key.get\_pressed()
+		\item Bsp.: if pressed[pygame.K_DOWN] (Pfeiltaste nach unten)
+	\end{itemize}
+	\item Schreibe eine If-Bedingung für jede Bewegungstaste
+	\item Verändere die Variablen \textit{x} und \textit{y}
+	\begin{itemize}
+		\item \textit{x} ist verantwortlich für einen Flug nach links oder rechts
+		\item \textit{y} ist verantwortlich für einen Flug nach oben oder unten
+		\item Verändere den Wert um den Wert der Variablen \textit{player\_speed}
+	\end{itemize}	 
+\end{itemize}

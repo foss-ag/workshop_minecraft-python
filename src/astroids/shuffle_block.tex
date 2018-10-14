@@ -1,0 +1,22 @@
+\large Schreibe ein Python-Script, das dafür sorgt, dass Blöcke, die du mit der rechten Maustaste schlägst, wie unten beschrieben, durchwechseln.
+Gehe dafür wie folgt vor:
+\begin{itemize}
+	\item Ergänze den Code nur in dem gekennzeichneten Rahmen.
+	
+	\item Die Liste \texttt{block\_list} beinhaltet alle Blöcke, durch die durchgewechselt werden sollen.
+	
+	\item Lege außerhalb der \texttt{while}-Schleife eine Variable an, die dazu dient, die aktuelle Position in \texttt{block\_list} zu speichern. Somit kannst du dir merken, welcher Block als nächstes gesetzt werden soll.
+	
+	\item Schreibe innerhalb der \texttt{while}-Schleife eine \texttt{for}-Schleife, die für jeden geschlagenen Block den Schleifenrumpf ausführt. Um die Liste der angeschlagenen Blöcke zu erhalten verwende die Funktion
+	\begin{lstlisting}
+mc.events.pollBlockHits()
+	\end{lstlisting}
+		
+	\item Ersetze den geschlagenen Block durch den aktuellen Block in \texttt{block\_list}. Nutze dafür die Funktion
+	\begin{lstlisting}
+mc.setBlock(x_pos, y_pos, z_pos, block_id, 1)
+	\end{lstlisting}
+	Gehe danach sofort einen Schritt weiter in der Liste.
+	
+	\item Ist das Ende der Liste erreicht, wird die Liste wieder von vorne durchlaufen.
+\end{itemize}
