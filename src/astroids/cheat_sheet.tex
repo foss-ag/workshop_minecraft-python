@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage[english]{babel} % required to compile for windows
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{ %
+	frame=single,	                   % adds a frame around the code
+	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,                   % how far the line-numbers are from the code
+	numberstyle=\tiny\color{gray}, % the style that is used for the line-numbers
+	showstringspaces=false
+}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*}
+\usepackage{fancyhdr} % header
+\geometry{a4paper, left=2cm, right=2cm, top=3cm, bottom=4cm} 
+
+% header
+\pagestyle{fancy}
+\fancyhead{} % clear header
+\fancyfoot{} % clear footer
+\setlength{\headheight}{50pt}
+
+\chead{{\large Schnupperuni Informatik}}
+
+\lhead{FOSS-AG}
+\rhead{15-19.10.2018}
+\cfoot{-\thepage-}
+
+\begin{document}
+	\begin{center}
+		{\huge PyGame Cheat Sheet}
+	\end{center}
+
+	\section{nützliche Befehle}
+		Das PyGame Modul enthält viele Funktionen, die man früher oder später brauchen wird. Hier ist die Funktion, die wir für das Astroid Spiel brauchen.\\
+		\begin{itemize}
+			\item Taste gedrückt:
+			\item \begin{lstlisting}[language=Python]
+pressed = pygame.key.get_pressed()
+		\end{lstlisting}
+			\item Beispielabfrage: pressed[pygame.K\_w] (Taste \textit{w} wurde gedrückt
+		\end{itemize}
+		Um noch weitere Tasten abfragen zu können ist hier eine Liste mit allen Schlüsseln der Tasten.\\
+		\begin{tabular}{l | r}
+		Name & Abkürzung \\
+		$[a - z]$ & K\_[a - z] \\
+		$[0 - 9]$ & K\_[0 - 9] \\
+		oben Pfeil & K\_UP \\
+		unten Pfeil & K\_DOWN \\
+		links Pfeil & K\_LEFT \\
+		rechts Pfeil & K\_RIGHT \\
+		F[1 - 12] & K\_F[1 - 12] \\
+		\end{tabular}
+\end{document}
