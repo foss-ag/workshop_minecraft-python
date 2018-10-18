@@ -77,6 +77,12 @@ def create_astroid():
 	# x pos, y pos, size scale, shooted
 	astroids.append([size[0] - 5, random.randint(50, size[1] - 30), random.randint(1, 6), 0])
 
+def player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
+	check = astroid_rect.colliderect(player_rect)
+	if check:
+		astroids.remove(astroid_inst)
+	return check
+
 # Hauptschleife
 while not done:
 	screen.fill((0, 0, 0))
@@ -116,11 +122,10 @@ while not done:
 	# astroids
 	##### Schritt 1
 	######################### Dein Code kommt hier rein ###############################
-
-
-
-
-
+	
+	
+	
+	
 	####################################################################################
 
 	for astroid_inst in astroids:
@@ -130,22 +135,21 @@ while not done:
 		astroid_rect, player_rect = get_rect_astroid_player(astroid_inst, new_pos, rotimage)
 		##### Schritt 2
 		######################### Dein Code kommt hier rein ###############################
-
-
-
-
-
+		
+		
+		
+		
 		####################################################################################
 
-		for bullet in shoots:
-			bullrect = get_rect_bullet(bullet)
-			if astroid_rect.colliderect(bullrect):
-				if not astroid_inst[-1] == 1:
-					astroid_inst[-1] += 1
-				else:
-					astroids.remove(astroid_inst)
-				acc[0] += 1
-				shoots.remove(bullet)
+
+		##### Schritt 3
+		######################### Dein Code kommt hier rein ################################
+		
+		
+		
+		
+		
+		####################################################################################
 
 	for astroid_inst in astroids:
 		sizen = astroid.get_size()
@@ -153,13 +157,12 @@ while not done:
 		screen.blit(astroid_n, astroid_inst[:-2])
 
 
-	###### Schritt 3
+	###### Schritt 4
 	######################### Dein Code kommt hier rein ###############################
-
-
-
-
-
+	
+	
+	
+	
 	####################################################################################
 
 	screen.blit(rotimage, new_pos)

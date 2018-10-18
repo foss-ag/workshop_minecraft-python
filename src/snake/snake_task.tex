@@ -1,0 +1,53 @@
+\textbf{\large Snake:}\\
+Du findest eine hungrige Schlange, die fast verhungert ist. Hilf ihr die Äpfel einzusammeln und wieder zu Kräften zu kommen.\\\\
+\textbf{Schritt 1: Durchgehendes Füttern}\\
+Zunächst brauchen wir eine Schleife, die erst dann abbricht, wenn das Spiel entgültig vorbei ist. Und eine Schleife, die überprüft, ob das GameOver erreicht ist.
+\begin{itemize}
+	\item Benutze für die erste while-Schleife als Bedingung die Negation von der Variablen \textit{done}. Alle weiteren Schritte werden in dieser Schleife benötigt
+	\item Die zweite Schleife soll so lange laufen, bis der Wert der Variablen \textit{gameOver} nicht mehr gleich \textbf{True} ist
+	\item In der zweiten Schleife soll nun die Funktion \textit{show\_end\_screen(snake\_length)} aufgerufen werden um das Game Over anzuzeigen
+\end{itemize}
+Nach Schritt 1 könnt ihr bereits euer Spiel zum ersten mal starten.\\
+\textbf{Schritt 2: Bewegen}\\
+Jetzt seht ihr die Welt in der sich die Schlange befinden wird, allerdings ist die Schlange noch nicht zu sehen. Allerdings solltest du dich erst mal um die Steuerung der Schlange kümmern.
+\begin{itemize}
+	\item Benutze als erstes die Funktion \textit{get\_pressed\_button()} um die aktuell benutzte Taste zu erhalten. Die Funktion wird allerdings zwei Werte zurück geben. Zum einen den Typ des Tastendruckes und die Art der Taste.
+	\begin{itemize}
+		\item Bsp.: e\_type, e\_key = get\_pressed\_button()
+	\end{itemize}
+	\item prüfe nun ob die Variable \textit{e\_type} nicht \textbf{None} entspricht.
+	\item Ist das der Fall sind zwei Fälle zu unterscheiden
+	\begin{itemize}
+		\item[1] \textit{e\_type} ist gleich \textbf{pygame.QUIT}, dann muss \textit{done} auf \textbf{True} gesetzt werden
+		\item[2] \textit{e\_type} ist gleich \textbf{pygame.KEYDOWN}, dann müssen diese Fälle für die Variable \textit{e\_key} unterschieden werden
+		\begin{itemize}
+			\item Ist \textit{e\_key} gleich \textbf{pygame.K\_Left} und \textit{snake\_x\_change} $\leq$ \textbf{0} muss \textit{snake\_x\_change} auf \textbf{$-$ \textit{block\_size}} und \textit{snake\_y\_change} auf \textbf{0} gesetzt werden
+			\item Ist \textit{e\_key} gleich \textbf{pygame.K\_RIGHTt} und \textit{snake\_x\_change} $\geq$ \textbf{0} muss \textit{snake\_x\_change} auf \textbf{\textit{block\_size}} und \textit{snake\_y\_change} auf \textbf{0} gesetzt werden
+			\item Ist \textit{e\_key} gleich \textbf{pygame.K\_UP} und \textit{snake\_y\_change} $\leq$ \textbf{0} muss \textit{snake\_y\_change} auf \textbf{$-$ \textit{block\_size}} und \textit{snake\_x\_change} auf \textbf{0} gesetzt werden
+			\item Ist \textit{e\_key} gleich \textbf{pygame.K\_DOWN} und \textit{snake\_y\_change} $\geq$ \textbf{0} muss \textit{snake\_y\_change} auf \textbf{\textit{block\_size}} und \textit{snake\_x\_change} auf \textbf{0} gesetzt werden
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\textbf{Schritt 3: Apfel und Schlange}\\
+Jetzt wo die Steuerung fertig ist, brauchen wir noch die Schlange und den Apfel.
+\begin{itemize}
+	\item Als erstes wird der Apfel gezeichnet. Benutze dazu den Befehl \textit{draw\_apple(apple\_x, apple\_y)}
+	\item Nun müssen die Werte von \textit{snake\_x} und \textit{snake\_y} um den entsprechenden Wert \textit{snake\_x\_change} bzw. \textit{snake\_y\_change} erhöht werden
+	\item Lege eine Variable \textit{snake\_segment} an und speichere in dieser \textbf{[\textit{snake\_x}, \textit{snake\_y}]} ab
+	\item Füge diese neu erstellte Liste der Liste \textit{snake\_list} durch dem Befehl \textit{append} hinzu
+	\item Prüfe nun ob die Schlange die bisher erlaubte Länge überschritten hat (Tipp: len(snake\_list) > snake\_length)
+	\begin{itemize}
+		\item Ist das der Fall lösche das erste Element der Liste mit dem Befehl \textit{del snake\_list[0]}
+	\end{itemize}
+	\item Speichere den Wert, der durch den Befehl \textit{snake\_bit(snake\_list, snake\_segment) or snake\_left\_screen(snake\_x, snake\_y)} erzeugt wird, in der Variablen \textit{gameOver} ab
+	\item Nun muss nur noch die Schlange durch den Befehl \textit{snake(block\_list, snake\_list)} erzeugt werden
+\end{itemize}
+\textbf{Schritt 4: Essen}\\
+Jetzt ist die Schlange wieder unterwegs und zu sehen, allerdings kann sie noch nichts essen.
+\begin{itemize}
+	\item Prüfe ob \textit{snake\_x} = = \textit{apple\_x} \textbf{und} \textit{snake\_y} = = \textit{apple\_y}
+	\begin{itemize}
+		\item Jetzt brauchst du eine neue Position für den Apfel. Hole dir mit den Befehlen \textit{get\_new\_apple\_x()} und \textit{get\_new\_apple\_y()} neue x und y Werte und speichere diese in die entsprechenden Variablen \textit{apple\_x} bzw. \textit{apple\_y}
+		\item Zum Schluss muss nur noch die zulässige Länge der Schlange \textit{snake\_lenght} erhöht werden
+	\end{itemize}	 
+\end{itemize}

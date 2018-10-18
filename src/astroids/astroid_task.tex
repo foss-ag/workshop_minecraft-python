@@ -8,10 +8,10 @@ Versuche zuerst die asteroiden erscheinen zu lassen, dann ist es im Weltraum nic
 		\item \textit{astroid\_timer} = = 0
 	\end{itemize}
 	\item Ist dieser abgelaufen, erzeuge einen Asteroiden mithilfe des Befehles \textit{create\_astroid()}
-	\item Setze den \textit{astroid\_timer} neu, auf den Wert \textbf{100 - (astroid\_faster * 2)}
-	\item Ändere den Wert von \textit{astroid\_faster}
+	\item Setze den \textit{astroid\_timer} neu, auf den Wert \textbf{100 - (astroids\_faster * 2)}
+	\item Ändere den Wert von \textit{astroids\_faster}
 	\begin{itemize}
-		\item Gilt \textit{astroid\_faster} $\geq$ 35, dann setze den Wert wieder auf 35
+		\item Gilt \textit{astroids\_faster} $\geq$ 35, dann setze den Wert wieder auf 35
 		\item ansonsten erhöhe den Wert von \textit{astroid\_timer} um 5
 	\end{itemize}
 \end{itemize}
@@ -25,7 +25,24 @@ Jetzt sind wieder viele Asteroiden unterwegs, aber ohne Kollisionen ist das ganz
 		\item Ansonsten beende das Spiel, in dem du die Variable \textit{done} auf \textbf{True} setzt
 	\end{itemize}
 \end{itemize}
-\textbf{Schritt 3: Bewegen}\\
+\textbf{Schritt 3: Asteroiden treffen}\\
+Nun kommen Asteroiden auf dich zu, aber die Zielsysteme funktionieren scheinbar nicht. keiner der Schüsse scheint zu treffen.
+\begin{itemize}
+	\item Für jeden Schuss in der Liste \textit{shoots} muss geguckt werden ob der aktuelle Asteroid getroffen wurde.
+	\begin{itemize}
+		\item Speichere die Ausmaße des aktuellen Asteroiden in der Variablen \textit{bullet\_rect} ab. Die Ausmaße bekommst du durch den Befehl \textit{get\_rect\_bullet(bullet)}
+		\item Überprüfe mit dem Befehl \textit{check\_bullet\_astroid\_hit(bullet, bullet\_rect, astroid\_rect)} ob der Asteroid getroffen wurde
+		\begin{itemize}
+			\item Wurde der Asteroid getroffen, dann erhöhe den Wert von \textit{acc[0]} um 1
+			\item Überprüfe, ob der Wert an der letzten Stelle von \textit{astroid\_inst} gleich 1 ist (Tipp: liste[-1] gibt das letzte Element der Liste)
+			\begin{itemize}
+				\item Gilt dies, dann entferne den Asteroiden mit \textit{astroids.remove(astroid\_inst)}
+				\item ansonsten erhöhe den Wert an der letzten Stelle von \textit{android\_inst} um 1
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\textbf{Schritt 4: Bewegen}\\
 Nun bewegen wir uns wieder durch das Weltall, aber wie sollen wir zu unserem Ziel kommen, wenn wir nicht ausweichen können?
 \begin{itemize}
 	\item Überlege dir Tasten mit denen du das Raumschiff steuern willst

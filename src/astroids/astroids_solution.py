@@ -83,6 +83,13 @@ def player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
 		astroids.remove(astroid_inst)
 	return check
 
+def check_bullet_astroid_hit(bullet, bullet_rect, astroid_rect):
+    # checks if the astroid was hit by the bullet
+    check = astroid_rect.colliderect(bullet_rect)
+	if check:
+		shoots.remove(bullet)
+	return check
+
 # Hauptschleife
 while not done:
 	screen.fill((0, 0, 0))
@@ -145,22 +152,25 @@ while not done:
 			else:
 				done = True
 		####################################################################################
+
+        ##### Schritt 3
+        ######################### Dein Code kommt hier rein ################################
 		for bullet in shoots:
-			bullrect = get_rect_bullet(bullet)
-			if astroid_rect.colliderect(bullrect):
+			bullet_rect = get_rect_bullet(bullet)
+			if check_bullet_astroid_hit(bullet, bullet_rect, astroid_rect):
+				acc[0] += 1
 				if not astroid_inst[-1] == 1:
 					astroid_inst[-1] += 1
 				else:
 					astroids.remove(astroid_inst)
-				acc[0] += 1
-				shoots.remove(bullet)
+        ####################################################################################
 
 	for astroid_inst in astroids:
 		sizen = astroid.get_size()
 		astroid_n = pygame.transform.scale(astroid, (sizen[0] * astroid_inst[2], sizen[1] * astroid_inst[2]))
 		screen.blit(astroid_n, astroid_inst[:-2])
 
-	##### Schritt 3
+	##### Schritt 4
 	######################### Dein Code kommt hier rein ###############################
 	pressed = pygame.key.get_pressed()
 	if pressed[pygame.K_w]:
