@@ -63,8 +63,8 @@ def get_rect_astroid_player(astroid_inst, new_pos, rotimage):
 	astroid_rect.top = astroid_inst[1]
 	astroid_rect.left = astroid_inst[0]
 	play_rect = pygame.Rect(rotimage.get_rect())
-	play_rect.top = new_pos[0] - pygame.Rect(image.get_rect()).x
-	play_rect.left = new_pos[1] - pygame.Rect(image.get_rect()).y
+	play_rect.top = new_pos[1] - pygame.Rect(image.get_rect()).x
+	play_rect.left = new_pos[0] - pygame.Rect(image.get_rect()).y
 	return astroid_rect, play_rect
 
 def get_rect_bullet(bullet):
