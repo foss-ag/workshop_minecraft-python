@@ -41,8 +41,7 @@ def rotate_player():
     position = pygame.mouse.get_pos()
     angle = math.atan2(position[1] - (y + 27), position[0] - (x + 25))
     rotimage = pygame.transform.rotate(image, 270 - angle * 180 / math.pi)
-    return position, rotimage, (x - rotimage.get_rect().width / 2, y - rotimage.get_rect().height / 2)
-
+    return position, rotimage, (x - rotimage.get_rect().centerx, y - rotimage.get_rect().centery)
 
 def write_time_life():
     font = pygame.font.Font(None, 24)
@@ -66,8 +65,8 @@ def get_rect_astroid_player(astroid_inst, new_pos, rotimage):
     astroid_rect.top = astroid_inst[1]
     astroid_rect.left = astroid_inst[0]
     play_rect = pygame.Rect(rotimage.get_rect())
-    play_rect.top = new_pos[0] - pygame.Rect(image.get_rect()).x
-    play_rect.left = new_pos[1] - pygame.Rect(image.get_rect()).y
+    play_rect.top = new_pos[1] - pygame.Rect(image.get_rect()).x
+    play_rect.left = new_pos[0] - pygame.Rect(image.get_rect()).y
     return astroid_rect, play_rect
 
 
@@ -173,7 +172,11 @@ while not done:
                     astroids.remove(astroid_inst)
     ####################################################################################
 
+    player_rect = None
     for astroid_inst in astroids:
+        astroid_rect, player_rect = get_rect_astroid_player(astroid_inst, new_pos, rotimage)
+        pygame.draw.rect(screen, pygame.Color("red"), astroid_rect)
+
         sizen = astroid.get_size()
         astroid_n = pygame.transform.scale(astroid, (sizen[0] * astroid_inst[2], sizen[1] * astroid_inst[2]))
         screen.blit(astroid_n, astroid_inst[:-2])
@@ -191,6 +194,8 @@ while not done:
         x += player_speed
     ####################################################################################
 
+    if player_rect is not None:
+        pygame.draw.rect(screen, pygame.Color("green"), player_rect)
     screen.blit(rotimage, new_pos)
     astroid_timer -= 1
 
