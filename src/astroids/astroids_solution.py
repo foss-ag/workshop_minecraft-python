@@ -18,7 +18,7 @@ shoots = []
 
 astroid_timer = 100
 astroids_faster = 0
-#astroids = [[size[0], 100, 1, 0]]
+# astroids = [[size[0], 100, 1, 0]]
 astroids = []
 health = 194
 
@@ -34,157 +34,165 @@ lifes = 5
 astroid_speed = 7
 player_speed = 3
 
+
 # Funktionen des Spieles
 def rotate_player():
-	# hole Mausposition und berechne anhand des Winkels die entsprechende Rotation
-	position = pygame.mouse.get_pos()
-	angle = math.atan2(position[1] - (y + 27), position[0] - (x + 25))
-	rotimage = pygame.transform.rotate(image, 270 - angle * 180 / math.pi)
-	return position, rotimage, (x - rotimage.get_rect().width / 2, y - rotimage.get_rect().height / 2)
+    # hole Mausposition und berechne anhand des Winkels die entsprechende Rotation
+    position = pygame.mouse.get_pos()
+    angle = math.atan2(position[1] - (y + 27), position[0] - (x + 25))
+    rotimage = pygame.transform.rotate(image, 270 - angle * 180 / math.pi)
+    return position, rotimage, (x - rotimage.get_rect().width / 2, y - rotimage.get_rect().height / 2)
+
 
 def write_time_life():
-	font = pygame.font.Font(None, 24)
-	survivedtext = font.render(
-		str(int((number_of_game_minutes * 90000 - pygame.time.get_ticks()) / 60000)) + ":" + str(
-			int((2 * 90000 - pygame.time.get_ticks()) / 1000 % 60)).zfill(
-			2), True, (255, 255, 255))
-	textRect = survivedtext.get_rect()
-	textRect.topright = [size[0] - 5, 5]
-	screen.blit(survivedtext, textRect)
-	life_text = font.render(str(lifes), True, (255, 255, 255))
-	life_text_rect = life_text.get_rect()
-	life_text_rect.topright = [15, 6]
-	screen.blit(life_text, life_text_rect)
+    font = pygame.font.Font(None, 24)
+    survivedtext = font.render(
+        str(int((number_of_game_minutes * 90000 - pygame.time.get_ticks()) / 60000)) + ":" + str(
+            int((2 * 90000 - pygame.time.get_ticks()) / 1000 % 60)).zfill(
+            2), True, (255, 255, 255))
+    textRect = survivedtext.get_rect()
+    textRect.topright = [size[0] - 5, 5]
+    screen.blit(survivedtext, textRect)
+    life_text = font.render(str(lifes), True, (255, 255, 255))
+    life_text_rect = life_text.get_rect()
+    life_text_rect.topright = [15, 6]
+    screen.blit(life_text, life_text_rect)
+
 
 def get_rect_astroid_player(astroid_inst, new_pos, rotimage):
-	sizen = astroid.get_size()
-	astroid_n = pygame.transform.scale(astroid, (sizen[0] * astroid_inst[2], sizen[1] * astroid_inst[2]))
-	astroid_rect = pygame.Rect(astroid_n.get_rect())
-	astroid_rect.top = astroid_inst[1]
-	astroid_rect.left = astroid_inst[0]
-	play_rect = pygame.Rect(rotimage.get_rect())
-	play_rect.top = new_pos[0] - pygame.Rect(image.get_rect()).x
-	play_rect.left = new_pos[1] - pygame.Rect(image.get_rect()).y
-	return astroid_rect, play_rect
+    sizen = astroid.get_size()
+    astroid_n = pygame.transform.scale(astroid, (sizen[0] * astroid_inst[2], sizen[1] * astroid_inst[2]))
+    astroid_rect = pygame.Rect(astroid_n.get_rect())
+    astroid_rect.top = astroid_inst[1]
+    astroid_rect.left = astroid_inst[0]
+    play_rect = pygame.Rect(rotimage.get_rect())
+    play_rect.top = new_pos[0] - pygame.Rect(image.get_rect()).x
+    play_rect.left = new_pos[1] - pygame.Rect(image.get_rect()).y
+    return astroid_rect, play_rect
+
 
 def get_rect_bullet(bullet):
-	bullrect = pygame.Rect(shoot.get_rect())
-	bullrect.left = bullet[1]
-	bullrect.top = bullet[2]
-	return bullrect
+    bullrect = pygame.Rect(shoot.get_rect())
+    bullrect.left = bullet[1]
+    bullrect.top = bullet[2]
+    return bullrect
+
 
 def create_astroid():
-	# x pos, y pos, size scale, shooted
-	astroids.append([size[0] - 5, random.randint(50, size[1] - 30), random.randint(1, 6), 0])
+    # x pos, y pos, size scale, shooted
+    astroids.append([size[0] - 5, random.randint(50, size[1] - 30), random.randint(1, 6), 0])
+
 
 def player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
-	check = astroid_rect.colliderect(player_rect)
-	if check:
-		astroids.remove(astroid_inst)
-	return check
+    check = astroid_rect.colliderect(player_rect)
+    if check:
+        astroids.remove(astroid_inst)
+    return check
+
 
 def check_bullet_astroid_hit(bullet, bullet_rect, astroid_rect):
     # checks if the astroid was hit by the bullet
     check = astroid_rect.colliderect(bullet_rect)
-	if check:
-		shoots.remove(bullet)
-	return check
+    if check:
+        shoots.remove(bullet)
+    return check
+
 
 # Hauptschleife
 while not done:
-	screen.fill((0, 0, 0))
+    screen.fill((0, 0, 0))
 
-	# berechne neue Pfeil ausrichtung anhand der Maus
-	position, rotimage, new_pos = rotate_player()
+    # berechne neue Pfeil ausrichtung anhand der Maus
+    position, rotimage, new_pos = rotate_player()
 
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-			done = True
-		if event.type == pygame.MOUSEBUTTONDOWN:
-			e_shoot_time = time.time()
-			if e_shoot_time - s_shoot_timer > 0.09:
-				acc[1] += 1
-				shoots.append(
-					[math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32,
-					 y + 32])
-				s_shoot_timer = e_shoot_time
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+            done = True
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            e_shoot_time = time.time()
+            if e_shoot_time - s_shoot_timer > 0.09:
+                acc[1] += 1
+                shoots.append(
+                    [math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32,
+                     y + 32])
+                s_shoot_timer = e_shoot_time
 
-	# shooting
-	for bullet in shoots:
-		index = 0
-		velx = math.cos(bullet[0]) * 10
-		vely = math.sin(bullet[0]) * 10
-		bullet[1] += velx
-		bullet[2] += vely
-		if bullet[1] < -64 or bullet[1] > size[0] + 40 or bullet[2] < -64 or bullet[2] > size[1] + 80:
-			shoots.pop(index)
-		index += 1
-		for projectile in shoots:
-			shoot1 = pygame.transform.rotate(shoot, 270 - projectile[0] * 180 / math.pi)
-			screen.blit(shoot1, (projectile[1], projectile[2]))
+    # shooting
+    for bullet in shoots:
+        index = 0
+        velx = math.cos(bullet[0]) * 10
+        vely = math.sin(bullet[0]) * 10
+        bullet[1] += velx
+        bullet[2] += vely
+        if bullet[1] < -64 or bullet[1] > size[0] + 40 or bullet[2] < -64 or bullet[2] > size[1] + 80:
+            shoots.pop(index)
+        index += 1
+        for projectile in shoots:
+            shoot1 = pygame.transform.rotate(shoot, 270 - projectile[0] * 180 / math.pi)
+            screen.blit(shoot1, (projectile[1], projectile[2]))
 
-	# schreibe die Spielzeit und die Anzahl der Leben
-	write_time_life()
+    # schreibe die Spielzeit und die Anzahl der Leben
+    write_time_life()
 
-	# astroids
-	##### Schritt 1
-	######################### Dein Code kommt hier rein ###############################
-	if astroid_timer == 0:
-		create_astroid()
-		astroid_timer = 100 - (astroids_faster * 2)
-		if astroids_faster >= 35:
-			astroids_faster = 35
-		else:
-			astroids_faster += 5
-	####################################################################################
+    # astroids
+    ##### Schritt 1
+    ######################### Dein Code kommt hier rein ###############################
+    if astroid_timer == 0:
+        create_astroid()
+        astroid_timer = 100 - (astroids_faster * 2)
+        if astroids_faster >= 35:
+            astroids_faster = 35
+        else:
+            astroids_faster += 5
+    ####################################################################################
 
-	for astroid_inst in astroids:
-		if astroid_inst[0] < -64:
-			astroids.remove(astroid_inst)
-		astroid_inst[0] -= astroid_speed
-		astroid_rect, player_rect = get_rect_astroid_player(astroid_inst, new_pos, rotimage)
+    for astroid_inst in astroids:
+        if astroid_inst[0] < -64:
+            astroids.remove(astroid_inst)
+        astroid_inst[0] -= astroid_speed
+        astroid_rect, player_rect = get_rect_astroid_player(astroid_inst, new_pos, rotimage)
 
-		##### Schritt 2
-		######################### Dein Code kommt hier rein ###############################
-		if player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
-			if lifes > 0:
-				lifes -= 1
-			else:
-				done = True
-		####################################################################################
+        ##### Schritt 2
+        ######################### Dein Code kommt hier rein ###############################
+        if player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
+            if lifes > 0:
+                lifes -= 1
+            else:
+                done = True
+        ####################################################################################
 
         ##### Schritt 3
         ######################### Dein Code kommt hier rein ################################
-		for bullet in shoots:
-			bullet_rect = get_rect_bullet(bullet)
-			if check_bullet_astroid_hit(bullet, bullet_rect, astroid_rect):
-				acc[0] += 1
-				if not astroid_inst[-1] == 1:
-					astroid_inst[-1] += 1
-				else:
-					astroids.remove(astroid_inst)
-        ####################################################################################
+        for bullet in shoots:
+            bullet_rect = get_rect_bullet(bullet)
+            if check_bullet_astroid_hit(bullet, bullet_rect, astroid_rect):
+                acc[0] += 1
+                if not astroid_inst[-1] == 1:
+                    astroid_inst[-1] += 1
+                else:
+                    astroids.remove(astroid_inst)
+    ####################################################################################
 
-	for astroid_inst in astroids:
-		sizen = astroid.get_size()
-		astroid_n = pygame.transform.scale(astroid, (sizen[0] * astroid_inst[2], sizen[1] * astroid_inst[2]))
-		screen.blit(astroid_n, astroid_inst[:-2])
+    for astroid_inst in astroids:
+        sizen = astroid.get_size()
+        astroid_n = pygame.transform.scale(astroid, (sizen[0] * astroid_inst[2], sizen[1] * astroid_inst[2]))
+        screen.blit(astroid_n, astroid_inst[:-2])
 
-	##### Schritt 4
-	######################### Dein Code kommt hier rein ###############################
-	pressed = pygame.key.get_pressed()
-	if pressed[pygame.K_w]:
-		y -= player_speed
-	if pressed[pygame.K_s]:
-		y += player_speed
-	if pressed[pygame.K_a]:
-		x -= player_speed
-	if pressed[pygame.K_d]:
-		x += player_speed
-	####################################################################################
+    ##### Schritt 4
+    ######################### Dein Code kommt hier rein ###############################
+    pressed = pygame.key.get_pressed()
+    if pressed[pygame.K_w]:
+        y -= player_speed
+    if pressed[pygame.K_s]:
+        y += player_speed
+    if pressed[pygame.K_a]:
+        x -= player_speed
+    if pressed[pygame.K_d]:
+        x += player_speed
+    ####################################################################################
 
-	screen.blit(rotimage, new_pos)
-	astroid_timer -= 1
+    screen.blit(rotimage, new_pos)
+    astroid_timer -= 1
 
-	pygame.display.flip()
-	clock.tick(60)
+    pygame.display.flip()
+    clock.tick(60)
