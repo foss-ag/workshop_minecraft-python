@@ -21,6 +21,9 @@ astroids_faster = 0
 astroids = []
 health = 194
 
+rainbow_index = 0
+rainbow = [(255, 0, 0, 0), (0, 255, 0, 0), (0, 0, 255, 0), (255, 0, 255, 0), (0, 255, 255, 0), (255, 255, 0, 0)]
+
 number_of_game_minutes = 4
 
 clock = pygame.time.Clock()
@@ -109,11 +112,15 @@ while not done:
             e_shoot_time = time.time()
             if e_shoot_time - s_shoot_timer > 0.09:
                 acc[1] += 1
-                shoots.append([math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32, y + 32])
+                color = rainbow[rainbow_index]
+                rainbow_index += 1
+                if rainbow_index >= len(rainbow):
+                    rainbow_index = 0
+                shoots.append(([math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32, y + 32], color))
                 s_shoot_timer = e_shoot_time
 
     # shooting
-    for bullet in shoots:
+    for (bullet, _) in shoots:
         index = 0
         velx = math.cos(bullet[0]) * 10
         vely = math.sin(bullet[0]) * 10
@@ -122,7 +129,11 @@ while not done:
         if bullet[1] < -64 or bullet[1] > size[0] + 40 or bullet[2] < -64 or bullet[2] > size[1] + 80:
             shoots.pop(index)
         index += 1
-        for projectile in shoots:
+
+        for (projectile, color) in shoots:
+            shoot.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)
+            shoot.fill(color, None, pygame.BLEND_RGB_ADD)
+            # rotate image
             shoot1 = pygame.transform.rotate(shoot, 270 - projectile[0] * 180 / math.pi)
             screen.blit(shoot1, (projectile[1], projectile[2]))
 
@@ -158,9 +169,9 @@ while not done:
 
         ##### Schritt 3
         ######################### Dein Code kommt hier rein ################################
-        for bullet in shoots:
+        for (bullet, color) in shoots:
             bullet_rect = get_rect_bullet(bullet)
-            if check_bullet_astroid_hit(bullet, bullet_rect, astroid_rect):
+            if check_bullet_astroid_hit((bullet, color), bullet_rect, astroid_rect):
                 acc[0] += 1
                 if not astroid_inst[-1] == 1:
                     astroid_inst[-1] += 1
