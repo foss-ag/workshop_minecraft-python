@@ -1,6 +1,5 @@
 import pygame
 import math
-from pygame.math import Vector2
 import random
 import time
 
@@ -47,8 +46,7 @@ def write_time_life():
     font = pygame.font.Font(None, 24)
     survivedtext = font.render(
         str(int((number_of_game_minutes * 90000 - pygame.time.get_ticks()) / 60000)) + ":" + str(
-            int((2 * 90000 - pygame.time.get_ticks()) / 1000 % 60)).zfill(
-            2), True, (255, 255, 255))
+            int((2 * 90000 - pygame.time.get_ticks()) / 1000 % 60)).zfill(2), True, (255, 255, 255))
     textRect = survivedtext.get_rect()
     textRect.topright = [size[0] - 5, 5]
     screen.blit(survivedtext, textRect)
@@ -111,9 +109,7 @@ while not done:
             e_shoot_time = time.time()
             if e_shoot_time - s_shoot_timer > 0.09:
                 acc[1] += 1
-                shoots.append(
-                    [math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32,
-                     y + 32])
+                shoots.append([math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32, y + 32])
                 s_shoot_timer = e_shoot_time
 
     # shooting
@@ -172,11 +168,7 @@ while not done:
                     astroids.remove(astroid_inst)
     ####################################################################################
 
-    player_rect = None
     for astroid_inst in astroids:
-        astroid_rect, player_rect = get_rect_astroid_player(astroid_inst, new_pos, rotimage)
-        pygame.draw.rect(screen, pygame.Color("red"), astroid_rect)
-
         sizen = astroid.get_size()
         astroid_n = pygame.transform.scale(astroid, (sizen[0] * astroid_inst[2], sizen[1] * astroid_inst[2]))
         screen.blit(astroid_n, astroid_inst[:-2])
@@ -194,8 +186,6 @@ while not done:
         x += player_speed
     ####################################################################################
 
-    if player_rect is not None:
-        pygame.draw.rect(screen, pygame.Color("green"), player_rect)
     screen.blit(rotimage, new_pos)
     astroid_timer -= 1
 
