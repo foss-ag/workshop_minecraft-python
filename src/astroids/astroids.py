@@ -1,6 +1,5 @@
 import pygame
 import math
-from pygame.math import Vector2
 import random
 import time
 
@@ -46,8 +45,7 @@ def write_time_life():
 	font = pygame.font.Font(None, 24)
 	survivedtext = font.render(
 		str(int((number_of_game_minutes * 90000 - pygame.time.get_ticks()) / 60000)) + ":" + str(
-			int((2 * 90000 - pygame.time.get_ticks()) / 1000 % 60)).zfill(
-			2), True, (255, 255, 255))
+			int((2 * 90000 - pygame.time.get_ticks()) / 1000 % 60)).zfill(2), True, (255, 255, 255))
 	textRect = survivedtext.get_rect()
 	textRect.topright = [size[0] - 5, 5]
 	screen.blit(survivedtext, textRect)
@@ -63,8 +61,8 @@ def get_rect_astroid_player(astroid_inst, new_pos, rotimage):
 	astroid_rect.top = astroid_inst[1]
 	astroid_rect.left = astroid_inst[0]
 	play_rect = pygame.Rect(rotimage.get_rect())
-	play_rect.top = new_pos[0] - pygame.Rect(image.get_rect()).x
-	play_rect.left = new_pos[1] - pygame.Rect(image.get_rect()).y
+	play_rect.top = new_pos[1] - pygame.Rect(image.get_rect()).x
+	play_rect.left = new_pos[0] - pygame.Rect(image.get_rect()).y
 	return astroid_rect, play_rect
 
 def get_rect_bullet(bullet):
@@ -98,8 +96,7 @@ while not done:
 			if e_shoot_time - s_shoot_timer > 0.09:
 				acc[1] += 1
 				shoots.append(
-					[math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32,
-					 y + 32])
+					[math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32, y + 32])
 				s_shoot_timer = e_shoot_time
 
 	# shooting
