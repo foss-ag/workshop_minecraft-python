@@ -22,7 +22,9 @@ astroids = []
 health = 194
 
 rainbow_index = 0
-rainbow = [(255, 0, 0, 0), (0, 255, 0, 0), (0, 0, 255, 0), (255, 0, 255, 0), (0, 255, 255, 0), (255, 255, 0, 0)]
+rainbow = [(r, g, 0, 0) for r in range(255, -1, -10) for g in range(0, 256, 10) if r + g == 255] +\
+          [(0, g, b, 0) for g in range(255, -1, -10) for b in range(0, 256, 10) if g + b == 255] +\
+          [(r, 0, b, 0) for b in range(255, -1, -10) for r in range(0, 256, 10) if b + r == 255]
 
 number_of_game_minutes = 4
 
