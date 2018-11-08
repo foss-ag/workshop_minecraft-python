@@ -20,7 +20,6 @@ acc = [0, 0]
 
 clock = pygame.time.Clock()
 image = pygame.image.load('src/player.png')
-shoot = pygame.image.load('src/shoot.png') # TODO remove
 astroid = pygame.image.load('src/astroid.png')
 astroid1 = astroid
 s_shoot_timer = time.time()
@@ -109,10 +108,10 @@ while not state.done:
             state.remove_shot(bullet)
 
         for projectile in state.shoots:
-            shoot.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)
-            shoot.fill(projectile.color, None, pygame.BLEND_RGB_ADD)
+            projectile.image.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)
+            projectile.image.fill(projectile.color, None, pygame.BLEND_RGB_ADD)
             # rotate image
-            shoot1 = pygame.transform.rotate(shoot, 270 - projectile.something * 180 / math.pi)
+            shoot1 = pygame.transform.rotate(projectile.image, 270 - projectile.something * 180 / math.pi)
             screen.blit(shoot1, (projectile.x, projectile.y))
 
     # schreibe die Spielzeit und die Anzahl der Leben

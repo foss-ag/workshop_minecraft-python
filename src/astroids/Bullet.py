@@ -17,7 +17,7 @@ class Bullet:
         self.__x = x
         self.__y = y
         self.__color = color
-        self.__shoot = pygame.image.load('src/shoot.png')
+        self.__img = pygame.image.load('src/shoot.png')
 
     @property
     def color(self):
@@ -28,6 +28,10 @@ class Bullet:
         return self.__something
 
     @property
+    def image(self):
+        return self.__img
+
+    @property
     def x(self):
         return self.__x
 
@@ -36,7 +40,7 @@ class Bullet:
         return self.__y
 
     def get_rect(self):
-        bullrect = pygame.Rect(self.__shoot.get_rect())
+        bullrect = pygame.Rect(self.__img.get_rect())
         bullrect.left = self.__x
         bullrect.top = self.__y
         return bullrect
