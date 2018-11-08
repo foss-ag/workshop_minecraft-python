@@ -1,8 +1,9 @@
 class GameState():
 
-    def __init__(self, game_minutes=4, player_speed=3, astroid_speed=7, astroid_timer=100, astroids_faster=0):
+    def __init__(self, game_minutes=4, lifes=5, player_speed=3, astroid_speed=7, astroid_timer=100, astroids_faster=0):
         self.__done = False
         self.__game_minutes = game_minutes
+        self.__lifes = lifes
         self.__player_speed = player_speed
 
         self.__astroid_speed = astroid_speed
@@ -31,6 +32,10 @@ class GameState():
     @property
     def game_minutes(self):
         return self.__game_minutes
+
+    @property
+    def lifes(self):
+        return self.__lifes
 
     @property
     def done(self):
@@ -64,4 +69,7 @@ class GameState():
 
     def set_astroids_faster(self, s):
         self.__astroids_faster = s
+
+    def reduce_lifes(self):
+        self.__lifes -= 1
 

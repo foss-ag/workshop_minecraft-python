@@ -23,7 +23,6 @@ image = pygame.image.load('src/player.png')
 astroid = pygame.image.load('src/astroid.png')
 astroid1 = astroid
 s_shoot_timer = time.time()
-lifes = 5
 
 color_generator = ColorGenerator()
 
@@ -43,7 +42,7 @@ def write_time_life():
     textRect = survivedtext.get_rect()
     textRect.topright = [size[0] - 5, 5]
     screen.blit(survivedtext, textRect)
-    life_text = font.render(str(lifes), True, (255, 255, 255))
+    life_text = font.render(str(state.lifes), True, (255, 255, 255))
     life_text_rect = life_text.get_rect()
     life_text_rect.topright = [15, 6]
     screen.blit(life_text, life_text_rect)
@@ -138,8 +137,8 @@ while not state.done:
         ##### Schritt 2
         ######################### Dein Code kommt hier rein ###############################
         if player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
-            if lifes > 0:
-                lifes -= 1
+            if state.lifes > 0:
+                state.reduce_lifes()
             else:
                 state.set_done()
         ####################################################################################
