@@ -13,16 +13,14 @@ screen = pygame.display.set_mode(size)
 
 state = GameState()
 
-is_blue = True
 x = 500
 y = 400
 
 acc = [0, 0]
-health = 194
 
 clock = pygame.time.Clock()
 image = pygame.image.load('src/player.png')
-shoot = pygame.image.load('src/shoot.png')
+shoot = pygame.image.load('src/shoot.png') # TODO remove
 astroid = pygame.image.load('src/astroid.png')
 astroid1 = astroid
 s_shoot_timer = time.time()
@@ -62,13 +60,6 @@ def get_rect_astroid_player(astroid_inst, new_pos, rotimage):
     play_rect.top = new_pos[1] - pygame.Rect(image.get_rect()).x
     play_rect.left = new_pos[0] - pygame.Rect(image.get_rect()).y
     return astroid_rect, play_rect
-
-
-def get_rect_bullet(bullet):
-    bullrect = pygame.Rect(shoot.get_rect())
-    bullrect.left = bullet.x
-    bullrect.top = bullet.y
-    return bullrect
 
 
 def create_astroid():
@@ -157,7 +148,7 @@ while not state.done:
         ##### Schritt 3
         ######################### Dein Code kommt hier rein ################################
         for bullet in state.shoots:
-            bullet_rect = get_rect_bullet(bullet)
+            bullet_rect = bullet.get_rect()
             if check_bullet_astroid_hit((bullet), bullet_rect, astroid_rect):
                 acc[0] += 1
                 if not astroid_inst[-1] == 1:
