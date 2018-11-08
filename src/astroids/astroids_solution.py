@@ -2,6 +2,7 @@ import pygame
 import math
 import random
 import time
+from ColorGenerator import ColorGenerator
 from Bullet import Bullet
 
 # Initialisierung sowohl verschiedener Variablen und Attribute, als auch pygame
@@ -22,11 +23,6 @@ astroids_faster = 0
 astroids = []
 health = 194
 
-rainbow_index = 0
-rainbow = [(r, g, 0, 0) for r in range(255, -1, -10) for g in range(0, 256, 10) if r + g == 255] +\
-          [(0, g, b, 0) for g in range(255, -1, -10) for b in range(0, 256, 10) if g + b == 255] +\
-          [(r, 0, b, 0) for b in range(255, -1, -10) for r in range(0, 256, 10) if b + r == 255]
-
 number_of_game_minutes = 4
 
 clock = pygame.time.Clock()
@@ -39,6 +35,7 @@ lifes = 5
 astroid_speed = 7
 player_speed = 3
 
+color_generator = ColorGenerator()
 
 # Funktionen des Spieles
 def rotate_player():
@@ -115,10 +112,7 @@ while not done:
             e_shoot_time = time.time()
             if e_shoot_time - s_shoot_timer > 0.09:
                 acc[1] += 1
-                color = rainbow[rainbow_index]
-                rainbow_index += 1
-                if rainbow_index >= len(rainbow):
-                    rainbow_index = 0
+                color = color_generator.next()
                 shoots.append(Bullet(math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32, y + 32, color))
                 s_shoot_timer = e_shoot_time
 
