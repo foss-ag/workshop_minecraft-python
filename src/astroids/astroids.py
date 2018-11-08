@@ -2,6 +2,7 @@ import pygame
 import math
 import random
 import time
+from Bullet import Bullet
 
 # Initialisierung sowohl verschiedener Variablen und Attribute, als auch pygame
 pygame.init()
@@ -75,8 +76,8 @@ def get_rect_astroid_player(astroid_inst, new_pos, rotimage):
 
 def get_rect_bullet(bullet):
     bullrect = pygame.Rect(shoot.get_rect())
-    bullrect.left = bullet[1]
-    bullrect.top = bullet[2]
+    bullrect.left = bullet.x
+    bullrect.top = bullet.y
     return bullrect
 
 
@@ -118,26 +119,25 @@ while not done:
                 rainbow_index += 1
                 if rainbow_index >= len(rainbow):
                     rainbow_index = 0
-                shoots.append(([math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32, y + 32], color))
+                shoots.append(Bullet(math.atan2(position[1] - (y + 32), position[0] - (x + 26)), x + 32, y + 32, color))
                 s_shoot_timer = e_shoot_time
 
     # shooting
-    for (bullet, _) in shoots:
+    for bullet in shoots:
         index = 0
-        velx = math.cos(bullet[0]) * 10
-        vely = math.sin(bullet[0]) * 10
-        bullet[1] += velx
-        bullet[2] += vely
-        if bullet[1] < -64 or bullet[1] > size[0] + 40 or bullet[2] < -64 or bullet[2] > size[1] + 80:
+        velx = math.cos(bullet.something) * 10
+        vely = math.sin(bullet.something) * 10
+        bullet.move(velx, vely)
+        if bullet.x < -64 or bullet.y > size[0] + 40 or bullet.y < -64 or bullet.y > size[1] + 80:
             shoots.pop(index)
         index += 1
 
-        for (projectile, color) in shoots:
+        for projectile in shoots:
             shoot.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)
-            shoot.fill(color, None, pygame.BLEND_RGB_ADD)
+            shoot.fill(projectile.color, None, pygame.BLEND_RGB_ADD)
             # rotate image
-            shoot1 = pygame.transform.rotate(shoot, 270 - projectile[0] * 180 / math.pi)
-            screen.blit(shoot1, (projectile[1], projectile[2]))
+            shoot1 = pygame.transform.rotate(shoot, 270 - projectile.something * 180 / math.pi)
+            screen.blit(shoot1, (projectile.x, projectile.y))
 
     # schreibe die Spielzeit und die Anzahl der Leben
     write_time_life()
@@ -145,9 +145,6 @@ while not done:
     # astroids
     ##### Schritt 1
     ######################### Dein Code kommt hier rein ###############################
-
-
-
 
     ####################################################################################
 
@@ -160,16 +157,10 @@ while not done:
         ##### Schritt 2
         ######################### Dein Code kommt hier rein ###############################
 
-
-
-
         ####################################################################################
 
         ##### Schritt 3
         ######################### Dein Code kommt hier rein ################################
-
-
-
 
     ####################################################################################
 
@@ -180,9 +171,6 @@ while not done:
 
     ##### Schritt 4
     ######################### Dein Code kommt hier rein ###############################
-
-
-
 
     ####################################################################################
 
