@@ -16,8 +16,6 @@ state = GameState()
 x = 500
 y = 400
 
-acc = [0, 0]
-
 clock = pygame.time.Clock()
 image = pygame.image.load('src/player.png')
 astroid = pygame.image.load('src/astroid.png')
@@ -93,20 +91,20 @@ while not state.done:
         if event.type == pygame.MOUSEBUTTONDOWN:
             e_shoot_time = time.time()
             if e_shoot_time - s_shoot_timer > 0.09:
-                acc[1] += 1
+                state.increment_num_shots()
                 color = color_generator.next()
                 state.add_shot(Bullet(math.atan2(position[1] - (y+32), position[0] - (x+26)), x+32, y+32, color))
                 s_shoot_timer = e_shoot_time
 
     # shooting
-    for bullet in state.shoots:
+    for bullet in state.shots:
         velx = math.cos(bullet.something) * 10
         vely = math.sin(bullet.something) * 10
         bullet.move(velx, vely)
         if bullet.x < -64 or bullet.y > size[0] + 40 or bullet.y < -64 or bullet.y > size[1] + 80:
             state.remove_shot(bullet)
 
-        for projectile in state.shoots:
+        for projectile in state.shots:
             projectile.image.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)
             projectile.image.fill(projectile.color, None, pygame.BLEND_RGB_ADD)
             # rotate image
@@ -145,10 +143,10 @@ while not state.done:
 
         ##### Schritt 3
         ######################### Dein Code kommt hier rein ################################
-        for bullet in state.shoots:
+        for bullet in state.shots:
             bullet_rect = bullet.get_rect()
             if check_bullet_astroid_hit((bullet), bullet_rect, astroid_rect):
-                acc[0] += 1
+                state.increment_num_hits()
                 if not astroid_inst[-1] == 1:
                     astroid_inst[-1] += 1
                 else:

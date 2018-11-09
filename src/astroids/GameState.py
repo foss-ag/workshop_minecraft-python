@@ -11,7 +11,10 @@ class GameState():
         self.__astroids_faster = astroids_faster
 
         self.__astroids = []
-        self.__shoots = []
+        self.__shots = []
+
+        self.__num_hits = 0
+        self.__num_shots = 0
 
     @property
     def astroid_timer(self):
@@ -42,12 +45,20 @@ class GameState():
         return self.__done
 
     @property
-    def shoots(self):
-        return self.__shoots
+    def shots(self):
+        return self.__shots
 
     @property
     def astroids(self):
         return self.__astroids
+
+    @property
+    def num_hits(self):
+        return self.__num_hits
+
+    @property
+    def num_shots(self):
+        return self.__num_shots
 
     def set_done(self):
         self.__done = True
@@ -59,10 +70,10 @@ class GameState():
         self.__astroids.remove(astroid)
 
     def remove_shot(self, bullet):
-        self.__shoots.remove(bullet)
+        self.__shots.remove(bullet)
 
     def add_shot(self, bullet):
-        self.__shoots.append(bullet)
+        self.__shots.append(bullet)
 
     def set_astroid_timer(self, t):
         self.__astroid_timer = t
@@ -73,3 +84,8 @@ class GameState():
     def reduce_lifes(self):
         self.__lifes -= 1
 
+    def increment_num_shots(self):
+        self.__num_shots += 1
+
+    def increment_num_hits(self):
+        self.__num_hits += 1
