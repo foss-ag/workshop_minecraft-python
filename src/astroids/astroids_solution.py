@@ -5,30 +5,18 @@ from ColorGenerator import ColorGenerator
 from Bullet import Bullet
 from GameState import GameState
 from Astroid import Astroid
+from Player import Player
 
 # Initialisierung sowohl verschiedener Variablen und Attribute, als auch pygame
 pygame.init()
 size = (1000, 800)
 screen = pygame.display.set_mode(size)
 
+player = Player(500, 400)
 state = GameState()
-
-x = 500
-y = 400
-
 clock = pygame.time.Clock()
-image = pygame.image.load('src/player.png')
 s_shoot_timer = time.time()
 color_generator = ColorGenerator()
-
-
-# Funktionen des Spieles
-def rotate_player():
-    # hole Mausposition und berechne anhand des Winkels die entsprechende Rotation
-    position = pygame.mouse.get_pos()
-    angle = math.atan2(position[1] - (y + 27), position[0] - (x + 25))
-    rotimage = pygame.transform.rotate(image, 270 - angle * 180 / math.pi)
-    return position, rotimage, (x - rotimage.get_rect().centerx, y - rotimage.get_rect().centery)
 
 
 def write_time_life():
@@ -43,13 +31,6 @@ def write_time_life():
     life_text_rect = life_text.get_rect()
     life_text_rect.topright = [15, 6]
     screen.blit(life_text, life_text_rect)
-
-
-def get_rect_player(new_pos, rotimage):
-    play_rect = pygame.Rect(rotimage.get_rect())
-    play_rect.top = new_pos[1] - pygame.Rect(image.get_rect()).x
-    play_rect.left = new_pos[0] - pygame.Rect(image.get_rect()).y
-    return play_rect
 
 
 def player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
@@ -72,7 +53,7 @@ while not state.done:
     screen.fill((0, 0, 0))
 
     # berechne neue Pfeil ausrichtung anhand der Maus
-    position, rotimage, new_pos = rotate_player()
+    position, rotimage, new_pos = player.rotate()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
@@ -82,7 +63,8 @@ while not state.done:
             if e_shoot_time - s_shoot_timer > 0.09:
                 state.increment_num_shots()
                 color = color_generator.next()
-                state.add_shot(Bullet(math.atan2(position[1] - (y+32), position[0] - (x+26)), x+32, y+32, color))
+                state.add_shot(Bullet(math.atan2(position[1] - (player.y+32), position[0] - (player.x+26)),
+                                      player.x+32, player.y+32, color))
                 s_shoot_timer = e_shoot_time
 
     # shooting
@@ -119,7 +101,7 @@ while not state.done:
         if astroid.x < -64:
             state.remove_astroid(astroid)
         astroid.move(-state.astroid_speed)
-        player_rect = get_rect_player(new_pos, rotimage)
+        player_rect = player.get_rect()
 
         ##### Schritt 2
         ######################### Dein Code kommt hier rein ###############################
@@ -143,20 +125,19 @@ while not state.done:
     ####################################################################################
 
     for astroid in state.astroids:
-        #print(astroid.pos)
         screen.blit(astroid.image, astroid.pos)
 
     ##### Schritt 4
     ######################### Dein Code kommt hier rein ###############################
     pressed = pygame.key.get_pressed()
     if pressed[pygame.K_w]:
-        y -= state.player_speed
+        player.move(0, -state.player_speed)
     if pressed[pygame.K_s]:
-        y += state.player_speed
+        player.move(0, state.player_speed)
     if pressed[pygame.K_a]:
-        x -= state.player_speed
+        player.move(-state.player_speed, 0)
     if pressed[pygame.K_d]:
-        x += state.player_speed
+        player.move(state.player_speed, 0)
     ####################################################################################
 
     screen.blit(rotimage, new_pos)
