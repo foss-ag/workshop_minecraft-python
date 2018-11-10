@@ -12,18 +12,19 @@ pygame.init()
 size = (1000, 800)
 screen = pygame.display.set_mode(size)
 
-player = Player(500, 400)
-state = GameState()
 clock = pygame.time.Clock()
 s_shoot_timer = time.time()
+
+state = GameState()
+player = Player(500, 400)
 color_generator = ColorGenerator()
 
 
 def write_time_life():
     font = pygame.font.Font(None, 24)
-    survivedtext = font.render(
-        str(int((state.game_minutes * 90000 - pygame.time.get_ticks()) / 60000)) + ":" + str(
-            int((2 * 90000 - pygame.time.get_ticks()) / 1000 % 60)).zfill(2), True, (255, 255, 255))
+    survivedtext = font.render(str(int((state.game_minutes * 90000 - pygame.time.get_ticks()) / 60000)) + ":" +
+                               str(int((2 * 90000 - pygame.time.get_ticks()) / 1000 % 60)).zfill(2),
+                               True, (255, 255, 255))
     textRect = survivedtext.get_rect()
     textRect.topright = [size[0] - 5, 5]
     screen.blit(survivedtext, textRect)
