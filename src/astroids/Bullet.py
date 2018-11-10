@@ -1,20 +1,29 @@
+import pygame
+
+
 class Bullet:
 
     def __init__(self, something, x, y, color):
         """
-        :param something: probably direction
+        :param something:
+            # TODO
+            probably direction
         :param x:
-            x coordinate
+            Start position X
         :param y:
-            y coordinate
+            Start position Y
         :param color:
             RGBA color
         """
-        # what is this?
+        # TODO what is this?
+        # bullet position
         self.__something = something
         self.__x = x
         self.__y = y
+        # bullet color
         self.__color = color
+        # bullet image
+        self.__img = pygame.image.load('src/shoot.png')
 
     @property
     def color(self):
@@ -25,6 +34,10 @@ class Bullet:
         return self.__something
 
     @property
+    def image(self):
+        return self.__img
+
+    @property
     def x(self):
         return self.__x
 
@@ -32,13 +45,26 @@ class Bullet:
     def y(self):
         return self.__y
 
+    def get_rect(self):
+        """
+        Returns rectangle of bullet.
+
+        :return:
+            Bullet rectangle
+        """
+        bullrect = pygame.Rect(self.__img.get_rect())
+        bullrect.left = self.__x
+        bullrect.top = self.__y
+        return bullrect
+
     def move(self, x, y):
         """
+        Update position by x and y offset.
+
         :param x:
-            x-offset
+            x offset
         :param y:
-            y-offset
-        :return:
+            y offset
         """
         self.__x += x
         self.__y += y
