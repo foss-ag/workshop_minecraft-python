@@ -2,7 +2,7 @@ import math
 import pygame
 
 
-class Player():
+class Player:
 
     def __init__(self, x, y):
         """
@@ -15,19 +15,22 @@ class Player():
         """
         # load player image
         self.__img = pygame.image.load('src/player.png')
+        # copy player image for rotated image
         self.__rot_img = self.__img
+        # player position
         self.__x = x
         self.__y = y
+        # player rotated position
         self.__rot_x = x
         self.__rot_y = y
+        # mouse position / direction
         self.__direction_x = x
         self.__direction_y = y
 
     def rotate(self):
         """
         Get mouse position and rotate player.
-ss
-        :return:
+        Updates rotated image and position
         """
         (self.__direction_x, self.__direction_y) = pygame.mouse.get_pos()
         angle = math.atan2(self.__direction_y - (self.__y + 27), self.__direction_x - (self.__x + 25))
@@ -37,6 +40,12 @@ ss
         self.__rot_y = self.__y - rect.centery
 
     def get_rect(self):
+        """
+        Returns rectangle of rotated player.
+
+        :return:
+            Rotated player rectangle
+        """
         player_rect = pygame.Rect(self.__rot_img.get_rect())
         player_rect.top = self.__rot_y - pygame.Rect(self.__img.get_rect()).x
         player_rect.left = self.__rot_x - pygame.Rect(self.__img.get_rect()).y
@@ -72,13 +81,12 @@ ss
 
     def move(self, x, y):
         """
-        TODO
+        Update player position by x and y offset.
 
         :param x:
-            x-offset
+            x offset
         :param y:
-            y-offset
-        :return:
+            y offset
         """
         self.__x += x
         self.__y += y
