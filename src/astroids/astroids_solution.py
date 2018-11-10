@@ -52,9 +52,7 @@ def check_bullet_astroid_hit(bullet, bullet_rect, astroid_rect):
 while not state.done:
     screen.fill((0, 0, 0))
 
-    # berechne neue Pfeil ausrichtung anhand der Maus
-    position, rotimage, new_pos = player.rotate()
-
+    player.rotate()
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             state.set_done()
@@ -63,7 +61,7 @@ while not state.done:
             if e_shoot_time - s_shoot_timer > 0.09:
                 state.increment_num_shots()
                 color = color_generator.next()
-                state.add_shot(Bullet(math.atan2(position[1] - (player.y+32), position[0] - (player.x+26)),
+                state.add_shot(Bullet(math.atan2(player.direction_y - (player.y+32), player.direction_x - (player.x+26)),
                                       player.x+32, player.y+32, color))
                 s_shoot_timer = e_shoot_time
 
@@ -140,7 +138,7 @@ while not state.done:
         player.move(state.player_speed, 0)
     ####################################################################################
 
-    screen.blit(rotimage, new_pos)
+    screen.blit(player.image, player.pos)
     state.set_astroid_timer(state.astroid_timer - 1)
 
     pygame.display.flip()
