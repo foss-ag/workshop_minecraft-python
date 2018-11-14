@@ -1,32 +1,33 @@
 \textbf{\large Raumfahrer Training 101:}\\
-Du bist mit deinem Raumschiff mitten im Weltall unterwegs. Bereit neue Planeten zu entdecken. Doch iergendwo im Andromeda-Nebel versagen deine Motoren. Niemand weit und breit, der dich zum nächsten Planeten bringen kann. Nicht mal Asteroiden sind zu sehen.\\\\
+Du bist mit deinem Raumschiff mitten im Weltall unterwegs. Bereit neue Planeten zu entdecken. Doch irgendwo im Andromeda-Nebel versagen deine Motoren. Niemand weit und breit, der dich zum nächsten Planeten bringen kann. Nicht mal Asteroiden sind zu sehen.\\\\
 \textbf{Schritt 1: Asteroiden erscheinen lassen}\\
-Versuche zuerst die asteroiden erscheinen zu lassen, dann ist es im Weltraum nicht mehr so leer.
+Versuche zuerst die Asteroiden erscheinen zu lassen, dann ist es im Weltraum nicht mehr so leer.
 \begin{itemize}
-	\item Prüfe ob der Asteroiden Timer (\textit{astroid\_timer}) abgelaufen ist
+	\item Prüfe ob der Asteroiden Timer (\textit{state.astroid\_timer}) abgelaufen ist
 	\begin{itemize}
-		\item \textit{astroid\_timer} = = 0
+		\item \textit{state.astroid\_timer == 0}
 	\end{itemize}
-	\item Ist dieser abgelaufen, erzeuge einen Asteroiden mithilfe des Befehles \textit{create\_astroid()}
-	\item Setze den \textit{astroid\_timer} neu, auf den Wert \textbf{100 - (astroids\_faster * 2)}
-	\item Ändere den Wert von \textit{astroids\_faster}
+	\item Ist dieser abgelaufen, erzeuge einen Asteroiden mithilfe des Befehles \textit{Astroid.create\_astroid()}
+	\item Setze den \textit{state.astroid\_timer} neu, auf den Wert \textbf{100 - (astroids\_faster * 2)}. Nutze dafür die Funktion \textit{state.set\_astroid\_timer(t)}
+	\item Ändere den Wert von \textit{state.astroids\_faster}
 	\begin{itemize}
-		\item Gilt \textit{astroids\_faster} $\geq$ 35, dann setze den Wert wieder auf 35
-		\item ansonsten erhöhe den Wert von \textit{astroid\_timer} um 5
+		\item Gilt \textit{state.astroids\_faster} $\geq$ 35, dann setze den Wert wieder auf 35
+		\item ansonsten erhöhe den Wert von \textit{state.astroid\_timer} um 5
+		\item Dafür steht die Funktion \textit{state.set\_astroids\_faster(af)} zur Verfügung.
 	\end{itemize}
 \end{itemize}
 \textbf{Schritt 2: Kollisionen}\\
-Jetzt sind wieder viele Asteroiden unterwegs, aber ohne Kollisionen ist das ganze langweilig.
+Jetzt sind wieder viele Asteroiden unterwegs, aber ohne Kollisionen ist das Ganze langweilig.
 \begin{itemize}
-	\item Überprüfe mit Hile des Befehles \textit{player\_astroid\_collision\_check(astroid\_inst, astroid\_rect, player\_rect)} ob eine Kollision vorliegt
+	\item Überprüfe mithilfe des Befehls \textit{player\_astroid\_collision\_check(astroid, astroid\_rect, player\_rect)} ob eine Kollision vorliegt.
 	\item Ist das der Fall unterscheide 2 Fälle:
 	\begin{itemize}
 		\item Hat der Spieler noch Leben, dann verringere die Lebensanzahl
-		\item Ansonsten beende das Spiel, in dem du die Variable \textit{done} auf \textbf{True} setzt
+		\item Ansonsten beende das Spiel, in dem du die Funktion \textit{state.set\_done()} aufrufst.
 	\end{itemize}
 \end{itemize}
 \textbf{Schritt 3: Asteroiden treffen}\\
-Nun kommen Asteroiden auf dich zu, aber die Zielsysteme funktionieren scheinbar nicht. keiner der Schüsse scheint zu treffen.
+Nun kommen Asteroiden auf dich zu, aber die Zielsysteme funktionieren scheinbar nicht. Keiner der Schüsse scheint zu treffen.
 \begin{itemize}
 	\item Für jeden Schuss in der Liste \textit{shoots} muss geguckt werden ob der aktuelle Asteroid getroffen wurde.
 	\begin{itemize}
