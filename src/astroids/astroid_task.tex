@@ -46,17 +46,18 @@ Nun kommen Asteroiden auf dich zu, aber die Zielsysteme funktionieren scheinbar 
 \textbf{Schritt 4: Bewegen}\\
 Nun bewegen wir uns wieder durch das Weltall, aber wie sollen wir zu unserem Ziel kommen, wenn wir nicht ausweichen können?
 \begin{itemize}
-	\item Überlege dir Tasten mit denen du das Raumschiff steuern willst
+	\item Überlege dir Tasten mit denen du das Raumschiff steuern willst.
 	\item Finde heraus welche Taste gedrückt wurde
 	\begin{itemize}
-		\item pressed = pygame.key.get\_pressed()
-		\item if pressed[pygame.K\_DOWN] (Pfeiltaste nach unten)
+		\item \texttt{pressed = pygame.key.get\_pressed()}
+		\item \texttt{if pressed[pygame.K\_DOWN]} (Pfeiltaste nach unten)
 	\end{itemize}
-	\item Schreibe eine If-Bedingung für jede Bewegungstaste
-	\item Verändere die Variablen \textit{x} und \textit{y}
+	\item Schreibe eine if-Bedingung für jede Bewegungstaste
+	\item Bewege den Spieler mit player.move(x, y)
 	\begin{itemize}
 		\item \textit{x} ist verantwortlich für einen Flug nach links oder rechts
 		\item \textit{y} ist verantwortlich für einen Flug nach oben oder unten
 		\item Verändere den Wert um den Wert der Variablen \textit{player\_speed}
+		\item Soll nur einer der beiden Werte verändert werden, setze den anderen Wert auf 0.
 	\end{itemize}	 
 \end{itemize}
