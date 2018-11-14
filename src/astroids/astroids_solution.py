@@ -32,7 +32,10 @@ def write_time_life():
     life_text_rect = life_text.get_rect()
     life_text_rect.topright = [15, 6]
     screen.blit(life_text, life_text_rect)
-
+    score_text = font.render("score: " + str(-1 * state.score), True, (255, 255, 255))
+    score_text_rect = score_text.get_rect()
+    score_text_rect.topright = [size[0]/2, 6]
+    screen.blit(score_text, score_text_rect)
 
 def player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
     check = astroid_rect.colliderect(player_rect)
@@ -121,6 +124,7 @@ while not state.done:
                     astroid.increment_hit_count()
                 else:
                     state.remove_astroid(astroid)
+                    state.increment_score(astroid.scale)
     ####################################################################################
 
     for astroid in state.astroids:

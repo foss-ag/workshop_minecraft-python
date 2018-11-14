@@ -30,9 +30,10 @@ class GameState:
         self.__astroids = []
         self.__shots = []
 
-        # number of hits and shots
+        # number of hits, shots and score
         self.__num_hits = 0
         self.__num_shots = 0
+        self.__score = 0
 
     @property
     def astroid_timer(self):
@@ -61,6 +62,10 @@ class GameState:
     @property
     def done(self):
         return self.__done
+
+    @property
+    def score(self):
+        return self.__score
 
     @property
     def shots(self):
@@ -155,3 +160,13 @@ class GameState:
         Increment number of hits by 1.
         """
         self.__num_hits += 1
+
+    def increment_score(self, astroid_scale):
+        """
+        Increment score depending on astroid scale.
+        Smaller astroids result in a higher score.
+
+        :param astroid_scale:
+            Astroid scale.
+        """
+        self.__score -= (10 - astroid_scale) * 10
