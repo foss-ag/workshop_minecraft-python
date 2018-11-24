@@ -1,43 +1,44 @@
 \textbf{\large Raumfahrer Training 101:}\\
-Du bist mit deinem Raumschiff mitten im Weltall unterwegs. Bereit neue Planeten zu entdecken. Doch iergendwo im Andromeda-Nebel versagen deine Motoren. Niemand weit und breit, der dich zum nächsten Planeten bringen kann. Nicht mal Asteroiden sind zu sehen.\\\\
+Du bist mit deinem Raumschiff mitten im Weltall unterwegs. Bereit neue Planeten zu entdecken. Doch irgendwo im Andromeda-Nebel versagen deine Motoren. Niemand weit und breit, der dich zum nächsten Planeten bringen kann. Nicht mal Asteroiden sind zu sehen.\\\\
 \textbf{Schritt 1: Asteroiden erscheinen lassen}\\
-Versuche zuerst die asteroiden erscheinen zu lassen, dann ist es im Weltraum nicht mehr so leer.
+Versuche zuerst die Asteroiden erscheinen zu lassen, dann ist es im Weltraum nicht mehr so leer.
 \begin{itemize}
-	\item Prüfe ob der Asteroiden Timer (\textit{astroid\_timer}) abgelaufen ist
+	\item Prüfe ob der Asteroiden Timer (\texttt{state.astroid\_timer}) abgelaufen ist
 	\begin{itemize}
-		\item \textit{astroid\_timer} = = 0
+		\item \texttt{state.astroid\_timer == 0}
 	\end{itemize}
-	\item Ist dieser abgelaufen, erzeuge einen Asteroiden mithilfe des Befehles \textit{create\_astroid()}
-	\item Setze den \textit{astroid\_timer} neu, auf den Wert \textbf{100 - (astroids\_faster * 2)}
-	\item Ändere den Wert von \textit{astroids\_faster}
+	\item Ist dieser abgelaufen, erzeuge einen Asteroiden mithilfe des Befehles \texttt{Astroid.create\_astroid()}
+	\item Setze den \texttt{state.astroid\_timer} neu, auf den Wert \textbf{100 - (astroids\_faster * 2)}. Nutze dafür die Funktion \texttt{state.set\_astroid\_timer(t)}
+	\item Ändere den Wert von \texttt{state.astroids\_faster}
 	\begin{itemize}
-		\item Gilt \textit{astroids\_faster} $\geq$ 35, dann setze den Wert wieder auf 35
-		\item ansonsten erhöhe den Wert von \textit{astroid\_timer} um 5
+		\item Gilt \texttt{state.astroids\_faster} $\geq$ 35, dann setze den Wert wieder auf 35
+		\item ansonsten erhöhe den Wert von \texttt{state.astroid\_timer} um 5
+		\item Dafür steht die Funktion \texttt{state.set\_astroids\_faster(af)} zur Verfügung.
 	\end{itemize}
 \end{itemize}
 \textbf{Schritt 2: Kollisionen}\\
-Jetzt sind wieder viele Asteroiden unterwegs, aber ohne Kollisionen ist das ganze langweilig.
+Jetzt sind wieder viele Asteroiden unterwegs, aber ohne Kollisionen ist das Ganze langweilig.
 \begin{itemize}
-	\item Überprüfe mit Hile des Befehles \textit{player\_astroid\_collision\_check(astroid\_inst, astroid\_rect, player\_rect)} ob eine Kollision vorliegt
+	\item Überprüfe mithilfe des Befehls \texttt{player\_astroid\_collision\_check(astroid, astroid\_rect, player\_rect)} ob eine Kollision vorliegt.
 	\item Ist das der Fall unterscheide 2 Fälle:
 	\begin{itemize}
 		\item Hat der Spieler noch Leben, dann verringere die Lebensanzahl
-		\item Ansonsten beende das Spiel, in dem du die Variable \textit{done} auf \textbf{True} setzt
+		\item Ansonsten beende das Spiel, in dem du die Funktion \texttt{state.set\_done()} aufrufst.
 	\end{itemize}
 \end{itemize}
 \textbf{Schritt 3: Asteroiden treffen}\\
-Nun kommen Asteroiden auf dich zu, aber die Zielsysteme funktionieren scheinbar nicht. keiner der Schüsse scheint zu treffen.
+Nun kommen Asteroiden auf dich zu, aber die Zielsysteme funktionieren scheinbar nicht. Keiner der Schüsse scheint zu treffen.
 \begin{itemize}
-	\item Für jeden Schuss in der Liste \textit{shoots} muss geguckt werden ob der aktuelle Asteroid getroffen wurde.
+	\item Für jeden Schuss in der Liste \texttt{state.shots} muss geguckt werden ob der aktuelle Asteroid getroffen wurde.
 	\begin{itemize}
-		\item Speichere die Ausmaße des aktuellen Asteroiden in der Variablen \textit{bullet\_rect} ab. Die Ausmaße bekommst du durch den Befehl \textit{get\_rect\_bullet(bullet)}
-		\item Überprüfe mit dem Befehl \textit{check\_bullet\_astroid\_hit(bullet, bullet\_rect, astroid\_rect)} ob der Asteroid getroffen wurde
+		\item Speichere die Ausmaße des aktuellen Asteroiden in der Variablen \texttt{bullet\_rect} ab. Die Ausmaße bekommst du durch den Befehl \texttt{bullet.get\_rect\_bullet()}
+		\item Überprüfe mit dem Befehl \texttt{check\_bullet\_astroid\_hit(bullet, bullet\_rect, astroid\_rect)} ob der Asteroid getroffen wurde.
 		\begin{itemize}
-			\item Wurde der Asteroid getroffen, dann erhöhe den Wert von \textit{acc[0]} um 1
-			\item Überprüfe, ob der Wert an der letzten Stelle von \textit{astroid\_inst} gleich 1 ist (Tipp: liste[-1] gibt das letzte Element der Liste)
+			\item Wurde der Asteroid getroffen, dann erhöhe den Wert von Zähler für die Treffer um 1 (\texttt{state.increment\_num\_hits()})
+			\item Überprüfe, ob der Wert \texttt{astroid.hit\_count} gleich 1 ist.
 			\begin{itemize}
-				\item Gilt dies, dann entferne den Asteroiden mit \textit{astroids.remove(astroid\_inst)}
-				\item ansonsten erhöhe den Wert an der letzten Stelle von \textit{android\_inst} um 1
+				\item Gilt dies, dann entferne den Asteroiden mit \texttt{state.remove\_astroid(astroid)}.
+				\item Ansonsten erhöhe den Zähler für die Treffer mit \texttt{astroid.increment\_hit\_count()}.
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
@@ -45,17 +46,18 @@ Nun kommen Asteroiden auf dich zu, aber die Zielsysteme funktionieren scheinbar 
 \textbf{Schritt 4: Bewegen}\\
 Nun bewegen wir uns wieder durch das Weltall, aber wie sollen wir zu unserem Ziel kommen, wenn wir nicht ausweichen können?
 \begin{itemize}
-	\item Überlege dir Tasten mit denen du das Raumschiff steuern willst
+	\item Überlege dir Tasten mit denen du das Raumschiff steuern willst.
 	\item Finde heraus welche Taste gedrückt wurde
 	\begin{itemize}
-		\item pressed = pygame.key.get\_pressed()
-		\item if pressed[pygame.K\_DOWN] (Pfeiltaste nach unten)
+		\item \texttt{pressed = pygame.key.get\_pressed()}
+		\item \texttt{if pressed[pygame.K\_DOWN]} (Pfeiltaste nach unten)
 	\end{itemize}
-	\item Schreibe eine If-Bedingung für jede Bewegungstaste
-	\item Verändere die Variablen \textit{x} und \textit{y}
+	\item Schreibe eine if-Bedingung für jede Bewegungstaste
+	\item Bewege den Spieler mit player.move(x, y)
 	\begin{itemize}
-		\item \textit{x} ist verantwortlich für einen Flug nach links oder rechts
-		\item \textit{y} ist verantwortlich für einen Flug nach oben oder unten
-		\item Verändere den Wert um den Wert der Variablen \textit{player\_speed}
+		\item \texttt{x} ist verantwortlich für einen Flug nach links oder rechts
+		\item \texttt{y} ist verantwortlich für einen Flug nach oben oder unten
+		\item Verändere den Wert um den Wert der Variablen \texttt{player\_speed}
+		\item Soll nur einer der beiden Werte verändert werden, setze den anderen Wert auf 0.
 	\end{itemize}	 
 \end{itemize}
