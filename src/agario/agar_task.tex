@@ -1,0 +1,58 @@
+\textbf{\large agar.io :}\\
+Werde die größte Zelle im Universum!!! Doch iergendwer hat dir Code geklaut. Bevor du spielen kannst, musst du erst mal ein paar Schritte machen.\\\\
+\textbf{Schritt 1: Kollisionen}\\
+Damit du die anderen Zellen aufessen kannst, musst du überprüfen ob du mit jemanden zusammen gestoßen bist.
+\begin{itemize}
+	\item Hole dir nacheinander jede Zelle aus der Liste \textit{cell\_list}
+	\item Überprüfe mit der Funktion \textit{check\_bigger(cell.x, cell.y)} ob du größer bist als die andere Zelle.
+	\item Ist das der Fall, dann:
+	\begin{itemize}
+		\item Erhöhe deine Masse \textit{self.mass} um 0.5
+		\item Entferne die Zelle \textit{cell} aus der Liste \textit{cell\_list} mit dem Befehl \textit{cell\_list.remove(cell)}
+	\end{itemize}
+	\end{itemize}
+\textbf{Schritt 2: Neue Zellen erzeugen}\\
+Damit du immer weiter wachsen kannst, müssen immer neue Zellen erzeugt werden. Dann kannst du immer weiter essen und weiter wachsen.
+\begin{itemize}
+	\item Lege eine Variable \textit{i} mit dem Wert \textbf{0} an
+	\item Programmiere eine Schleife die erst dann abbricht, wenn die Variable \textit{i} den Wert \textbf{numOfCells} erreicht hat
+	\item Erzeuge eine neue Zelle mit dem Befehl \textit{cell = Cell(surface)}
+	\item Füge die Zelle zu der Liste \textit{cell\_list}, durch den Befehl \textit{cell\_list.append}, hinzu
+	\item Nicht vergessen \textit{i} zu erhöhen ;)
+\end{itemize}
+\textbf{Schritt 3: Der Welt beitreten}\\
+Damit du in die Welt rein kommst und nicht alleine bist, müssen diese drei Sachen gemacht werden.
+\begin{itemize}
+	\item Als erstes brauchst du die Kamera, die deine Zelle verfolgt. Benutze dazu den Befehl \textit{camera = Camera()}
+	\item Erzeuge nun einen \textit{Player}. Benutze dazu diesen Befehl \textit{blob = Player(surface, "Name")}. ersetzt \textbf{Name} durch deinen Namen.
+	\item Erzeuge jetzt beliebig viele andere Zellen. Fang erst mal mit \textbf{2000} an. Benutze dafür den Befehl \textit{spawn\_cells(2000)}
+\end{itemize}
+\textbf{Schritt 4: Teilen}\\
+Nun muss die Zelle noch teilbar sein, damit schnellere Gegner eingefangen werden können.
+\begin{itemize}
+	\item Schreibe eine While-Schleife, die nicht endet
+	\item In diese muss der Befehl \textit{clock.tick(70)} damit sich das Spiel verändert
+	\item Außerdem muss dort eine For-Schleife rein, die jedes Event \textit{e} der Liste, die von \textit{pygame.event.get()} geholt werden kann, folgendes tut:
+	\begin{itemize}
+		\item Du brauchst eine If-Bedingung, die prüft ob \textbf{e.type = = pygame.KEYDOWN} stimmt
+		\begin{itemize}
+			\item In der If-Bedingung brauchst du drei weitere If-Bedingungen
+			\item[1.] Prüfe ob \textbf{e.key = = pygame.K\_ESCAPE} gilt:
+			\begin{itemize}
+				\item Beende das Spiel mit folgenden beiden Befehlen: \textit{pygmae.quit()} und \textit{quit()}			
+			\end{itemize}	
+			\item[2.] Prüfe ob \textbf{e.key = = pygame.K\_SPACE} gilt:
+			\begin{itemize}
+				\item Teile deine Blase mit dem Befehl \textit{blob.split()}
+			\end{itemize}					 
+			\item[3.] Prüfe ob \textbf{e.key = = pygame.K\_w} gilt:
+			\begin{itemize}
+				\item Füttere einen anderen Spieler, indem du die Funktion \textit{blob.feed()} benutzt
+			\end{itemize}
+		\end{itemize}
+		\item Du brauchst in der For-Schleife eine weitere If-Bedingung, die \textbf{e.type = = pygame.QUIT} prüft:
+		\begin{itemize}
+			\item Beende darin das Spiel mit folgenden Befehlen: \textit{pygame.quit()} und \textit{quit()}
+		\end{itemize}
+	\end{itemize}	 
+\end{itemize}

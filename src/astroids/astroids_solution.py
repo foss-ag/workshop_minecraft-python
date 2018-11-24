@@ -85,7 +85,7 @@ def player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
 
 def check_bullet_astroid_hit(bullet, bullet_rect, astroid_rect):
     # checks if the astroid was hit by the bullet
-    check = astroid_rect.colliderect(bullet_rect)
+	check = astroid_rect.colliderect(bullet_rect)
 	if check:
 		shoots.remove(bullet)
 	return check
