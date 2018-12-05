@@ -77,8 +77,6 @@ class Astroid:
         self.__astroid_rect.left = self.__x
         return self.__astroid_rect
 
-
-
     def increment_hit_count(self):
         """
         Increment astroid hit count by 1.

@@ -72,8 +72,8 @@ while not state.done:
 
     # shooting
     for bullet in state.shots:
-        velx = math.cos(bullet.something) * 10
-        vely = math.sin(bullet.something) * 10
+        velx = math.cos(bullet.orientation) * 10
+        vely = math.sin(bullet.orientation) * 10
         bullet.move(velx, vely)
         if bullet.x < -64 or bullet.y > size[0] + 40 or bullet.y < -64 or bullet.y > size[1] + 80:
             state.remove_shot(bullet)
@@ -82,7 +82,7 @@ while not state.done:
             projectile.image.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)
             projectile.image.fill(projectile.color, None, pygame.BLEND_RGB_ADD)
             # rotate image
-            shoot1 = pygame.transform.rotate(projectile.image, 270 - projectile.something * 180 / math.pi)
+            shoot1 = pygame.transform.rotate(projectile.image, 270 - projectile.orientation * 180 / math.pi)
             screen.blit(shoot1, (projectile.x, projectile.y))
 
     # schreibe die Spielzeit und die Anzahl der Leben

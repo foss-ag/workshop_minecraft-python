@@ -3,7 +3,7 @@ import pygame
 
 class Bullet:
 
-    def __init__(self, something, x, y, color):
+    def __init__(self, orientation, x, y, color):
         """
         :param something:
             # TODO
@@ -17,7 +17,7 @@ class Bullet:
         """
         # TODO what is this?
         # bullet position
-        self.__something = something
+        self.__orientation = orientation
         self.__x = x
         self.__y = y
         # bullet color
@@ -30,8 +30,8 @@ class Bullet:
         return self.__color
 
     @property
-    def something(self):
-        return self.__something
+    def orientation(self):
+        return self.__orientation
 
     @property
     def image(self):
