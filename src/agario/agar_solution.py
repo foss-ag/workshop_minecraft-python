@@ -70,7 +70,7 @@ class Player:
         ##### Schritt 1
         ############# Deinen Code hier einfuegen ###########
         for cell in cell_list:
-            if check_bigger(cell.x, cell.y:
+            if self.check_bigger(cell.x, cell.y):
                 self.mass+=0.5
                 cell_list.remove(cell)
         ####################################
