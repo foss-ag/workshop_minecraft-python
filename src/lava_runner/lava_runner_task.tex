@@ -1,22 +1,21 @@
 \large Schreibe ein Python-Script, das einen zufälligen Parcour über das Lavabecken generiert.
 \begin{itemize}
-	\item Um das Lavabecken und den restlichen Rahmen zu generieren, öffne das Initiliasierungsscript und führe es aus.
+	\item Um das Lavabecken und den restlichen Rahmen zu generieren, öffne das Initiliasierungsscript \texttt{lava\_runner\_initialiser.py} und führe es aus.
 	
 	\item Öffne die Datei \texttt{lava\_runner.py} mit dem Editor. Diese Datei enthält bereits Code und muss lediglich im gekennzeichneten Bereich erweitert werden.
 	
-	\item Die Variablen \texttt{x}, \texttt{y}, \texttt{z} beschreiben die Position des zu setzenden Steins, \texttt{x\_boundary} und \texttt{z\_boundary} sind die Grenzen der Arena und markieren das Ende des Pfades.
+	\item Die Funktion \texttt{generate\_parcour} bekommt die Koordinaten (\texttt{x, y, z}) übergeben. Die Koordinaten geben die Position des Blocks an auf dem ihr steht, wenn ihr \texttt{lava\_runner.py} ausführt. Ausgehend von dieser Position soll der zufällige Parcour über das Lavabecken gebaut werden.
 	
-	\item Schreibe eine Schleife, die abbricht, sobald die generierte Position über die Grenze \texttt{x\_boundary} oder \texttt{z\_boundary} tritt.
+	\item Außerhalb von \texttt{generate\_parcour} gibt es zwei Variablen \texttt{x\_boundary} und \texttt{z\_boundary}. Diese geben den Rand der Arena an.
+	
+	\item In \texttt{generate\_parcour}: Schreibe eine Schleife, die solange läuft, wie \texttt{x} und \texttt{z} nicht den Rand der Arena überschreiten.
+	
+	\item  Setze mit \texttt{setBlock(x, y, z, block.ICE)} den nächsten Block des zufälligen Parcours.
+	
+	\item Als nächstes muss die Position für den nächsten Block bestimmt werden. Mit Hilfe der Funktion \texttt{random.randint(unter\_grenze, obere\_grenze)} könnt ihr euch einen zufälligen Wert zwischen den angegeben Grenzen geben lassen. Überlege wie die neuen Werte \texttt{x2, y2} und \texttt{z2} aussehen könnten und wähle die Grenzen \texttt{untere\_grenze, obere\_grenze} demnentsprechend. Achte darauf, dass man den neuen Block mit einem Sprung vom vorherigen Block aus erreichen können muss. Du kannst dafür die Abbildung weiter unten zur Hilfe nehmen.
+	
+	\item Ist die neue Position \texttt{(x2, y2, z2)} vom vorherigen Block aus erreichbar, überschreibe \texttt{(x, y, z)} mit \texttt{(x2, y2, z2)}. Ist die neue Position allerdings nicht erreichbar, dann könnt ihr mit dem Schlüsselwort \texttt{continue} dafür sorgen, dass neue Werte für \texttt{x2, y2} und \texttt{z2} ausgewählt werden.
 
-	\item Setze mit \texttt{setBlock(x\_pos, y\_pos, z\_pos, block)}  einen Eisblock (\texttt{block.ICE}) an die zuletzt generierte Position.
-
-	\item Berechne eine zufällige Position, an der der nächste Block platziert werden soll. Nutze dafür die folgende Funktion:
-		\begin{lstlisting}[language=Python]
-random.randint(lower_bound, upper_bound)
-		\end{lstlisting}
-	Dabei soll die nächste Position in der y-Achse maximal 1 größer sein als die vorherige generierte Position. Für die x- und z-Achse gilt, dass die nächste Position mindestens 1 und maximal 2 größer sein soll als die vorherige.
-		
-	\item Frage mit einer \texttt{if}-Bedingung die generierte Position ab und überprüfe, ob diese von Steve erreichbar ist (siehe Abbildung). Kann die neue Position nicht erreicht werden, breche den aktuellen Schleifendurchlauf mit \texttt{continue} ab, falls doch, ersetze die alte Position durch die gerade generierte Position.
 \end{itemize}
 \begin{figure}
 \centering
