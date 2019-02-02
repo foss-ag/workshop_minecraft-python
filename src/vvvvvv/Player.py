@@ -25,3 +25,14 @@ class Player:
     @property
     def image(self):
         return self.__img
+
+    def move(self, x, y):
+        """
+        Change player position by given offset
+        :param x:
+            x-axis offset
+        :param y:
+            y-axis offset
+        """
+        self.__x += x
+        self.__y += y
