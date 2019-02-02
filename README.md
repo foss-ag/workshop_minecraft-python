@@ -1,6 +1,8 @@
 # Workshop: Minecraft - Python
 This repository contains Python exercises using the Minecraft Pi API
 
+Don't want to build the PDFs yourself? You can download a pre-compiled version
+[here](https://cloud.foss-ag.de/index.php/s/ymgBDj5rZtPNbT8).
 
 ## Sources of pictures
 ### CC BY-SA 3.0
