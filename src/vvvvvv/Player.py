@@ -17,8 +17,6 @@ class Player:
         # player position
         self.__x = x
         self.__y = y
-        # player out-of-bounds x position
-        self.__x2 = x
         # player still alive?
         self.__dead = False
         # movement variables
@@ -49,14 +47,10 @@ class Player:
         return self.__x, self.__y
 
     @property
-    def out_of_bounds_pos(self):
-        return self.__x2, self.__y
-
-    @property
     def image(self):
         return self.__img
 
-    def change_move_up(self):
+    def flip(self):
         """
         Changes move_up to False if True and vice versa.
         """
