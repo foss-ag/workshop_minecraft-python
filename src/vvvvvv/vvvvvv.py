@@ -1,5 +1,7 @@
-import pygame
+from Obstacle import Obstacle
 from Player import Player
+import pygame
+import random
 
 # Initialisierung sowohl verschiedener Variablen und Attribute, als auch pygame
 pygame.init()
@@ -22,6 +24,8 @@ border_width = 1000
 white = (255, 255, 255)
 grey = (150, 150, 150)
 
+obstacles = []
+
 def write_score():
     font = pygame.font.Font(None, 24)
     score_text = font.render(str(score), True, (255, 255, 255))
@@ -30,11 +34,16 @@ def write_score():
     screen.blit(score_text, score_text_rect)
 
 
+def generate_obstacle():
+    p = random.randint(0, 100)
+    if p < 3:
+        obstacles.append(Obstacle())
+
+
 while not player.dead:
     screen.fill((0, 0, 0))
     write_score()
-
-    # draw upper and lower bounds
+    generate_obstacle()
 
     # check collision with bounds
     (_, y) = player.pos
@@ -73,6 +82,14 @@ while not player.dead:
 
     player.move()
     screen.blit(player.image, player.pos)
+
+    for obstacle in obstacles:
+        obstacle.move()
+        if obstacle.out_of_bounds():
+            obstacles.remove(obstacle)
+        else:
+            print(obstacle.pos)
+            screen.blit(obstacle.image, obstacle.pos)
 
     pygame.display.flip()
     clock.tick(60)
