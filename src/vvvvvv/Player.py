@@ -24,7 +24,7 @@ class Player:
         self.__move_right = False
         self.__move_left = False
         # movement speed
-        self.__speed = 5
+        self.__speed = 10
 
     @property
     def dead(self):
@@ -55,6 +55,7 @@ class Player:
         Changes move_up to False if True and vice versa.
         """
         self.__move_up = not self.__move_up
+        self.__img = pygame.transform.rotate(self.__img, 180)
 
     def set_move_left(self, b):
         """
