@@ -17,6 +17,8 @@ class Player:
         # player position
         self.__x = x
         self.__y = y
+        # player out-of-bounds x position
+        self.__x2 = x
         # player still alive?
         self.__dead = False
         # movement variables
@@ -45,6 +47,10 @@ class Player:
     @property
     def pos(self):
         return self.__x, self.__y
+
+    @property
+    def out_of_bounds_pos(self):
+        return self.__x2, self.__y
 
     @property
     def image(self):
@@ -76,8 +82,14 @@ class Player:
         """
         Update player position depending on move variables.
         """
-        self.__y += self.__speed * self.__move_up - self.__speed * (not self.__move_up)
         self.__x += self.__speed * self.__move_right - self.__speed * self.__move_left
+
+        if self.__x < 0 and self.__move_left:
+            self.__x += 1000 - 26
+        if self.__x > 1000 - 26 and self.__move_right:
+            self.__x -= 1000 - 26
+
+        self.__y += self.__speed * self.__move_up - self.__speed * (not self.__move_up)
 
     def kill(self):
         """
