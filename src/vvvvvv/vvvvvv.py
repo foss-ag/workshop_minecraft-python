@@ -13,6 +13,21 @@ player = Player(500, 400)
 while not player.dead:
     screen.fill((0, 0, 0))
 
+    # define border height, width and thickness
+    border_height = border_thickness = 35
+    border_width = 1000
+    # draw upper and lower bounds
+    pygame.draw.rect(screen, (200, 0, 0), (0, 0, border_width, border_height), border_thickness)
+    pygame.draw.rect(screen, (200, 0, 0), (0, size[1] - border_height, border_width, border_height), border_thickness)
+
+    # define tolerance factor for more precise border collision
+    tolerance = 15
+    # check collision with bounds
+    (_, y) = player.pos
+    if y <= 35 + tolerance or y >= 710 - tolerance:
+        player.kill()
+        continue
+
     # check pressed buttons
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -35,7 +50,6 @@ while not player.dead:
                 player.set_move_right(False)
 
     player.move()
-
     screen.blit(player.image, player.pos)
 
     pygame.display.flip()
