@@ -25,6 +25,8 @@ class Player:
         self.__move_left = False
         # movement speed
         self.__speed = 10
+        # extra lifes
+        self.__extra_lifes = 0
 
     @property
     def dead(self):
@@ -49,6 +51,16 @@ class Player:
     @property
     def image(self):
         return self.__img
+
+    @property
+    def extra_lifes(self):
+        return self.__extra_lifes
+
+    def oneup(self):
+        self.__extra_lifes += 1
+
+    def onedown(self):
+        self.__extra_lifes -= 1
 
     def flip(self):
         """
