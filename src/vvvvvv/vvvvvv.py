@@ -36,9 +36,21 @@ def write_score():
 
 def generate_obstacle():
     p = random.randint(0, 100)
-    if p < 3:
+    if p < 1:
         obstacles.append(Obstacle())
 
+def check_collision(obstacle):
+    obstacle_rect = obstacle.image.get_rect()
+    (x, y) = obstacle.pos
+    obstacle_rect.top = y
+    obstacle_rect.left = x
+
+    player_rect = player.image.get_rect()
+    (x, y) = player.pos
+    player_rect.top = y
+    player_rect.left = x
+
+    return obstacle_rect.colliderect(player_rect)
 
 while not player.dead:
     screen.fill((0, 0, 0))
@@ -60,6 +72,12 @@ while not player.dead:
     else:
         pygame.draw.rect(screen, white, (0, border_height, border_width, 3), 3)
         pygame.draw.rect(screen, white, (0, size[1] - border_height, border_width, 3), 3)
+
+    # check collision with obstacles
+    for obstacle in obstacles:
+        if check_collision(obstacle):
+            player.kill()
+            break
 
     # check pressed buttons
     for event in pygame.event.get():
@@ -88,7 +106,6 @@ while not player.dead:
         if obstacle.out_of_bounds():
             obstacles.remove(obstacle)
         else:
-            print(obstacle.pos)
             screen.blit(obstacle.image, obstacle.pos)
 
     pygame.display.flip()
