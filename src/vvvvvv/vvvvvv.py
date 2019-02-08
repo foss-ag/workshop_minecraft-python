@@ -17,6 +17,11 @@ multiplier = 1
 bonus = 20
 score = 0
 
+# extra life symbol
+symbol = pygame.image.load("src/extra_lifes.png")
+symbol_rect = symbol.get_rect()
+symbol_rect.topleft = [980, 10]
+
 # define border height, width and thickness
 border_height = 35
 border_width = 1000
@@ -28,12 +33,22 @@ grey = (150, 150, 150)
 obstacles = []
 powerups = []
 
+
 def write_score():
     font = pygame.font.Font(None, 24)
     score_text = font.render(str(score), True, (255, 255, 255))
     score_text_rect = score_text.get_rect()
     score_text_rect.topleft = [10, 10]
     screen.blit(score_text, score_text_rect)
+    screen.blit(symbol, symbol_rect)
+
+
+def write_extra_lifes():
+    font = pygame.font.Font(None, 24)
+    text = font.render(str(player.extra_lifes) + 'x ', True, (255, 255, 255))
+    text_rect = text.get_rect()
+    text_rect.topright = [980, 10]
+    screen.blit(text, text_rect)
 
 
 def generate_obstacle():
@@ -41,10 +56,12 @@ def generate_obstacle():
     if p < 1:
         obstacles.append(Obstacle())
 
+
 def generate_oneup():
-    p = random.randint(0, 1000)
+    p = random.randint(0, 5000)
     if p < 1:
         powerups.append(OneUP())
+
 
 def check_collision(other):
     other_rect = other.image.get_rect()
@@ -59,9 +76,11 @@ def check_collision(other):
 
     return other_rect.colliderect(player_rect)
 
+
 while not player.dead:
     screen.fill((0, 0, 0))
     write_score()
+    write_extra_lifes()
     generate_obstacle()
     generate_oneup()
 
