@@ -4,7 +4,7 @@ import pygame
 
 class Obstacle:
 
-    def __init__(self):
+    def __init__(self, speed):
         # load player image
         self.__img = pygame.image.load('src/obstacle.png')
         # obstacle position
@@ -13,7 +13,7 @@ class Obstacle:
         # movement direction, moves right if obstacles starts at x=0 otherwise it moves left
         self.__move_left = self.__x != 0
         # movement speed
-        self.__speed = 5
+        self.__speed = speed
 
     @property
     def image(self):

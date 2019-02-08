@@ -31,13 +31,18 @@ border_width = 1000
 white = (255, 255, 255)
 grey = (150, 150, 150)
 
+# obstacle parameters
+obstacle_speed = 5
+obstacle_p = 1
+power_up_obstacles = 0
+
 obstacles = []
 powerups = []
 
 
 def write_score_and_multiplier():
     font = pygame.font.Font(None, 24)
-    text = font.render('x' + str(multiplier) +' | ' + str(score), True, (255, 255, 255))
+    text = font.render('x' + str(multiplier) + ' | ' + str(score), True, (255, 255, 255))
     text_rect = text.get_rect()
     text_rect.topleft = [10, 10]
     screen.blit(text, text_rect)
@@ -54,8 +59,8 @@ def write_extra_lifes():
 
 def generate_obstacle():
     p = random.randint(0, 100)
-    if p < 1:
-        obstacles.append(Obstacle())
+    if p < obstacle_p:
+        obstacles.append(Obstacle(obstacle_speed))
 
 
 def generate_oneup():
@@ -101,14 +106,25 @@ while not player.dead:
         pygame.draw.rect(screen, white, (0, size[1] - border_height, border_width, 3), 3)
         player.flip()
         score += bonus * multiplier
+        power_up_obstacles += bonus * multiplier
     elif y >= 710:
         pygame.draw.rect(screen, white, (0, border_height, border_width, 3), 3)
         pygame.draw.rect(screen, grey, (0, size[1] - border_height, border_width, 3), 3)
         player.flip()
         score += bonus * multiplier
+        power_up_obstacles += bonus * multiplier
     else:
         pygame.draw.rect(screen, white, (0, border_height, border_width, 3), 3)
         pygame.draw.rect(screen, white, (0, size[1] - border_height, border_width, 3), 3)
+
+    # check if obstacles should be made faster or spawn more likely
+    if power_up_obstacles >= 10000:
+        power_up_obstacles = 0
+        p = random.randint(0, 100)
+        if p <= 33:
+            obstacle_speed += 1
+        else:
+            obstacle_p += 1
 
     # check collision with obstacles
     for obstacle in obstacles:
