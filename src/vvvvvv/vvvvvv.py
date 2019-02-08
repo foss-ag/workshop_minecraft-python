@@ -12,6 +12,7 @@ screen = pygame.display.set_mode(size)
 
 clock = pygame.time.Clock()
 player = Player(500, 400)
+end_game = False
 
 # number of ticks a message will be shown (250)
 message_ticks = 0
@@ -42,6 +43,26 @@ power_up_obstacles = 0
 
 obstacles = []
 powerups = []
+
+
+def reset_variables():
+    global message_ticks
+    global multiplier
+    global score
+    global obstacle_p
+    global obstacle_speed
+    global power_up_obstacles
+    global obstacles
+    global powerups
+
+    message_ticks = 0
+    multiplier = 1
+    score = 0
+    obstacle_speed = 5
+    obstacle_p = 1
+    power_up_obstacles = 0
+    obstacles = []
+    powerups = []
 
 
 def set_message(msg):
@@ -109,8 +130,32 @@ def check_collision(other):
     return other_rect.colliderect(player_rect)
 
 
-while not player.dead:
+while not end_game:
     screen.fill((0, 0, 0))
+
+    # if player is dead press enter to restart or escape to end the game
+    if player.dead:
+        pygame.draw.rect(screen, white, (0, border_height, border_width, 3), 3)
+        pygame.draw.rect(screen, white, (0, size[1] - border_height, border_width, 3), 3)
+        font = pygame.font.Font(None, 24)
+        text = font.render('TRY AGAIN? (ENTER) / QUIT (ESC)', True, (255, 255, 255))
+        text_rect = text.get_rect()
+        text_rect.center = [500, 400]
+        screen.blit(text, text_rect)
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    end_game = True
+                if event.key == pygame.K_RETURN:
+                    player = Player(500, 400)
+                    reset_variables()
+
+        pygame.display.flip()
+        clock.tick(60)
+        continue
+
+
     write_score_and_multiplier()
     write_extra_lifes()
     generate_obstacle()
@@ -185,6 +230,7 @@ while not player.dead:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 player.kill()
+                end_game = True
                 continue
             if event.key == pygame.K_LEFT:
                 player.set_move_left(True)
