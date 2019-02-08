@@ -6,7 +6,7 @@ class OneUP:
 
     def __init__(self):
         # load player image
-        self.__img = pygame.image.load('src/powerup.png')
+        self.__img = pygame.image.load('src/powerup2.png')
         self.__color = (10, 255, 50, 255)
         self.__img.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)
         self.__img.fill(self.__color, None, pygame.BLEND_RGB_ADD)
