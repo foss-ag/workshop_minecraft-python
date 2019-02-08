@@ -1,6 +1,7 @@
 from Obstacle import Obstacle
 from Player import Player
 from OneUP import OneUP
+from Multiplier import Multiplier
 import pygame
 import random
 
@@ -63,6 +64,14 @@ def generate_oneup():
         powerups.append(OneUP())
 
 
+def generate_multiplier():
+    p = random.randint(0, 1000)
+    if p < 1:
+        powerups.append(Multiplier(3))
+    elif p < 3:
+        powerups.append(Multiplier(2))
+
+
 def check_collision(other):
     other_rect = other.image.get_rect()
     (x, y) = other.pos
@@ -83,6 +92,7 @@ while not player.dead:
     write_extra_lifes()
     generate_obstacle()
     generate_oneup()
+    generate_multiplier()
 
     # check collision with bounds
     (_, y) = player.pos
@@ -105,6 +115,7 @@ while not player.dead:
         if check_collision(obstacle):
             obstacles.remove(obstacle)
             player.onedown()
+            multiplier = 1
             if player.extra_lifes < 0:
                 player.kill()
                 break
@@ -112,7 +123,13 @@ while not player.dead:
     # check collision with powerups
     for powerup in powerups:
         if check_collision(powerup):
-            player.oneup()
+            if isinstance(powerup, OneUP):
+                player.oneup()
+            else:
+                if multiplier == 1:
+                    multiplier = powerup.multiplier
+                else:
+                    multiplier += powerup.multiplier
             powerups.remove(powerup)
 
     # check if any powerups must be removed
