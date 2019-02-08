@@ -68,7 +68,7 @@ def generate_multiplier():
     p = random.randint(0, 1000)
     if p < 1:
         powerups.append(Multiplier(3))
-    elif p < 3:
+    elif p < 2:
         powerups.append(Multiplier(2))
 
 

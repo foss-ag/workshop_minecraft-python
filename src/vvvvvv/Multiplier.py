@@ -6,10 +6,10 @@ class Multiplier:
 
     def __init__(self, mul):
         # load player image
-        self.__img = pygame.image.load('src/powerup3.png')
+        self.__img = pygame.image.load('src/obstacle.png')
         self.__mul = mul
         if mul == 2:
-            self.__color = (10, 50, 255, 255)
+            self.__color = (30, 70, 255, 255)
         else:
             self.__color = (255, 10, 255, 255)
         self.__img.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)
