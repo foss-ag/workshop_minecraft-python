@@ -34,13 +34,12 @@ obstacles = []
 powerups = []
 
 
-def write_score():
+def write_score_and_multiplier():
     font = pygame.font.Font(None, 24)
-    score_text = font.render(str(score), True, (255, 255, 255))
-    score_text_rect = score_text.get_rect()
-    score_text_rect.topleft = [10, 10]
-    screen.blit(score_text, score_text_rect)
-    screen.blit(symbol, symbol_rect)
+    text = font.render('x' + str(multiplier) +' | ' + str(score), True, (255, 255, 255))
+    text_rect = text.get_rect()
+    text_rect.topleft = [10, 10]
+    screen.blit(text, text_rect)
 
 
 def write_extra_lifes():
@@ -49,6 +48,7 @@ def write_extra_lifes():
     text_rect = text.get_rect()
     text_rect.topright = [980, 10]
     screen.blit(text, text_rect)
+    screen.blit(symbol, symbol_rect)
 
 
 def generate_obstacle():
@@ -79,7 +79,7 @@ def check_collision(other):
 
 while not player.dead:
     screen.fill((0, 0, 0))
-    write_score()
+    write_score_and_multiplier()
     write_extra_lifes()
     generate_obstacle()
     generate_oneup()
