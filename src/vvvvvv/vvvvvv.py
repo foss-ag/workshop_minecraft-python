@@ -13,6 +13,10 @@ screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 player = Player(500, 400)
 
+# number of ticks a message will be shown (250)
+message_ticks = 0
+message = ''
+
 # score variables
 multiplier = 1
 bonus = 20
@@ -38,6 +42,20 @@ power_up_obstacles = 0
 
 obstacles = []
 powerups = []
+
+
+def set_message(msg):
+    global message, message_ticks
+    message = msg
+    message_ticks = 250
+
+
+def show_info():
+    font = pygame.font.Font(None, 24)
+    text = font.render(message, True, (255, 255, 255))
+    text_rect = text.get_rect()
+    text_rect.center = [500, 17]
+    screen.blit(text, text_rect)
 
 
 def write_score_and_multiplier():
@@ -98,6 +116,9 @@ while not player.dead:
     generate_obstacle()
     generate_oneup()
     generate_multiplier()
+    if message_ticks > 0:
+        message_ticks -= 1
+        show_info()
 
     # check collision with bounds
     (_, y) = player.pos
@@ -122,8 +143,10 @@ while not player.dead:
         power_up_obstacles = 0
         p = random.randint(0, 100)
         if p <= 33:
+            set_message('GEOMETRY SPEED UP!')
             obstacle_speed += 1
         else:
+            set_message('GEOMETRY INTENSIFIES!')
             obstacle_p += 1
 
     # check collision with obstacles
@@ -132,6 +155,7 @@ while not player.dead:
             obstacles.remove(obstacle)
             player.onedown()
             multiplier = 1
+            set_message("OUCH!")
             if player.extra_lifes < 0:
                 player.kill()
                 break
@@ -140,12 +164,14 @@ while not player.dead:
     for powerup in powerups:
         if check_collision(powerup):
             if isinstance(powerup, OneUP):
+                set_message("1-UP!")
                 player.oneup()
             else:
                 if multiplier == 1:
                     multiplier = powerup.multiplier
                 else:
                     multiplier += powerup.multiplier
+                set_message("MULTIPLIER INCREASED!")
             powerups.remove(powerup)
 
     # check if any powerups must be removed
