@@ -4,7 +4,7 @@
 	
 	\item Öffne die Datei \texttt{lava\_runner.py} mit dem Editor. Diese Datei enthält bereits Code und muss lediglich im gekennzeichneten Bereich erweitert werden.
 	
-	\item Die Funktion \texttt{generate\_parcour} bekommt die Koordinaten (\texttt{x, y, z}) übergeben. Die Koordinaten geben die Position des Blocks an auf dem ihr steht, wenn ihr \texttt{lava\_runner.py} ausführt. Ausgehend von dieser Position soll der zufällige Parcour über das Lavabecken gebaut werden.
+	\item Die Funktion \texttt{generate\_parcour} bekommt die Koordinaten (\texttt{x, y, z}) übergeben. Die Koordinaten geben die Position des Blocks an auf dem ihr steht, wenn du \texttt{lava\_runner.py} ausführst. Ausgehend von dieser Position soll der zufällige Parcour über das Lavabecken gebaut werden.
 	
 	\item Außerhalb von \texttt{generate\_parcour} gibt es zwei Variablen \texttt{x\_boundary} und \texttt{z\_boundary}. Diese geben den Rand der Arena an.
 	
@@ -12,9 +12,9 @@
 	
 	\item  Setze mit \texttt{setBlock(x, y, z, block.ICE)} den nächsten Block des zufälligen Parcours.
 	
-	\item Als nächstes muss die Position für den nächsten Block bestimmt werden. Mit Hilfe der Funktion \texttt{random.randint(unter\_grenze, obere\_grenze)} könnt ihr euch einen zufälligen Wert zwischen den angegeben Grenzen geben lassen. Überlege wie die neuen Werte \texttt{x2, y2} und \texttt{z2} aussehen könnten und wähle die Grenzen \texttt{untere\_grenze, obere\_grenze} demnentsprechend. Achte darauf, dass man den neuen Block mit einem Sprung vom vorherigen Block aus erreichen können muss. Du kannst dafür die Abbildung weiter unten zur Hilfe nehmen.
+	\item Als nächstes muss die Position für den nächsten Block bestimmt werden. Mit Hilfe der Funktion \texttt{random.randint(unter\_grenze, obere\_grenze)} kannst du dir einen zufälligen Wert zwischen den angegeben Grenzen geben lassen. Überlege wie die neuen Werte \texttt{x2, y2} und \texttt{z2} aussehen könnten und wähle die Grenzen \texttt{untere\_grenze, obere\_grenze} demnentsprechend. Achte darauf, dass man den neuen Block mit einem Sprung vom vorherigen Block aus erreichen können muss. Du kannst dafür die Abbildung weiter unten zur Hilfe nehmen.
 	
-	\item Ist die neue Position \texttt{(x2, y2, z2)} vom vorherigen Block aus erreichbar, überschreibe \texttt{(x, y, z)} mit \texttt{(x2, y2, z2)}. Ist die neue Position allerdings nicht erreichbar, dann könnt ihr mit dem Schlüsselwort \texttt{continue} dafür sorgen, dass neue Werte für \texttt{x2, y2} und \texttt{z2} ausgewählt werden.
+	\item Ist die neue Position \texttt{(x2, y2, z2)} vom vorherigen Block aus erreichbar, überschreibe \texttt{(x, y, z)} mit \texttt{(x2, y2, z2)}. Ist die neue Position allerdings nicht erreichbar, dann kannst du mit dem Schlüsselwort \texttt{continue} dafür sorgen, dass neue Werte für \texttt{x2, y2} und \texttt{z2} ausgewählt werden.
 
 \end{itemize}
 \begin{figure}
