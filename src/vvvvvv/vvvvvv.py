@@ -111,7 +111,7 @@ def write_extra_lives():
     Show extra lives in info bar.
     """
     font = pygame.font.Font(None, 24)
-    text = font.render(str(player.extra_lifes) + 'x ', True, (255, 255, 255))
+    text = font.render(str(player.extra_lives) + 'x ', True, (255, 255, 255))
     text_rect = text.get_rect()
     text_rect.topright = [980, 10]
     screen.blit(text, text_rect)
@@ -257,7 +257,7 @@ while not quit_game:
             multiplier = 1
             set_message("OUCH!")
             # kill player if no extra lives were left
-            if player.extra_lifes < 0:
+            if player.extra_lives < 0:
                 player.kill()
                 break
 
