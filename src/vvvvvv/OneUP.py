@@ -36,7 +36,4 @@ class OneUP:
             If remaining ticks are 0 return True else return False
         """
         self.__ticks -= 1
-        if self.__ticks == 0:
-            return True
-        else:
-            return False
+        return self.__ticks == 0
