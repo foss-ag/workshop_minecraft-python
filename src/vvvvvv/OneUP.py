@@ -5,7 +5,7 @@ import pygame
 class OneUP:
 
     def __init__(self):
-        # load player image
+        # load obstacle image
         self.__img = pygame.image.load('src/obstacle.png')
         self.__color = (10, 255, 50, 255)
         self.__img.fill((0, 0, 0, 255), None, pygame.BLEND_RGB_MULT)

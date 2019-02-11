@@ -5,9 +5,10 @@ import pygame
 class Multiplier:
 
     def __init__(self, mul):
-        # load player image
+        # load obstacle image
         self.__img = pygame.image.load('src/obstacle.png')
         self.__mul = mul
+        # set color to blue for x2 multiplier and to purple for x3 multiplier
         if mul == 2:
             self.__color = (30, 70, 255, 255)
         else:
