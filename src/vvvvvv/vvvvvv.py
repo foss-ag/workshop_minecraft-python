@@ -1,3 +1,4 @@
+from GameState import GameState
 from Obstacle import Obstacle
 from Player import Player
 from OneUP import OneUP
@@ -5,12 +6,12 @@ from Multiplier import Multiplier
 import pygame
 import random
 
-# initialize pygame and global variables
+# initialize pygame and game state
 pygame.init()
 size = (1000, 800)
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
-quit_game = False
+state = GameState()
 
 # create player and set position
 player = Player(500, 400)
@@ -18,11 +19,6 @@ player = Player(500, 400)
 # number of ticks the message will be shown
 message_ticks = 0
 message = ''
-
-# score variables
-multiplier = 1
-bonus = 20
-score = 0
 
 # extra life symbol
 symbol = pygame.image.load("src/extra_lives.png")
@@ -36,39 +32,6 @@ border_width = 1000
 # used colors
 white = (255, 255, 255)
 grey = (150, 150, 150)
-
-# obstacle parameters
-obstacle_speed = 5
-obstacle_prob = 1
-# if power_up_obstacles exceeds 10000 reset and power up obstacle parameters
-power_up_obstacles = 0
-
-# list of current obstacles and powerups in the game
-obstacles = []
-powerups = []
-
-
-def reset_variables():
-    """
-    Reset global variables for every new try.
-    """
-    global message_ticks
-    global multiplier
-    global score
-    global obstacle_prob
-    global obstacle_speed
-    global power_up_obstacles
-    global obstacles
-    global powerups
-
-    message_ticks = 0
-    multiplier = 1
-    score = 0
-    obstacle_speed = 5
-    obstacle_prob = 1
-    power_up_obstacles = 0
-    obstacles = []
-    powerups = []
 
 
 def set_message(msg):
@@ -100,7 +63,7 @@ def write_score_and_multiplier():
     Show player score and score multiplier in info bar.
     """
     font = pygame.font.Font(None, 24)
-    text = font.render('x' + str(multiplier) + ' | ' + str(score), True, (255, 255, 255))
+    text = font.render('x' + str(state.multiplier) + ' | ' + str(state.score), True, (255, 255, 255))
     text_rect = text.get_rect()
     text_rect.topleft = [10, 10]
     screen.blit(text, text_rect)
@@ -123,8 +86,8 @@ def generate_obstacle():
     Generate a new obstacle with a probability of obstacle_prob percent.
     """
     p = random.randint(0, 100)
-    if p < obstacle_prob:
-        obstacles.append(Obstacle(obstacle_speed))
+    if p < state.obstacle_prob:
+        state.add_obstacle(Obstacle(state.obstacle_speed))
 
 
 def generate_oneup():
@@ -133,7 +96,7 @@ def generate_oneup():
     """
     p = random.randint(0, 5000)
     if p < 1:
-        powerups.append(OneUP())
+        state.add_powerups(OneUP())
 
 
 def generate_multiplier():
@@ -143,9 +106,9 @@ def generate_multiplier():
     """
     p = random.randint(0, 1000)
     if p < 1:
-        powerups.append(Multiplier(3))
+        state.add_powerup(Multiplier(3))
     elif p < 2:
-        powerups.append(Multiplier(2))
+        state.add_powerup(Multiplier(2))
 
 
 def check_collision(other):
@@ -170,7 +133,7 @@ def check_collision(other):
     return other_rect.colliderect(player_rect)
 
 
-while not quit_game:
+while not state.quit:
     screen.fill((0, 0, 0))
 
     # if player is dead press enter to restart or escape to end the game
@@ -189,11 +152,12 @@ while not quit_game:
             if event.type == pygame.KEYDOWN:
                 # ESC -> quit game
                 if event.key == pygame.K_ESCAPE:
-                    quit_game = True
+                    state.quit_game()
                 # RETURN -> restart game
                 if event.key == pygame.K_RETURN:
                     player = Player(500, 400)
-                    reset_variables()
+                    message_ticks = 0
+                    state = GameState()
 
         pygame.display.flip()
         clock.tick(60)
@@ -219,8 +183,7 @@ while not quit_game:
         pygame.draw.rect(screen, white, (0, size[1] - border_height, border_width, 3), 3)
         player.flip()
         # increase score when colliding with bounds
-        score += bonus * multiplier
-        power_up_obstacles += bonus * multiplier
+        state.increase_score()
     # check collision with lower bound
     elif y >= 710:
         # collision animation
@@ -228,33 +191,32 @@ while not quit_game:
         pygame.draw.rect(screen, grey, (0, size[1] - border_height, border_width, 3), 3)
         player.flip()
         # increase score when colliding with bounds
-        score += bonus * multiplier
-        power_up_obstacles += bonus * multiplier
+        state.increase_score()
     else:
         # draw bounds
         pygame.draw.rect(screen, white, (0, border_height, border_width, 3), 3)
         pygame.draw.rect(screen, white, (0, size[1] - border_height, border_width, 3), 3)
 
     # powerup obstacles if player reaches another 10000 points
-    if power_up_obstacles >= 10000:
+    if state.power_up_obstacles >= 10000:
         # reset counter
-        power_up_obstacles -= 10000
+        state.reset_power_up_obstacles()
         p = random.randint(0, 100)
         # with probability of 1/3 increase obstacle speed by 1
         if p <= 33:
             set_message('GEOMETRY SPEED UP!')
-            obstacle_speed += 1
+            state.increase_obstacle_speed()
         # with probability of 2/3 increase obstacle spawn probability by 1 percent
         else:
             set_message('GEOMETRY INTENSIFIES!')
-            obstacle_prob += 1
+            state.increase_obstacle_prob()
 
     # check collision with obstacles, reset multiplier, decrease extra lives
-    for obstacle in obstacles:
+    for obstacle in state.obstacles:
         if check_collision(obstacle):
-            obstacles.remove(obstacle)
+            state.remove_obstacle(obstacle)
             player.onedown()
-            multiplier = 1
+            state.reset_multiplier()
             set_message("OUCH!")
             # kill player if no extra lives were left
             if player.extra_lives < 0:
@@ -262,31 +224,31 @@ while not quit_game:
                 break
 
     # check collision with powerups and increase extra lives or multiplier respectively
-    for powerup in powerups:
+    for powerup in state.powerups:
         if check_collision(powerup):
             if isinstance(powerup, OneUP):
                 set_message("1-UP!")
                 player.oneup()
             else:
-                if multiplier == 1:
-                    multiplier = powerup.multiplier
+                if state.multiplier == 1:
+                    state.set_multiplier(powerup.multiplier)
                 else:
-                    multiplier += powerup.multiplier
+                    state.increase_multiplier(powerup.multiplier)
                 set_message("MULTIPLIER INCREASED!")
-            powerups.remove(powerup)
+            state.remove_powerup(powerup)
 
     # check if any powerups must be removed
-    for powerup in powerups:
+    for powerup in state.powerups:
         remove = powerup.decrease_ticks()
         if remove:
-            powerups.remove(powerup)
+            state.remove_powerup(powerup)
 
     # check pressed buttons
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 player.kill()
-                quit_game = True
+                state.quit_game()
                 continue
             if event.key == pygame.K_LEFT:
                 player.set_move_left(True)
@@ -306,15 +268,15 @@ while not quit_game:
     screen.blit(player.image, player.pos)
 
     # update obstacle positions
-    for obstacle in obstacles:
+    for obstacle in state.obstacles:
         obstacle.move()
         if obstacle.out_of_bounds():
-            obstacles.remove(obstacle)
+            state.remove_obstacle(obstacle)
         else:
             screen.blit(obstacle.image, obstacle.pos)
 
     # show powerups
-    for powerup in powerups:
+    for powerup in state.powerups:
         screen.blit(powerup.image, powerup.pos)
 
     # render screen
