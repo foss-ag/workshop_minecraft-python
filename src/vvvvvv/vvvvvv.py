@@ -97,7 +97,7 @@ def generate_oneup():
     """
     p = random.randint(0, 5000)
     if p < 1:
-        state.add_powerups(OneUP())
+        state.add_powerup(OneUP())
 
 
 def generate_multiplier():
