@@ -5,6 +5,7 @@ from OneUP import OneUP
 from Multiplier import Multiplier
 import pygame
 import random
+import csv
 
 # initialize pygame and game state
 pygame.init()
@@ -132,6 +133,29 @@ def check_collision(other):
 
     return other_rect.colliderect(player_rect)
 
+
+def load_highscore(file):
+    """
+    Load highscore from csv file,
+
+    :param file:
+        csv file containing nicknames and highscores
+    :return:
+        Loaded highscore.
+    """
+    highscore = []
+    with open(file) as f:
+        top_ten = csv.reader(f)
+        # read first ten entries and ignore the remaining
+        for nick, score in top_ten:
+            highscore.append((nick, int(score)))
+            if len(highscore) == 10:
+                break
+        f.close()
+    return highscore
+
+
+highscore = load_highscore("highscore.csv")
 
 while not state.quit:
     screen.fill((0, 0, 0))
