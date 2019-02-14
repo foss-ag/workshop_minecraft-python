@@ -162,14 +162,34 @@ while not state.quit:
 
     # if player is dead press enter to restart or escape to end the game
     if player.dead:
+        # show top ten
+        for i, entry in enumerate(highscore):
+            font = pygame.font.Font(None, 24)
+            text = font.render('{:5} {:>10}'.format(*entry), True, (255, 255, 255))
+            text_rect = text.get_rect()
+            text_rect.center = [500, 200 + i*30]
+            screen.blit(text, text_rect)
+
         # show try again text
         pygame.draw.rect(screen, white, (0, border_height, border_width, 3), 3)
         pygame.draw.rect(screen, white, (0, size[1] - border_height, border_width, 3), 3)
+
+        font = pygame.font.Font(None, 42)
+        highscore_text = font.render('HIGHSCORE', True, (255, 255, 255))
+        highscore_rect = highscore_text.get_rect()
+        highscore_rect.center = [500, 100]
+        screen.blit(highscore_text, highscore_rect)
+
         font = pygame.font.Font(None, 24)
-        text = font.render('TRY AGAIN? (ENTER) / QUIT (ESC)', True, (255, 255, 255))
-        text_rect = text.get_rect()
-        text_rect.center = [500, 400]
-        screen.blit(text, text_rect)
+        again = font.render('TRY AGAIN? (ENTER)', True, (255, 255, 255))
+        again_rect = again.get_rect()
+        again_rect.center = [500, 700]
+        screen.blit(again, again_rect)
+
+        quit_text = font.render('QUIT (ESC)', True, (255, 255, 255))
+        quit_rect = quit_text.get_rect()
+        quit_rect.center = [500, 720]
+        screen.blit(quit_text, quit_rect)
 
         # check buttons pressed
         for event in pygame.event.get():
