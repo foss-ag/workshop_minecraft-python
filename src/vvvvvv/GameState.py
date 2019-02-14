@@ -96,7 +96,7 @@ class GameState():
         """
         self.__obstacles.append(obstacle)
 
-    def remove_powerups(self, powerup):
+    def remove_powerup(self, powerup):
         """
         Remove powerup from list of current powerups.
         """
