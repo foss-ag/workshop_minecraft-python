@@ -143,31 +143,42 @@ def load_highscore(file):
     :return:
         Loaded highscore.
     """
-    highscore = []
+    nicks = []
+    scores = []
     with open(file) as f:
         top_ten = csv.reader(f)
         # read first ten entries and ignore the remaining
         for nick, score in top_ten:
-            highscore.append((nick, int(score)))
-            if len(highscore) == 10:
+            nicks.append(nick)
+            scores.append(int(score))
+            if len(nicks) == 10:
                 break
         f.close()
-    return highscore
+    return nicks, scores
 
 
-highscore = load_highscore("highscore.csv")
+# load nick names and scores from highscore file
+nicks, scores = load_highscore("highscore.csv")
 
 while not state.quit:
     screen.fill((0, 0, 0))
 
     # if player is dead press enter to restart or escape to end the game
     if player.dead:
-        # show top ten
-        for i, entry in enumerate(highscore):
+        # show highscore nicks
+        for i, nick in enumerate(nicks):
             font = pygame.font.Font(None, 24)
-            text = font.render('{:5} {:>10}'.format(*entry), True, (255, 255, 255))
+            text = font.render('{:15}'.format(nick), True, (255, 255, 255))
             text_rect = text.get_rect()
-            text_rect.center = [500, 200 + i*30]
+            text_rect.topleft = [400, 200 + i*30]
+            screen.blit(text, text_rect)
+
+        # show highscore scores
+        for i, score in enumerate(scores):
+            font = pygame.font.Font(None, 24)
+            text = font.render('{:>10}'.format(score), True, (255, 255, 255))
+            text_rect = text.get_rect()
+            text_rect.topright = [600, 200 + i*30]
             screen.blit(text, text_rect)
 
         # show try again text
