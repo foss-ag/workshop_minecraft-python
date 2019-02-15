@@ -266,10 +266,13 @@ class GameState():
         """
         if self.__highscore_pos is None:
             self.__highscore_pos = [self.__score > s for s in self.__scores].index(True)
-        self.__nicks.insert(self.__highscore_pos, self.__nick)
-        self.__nicks = self.__nicks[:-1]
-        self.__scores.insert(self.__highscore_pos, self.__score)
-        self.__scores = self.__scores[:-1]
+            self.__nicks.insert(self.__highscore_pos, self.__nick)
+            self.__nicks = self.__nicks[:-1]
+            self.__scores.insert(self.__highscore_pos, self.__score)
+            self.__scores = self.__scores[:-1]
+        else:
+            self.__nicks[self.__highscore_pos] = self.__nick
+            self.__scores[self.__highscore_pos] = self.__score
 
     def quit_game(self):
         """
