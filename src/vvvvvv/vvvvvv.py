@@ -13,6 +13,9 @@ size = (1000, 800)
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 state = GameState()
+update_highscore = True
+input_nick = True
+nick_pos = 0
 
 # create player and set position
 player = Player(500, 400)
@@ -134,39 +137,36 @@ def check_collision(other):
     return other_rect.colliderect(player_rect)
 
 
-def load_highscore(file):
-    """
-    Load highscore from csv file,
-
-    :param file:
-        csv file containing nicknames and highscores
-    :return:
-        Loaded highscore.
-    """
-    nicks = []
-    scores = []
-    with open(file) as f:
-        top_ten = csv.reader(f)
-        # read first ten entries and ignore the remaining
-        for nick, score in top_ten:
-            nicks.append(nick)
-            scores.append(int(score))
-            if len(nicks) == 10:
-                break
-        f.close()
-    return nicks, scores
-
-
-# load nick names and scores from highscore file
-nicks, scores = load_highscore("highscore.csv")
-
 while not state.quit:
     screen.fill((0, 0, 0))
 
     # if player is dead press enter to restart or escape to end the game
     if player.dead:
+        # update highscore if necessary
+        if state.update_highscore:
+            # add new highscore entry if current player score is higher than any in the top ten
+            if state.new_highscore:
+                state.add_highscore_entry()
+            # set to False such that the highscore is only updated once
+            state.highscore_updated()
+
+        if state.new_highscore and state.input_nick:
+            # check buttons pressed
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:
+                        state.next_char()
+                    if event.key == pygame.K_DOWN:
+                        state.prev_char()
+                    if event.key == pygame.K_LEFT:
+                        state.prev_nick_pos()
+                    if event.key == pygame.K_RIGHT:
+                        state.next_nick_pos()
+                    if event.key == pygame.K_RETURN:
+                        state.set_nick()
+
         # show highscore nicks
-        for i, nick in enumerate(nicks):
+        for i, nick in enumerate(state.nicks):
             font = pygame.font.Font(None, 24)
             text = font.render('{:15}'.format(nick), True, (255, 255, 255))
             text_rect = text.get_rect()
@@ -174,7 +174,7 @@ while not state.quit:
             screen.blit(text, text_rect)
 
         # show highscore scores
-        for i, score in enumerate(scores):
+        for i, score in enumerate(state.scores):
             font = pygame.font.Font(None, 24)
             text = font.render('{:>10}'.format(score), True, (255, 255, 255))
             text_rect = text.get_rect()
@@ -190,6 +190,12 @@ while not state.quit:
         highscore_rect = highscore_text.get_rect()
         highscore_rect.center = [500, 100]
         screen.blit(highscore_text, highscore_rect)
+
+        # do not check further pressed buttons while input player nick
+        if state.new_highscore and state.input_nick:
+            pygame.display.flip()
+            clock.tick(60)
+            continue
 
         font = pygame.font.Font(None, 24)
         again = font.render('TRY AGAIN? (ENTER)', True, (255, 255, 255))
