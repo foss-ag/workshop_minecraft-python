@@ -288,6 +288,21 @@ class GameState():
         Set input_nick to False
         """
         self.__input_nick = False
+        self.__write_highscore('highscore.csv')
+
+    def __write_highscore(self, file):
+        """
+        Write highscore to csv file
+
+        :param file:
+            csv file containing nicknames and highscore
+        """
+        with open(file, 'w') as f:
+            writer = csv.writer(f)
+            # write entries to file
+            for entry in zip(self.__nicks, self.__scores):
+                writer.writerow (entry)
+        f.close()
 
     def __load_highscore(self, file):
         """
