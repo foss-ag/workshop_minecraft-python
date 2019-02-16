@@ -5,7 +5,6 @@ from OneUP import OneUP
 from Multiplier import Multiplier
 import pygame
 import random
-import csv
 
 # initialize pygame and game state
 pygame.init()
@@ -13,9 +12,6 @@ size = (1000, 800)
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 state = GameState()
-update_highscore = True
-input_nick = True
-nick_pos = 0
 
 # create player and set position
 player = Player(500, 400)
@@ -23,6 +19,10 @@ player = Player(500, 400)
 # number of ticks the message will be shown
 message_ticks = 0
 message = ''
+
+# show blank during nick input, let input character blink
+show_blank = False
+input_ticks = 30
 
 # extra life symbol
 symbol = pygame.image.load("src/extra_lives.png")
@@ -168,10 +168,22 @@ while not state.quit:
         # show highscore nicks
         for i, nick in enumerate(state.nicks):
             font = pygame.font.Font(None, 24)
+            # let current input character blink
+            if show_blank and state.new_highscore and state.highscore_pos == i:
+                prefix = nick[:state.nick_pos]
+                postfix = nick[state.nick_pos+1:]
+                nick = prefix + '_' + postfix
+
             text = font.render('{:15}'.format(nick), True, (255, 255, 255))
             text_rect = text.get_rect()
             text_rect.topleft = [400, 200 + i*30]
             screen.blit(text, text_rect)
+
+        # decrease input ticks counter and toggle show_blank if ticks equals 0
+        input_ticks -= 1
+        if input_ticks == 0:
+            input_ticks = 30
+            show_blank = not show_blank
 
         # show highscore scores
         for i, score in enumerate(state.scores):

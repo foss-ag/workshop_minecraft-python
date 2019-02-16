@@ -30,7 +30,7 @@ class GameState():
         # character position while nick input
         self.__nick_pos = 0
         # possible nick characters
-        self.__chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#$%*+=-_'
+        self.__chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!#$%*+=-'
 
     @property
     def bonus(self):
@@ -105,6 +105,13 @@ class GameState():
             return self.__new_highscore
         self.__new_highscore = self.score > self.scores[-1]
         return self.__new_highscore
+
+    @property
+    def highscore_pos(self):
+        """
+        Position of new highscore in highscore list
+        """
+        return self.__highscore_pos
 
     @property
     def scores(self):
