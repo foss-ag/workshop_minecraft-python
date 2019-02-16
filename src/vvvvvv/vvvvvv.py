@@ -22,7 +22,7 @@ message = ''
 
 # show blank during nick input, let input character blink
 show_blank = False
-input_ticks = 30
+input_ticks = 10
 
 # extra life symbol
 symbol = pygame.image.load("src/extra_lives.png")
@@ -169,7 +169,7 @@ while not state.quit:
         for i, nick in enumerate(state.nicks):
             font = pygame.font.Font(None, 24)
             # let current input character blink
-            if show_blank and state.new_highscore and state.highscore_pos == i:
+            if state.input_nick and show_blank and state.new_highscore and state.highscore_pos == i:
                 prefix = nick[:state.nick_pos]
                 postfix = nick[state.nick_pos+1:]
                 nick = prefix + '_' + postfix
@@ -182,7 +182,7 @@ while not state.quit:
         # decrease input ticks counter and toggle show_blank if ticks equals 0
         input_ticks -= 1
         if input_ticks == 0:
-            input_ticks = 30
+            input_ticks = 10
             show_blank = not show_blank
 
         # show highscore scores
