@@ -34,8 +34,9 @@ def write_time_life():
     screen.blit(life_text, life_text_rect)
     score_text = font.render("score: " + str(-1 * state.score), True, (255, 255, 255))
     score_text_rect = score_text.get_rect()
-    score_text_rect.topright = [size[0]/2, 6]
+    score_text_rect.topright = [size[0] / 2, 6]
     screen.blit(score_text, score_text_rect)
+
 
 def player_astroid_collision_check(astroid_inst, astroid_rect, player_rect):
     check = astroid_rect.colliderect(player_rect)
@@ -66,8 +67,9 @@ while not state.done:
             if e_shoot_time - s_shoot_timer > 0.09:
                 state.increment_num_shots()
                 color = color_generator.next()
-                state.add_shot(Bullet(math.atan2(player.direction_y - (player.y+32), player.direction_x - (player.x+26)),
-                                      player.x+32, player.y+32, color))
+                state.add_shot(
+                    Bullet(math.atan2(player.direction_y - (player.y + 32), player.direction_x - (player.x + 26)),
+                           player.x + 32, player.y + 32, color))
                 s_shoot_timer = e_shoot_time
 
     # shooting

@@ -62,8 +62,9 @@ while not state.done:
             if e_shoot_time - s_shoot_timer > 0.09:
                 state.increment_num_shots()
                 color = color_generator.next()
-                state.add_shot(Bullet(math.atan2(player.direction_y - (player.y+32), player.direction_x - (player.x+26)),
-                                      player.x+32, player.y+32, color))
+                state.add_shot(
+                    Bullet(math.atan2(player.direction_y - (player.y + 32), player.direction_x - (player.x + 26)),
+                           player.x + 32, player.y + 32, color))
                 s_shoot_timer = e_shoot_time
 
     # shooting
